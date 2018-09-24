@@ -60,13 +60,32 @@
       "tooltip": "Style guide for documentation authors.",
       "hidden": true
     },
-
     {
-      "url": "guide/quickstart",
       "title": "Getting Started",
-      "tooltip": "A brief introduction to Angular and Angular CLI essentials."
+      "tooltip": "Learn the basics needed to build your first Angular application",
+      "children": [
+        {
+          "url": "tutorial/getting-started",
+          "title": "Getting Started",
+          "tooltip": "Learn Angular's component model, template syntax, component communication, and services"
+        },
+        {
+          "url": "tutorial/getting-started-data",
+          "title": "Data",
+          "tooltip": "Learn about fetching and managing data from remote API and from users with Forms"
+        },
+        {
+          "url": "tutorial/getting-started-architecture",
+          "title": "Architecture",
+          "tooltip": "Part 3: Build a simple hero editor"
+        },
+        {
+          "url": "tutorial/getting-started-deployment",
+          "title": "Deployment",
+          "tooltip": "Share your application with the world by hosting it on Firebase or your own server"
+        }
+      ]
     },
-
     {
       "title": "Tutorial",
       "tooltip": "The Tour of Heroes tutorial takes you through the steps of creating an Angular application in TypeScript.",
@@ -113,7 +132,6 @@
         }
       ]
     },
-
     {
       "title": "Fundamentals",
       "tooltip": "The fundamentals of Angular",
