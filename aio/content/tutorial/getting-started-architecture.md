@@ -8,7 +8,7 @@ When you refer to another component from within your template, that component mu
 At runtime, our application will be a tree of components, but each component could come from a different module. The structure of our component tree will likely be different than the structure of our modules.
 
 <figure>
-  <img src='generated/images/guide/toh/component-hierarchy.gif' alt="Components can be nested and belong to different modules">
+  <img src='generated/images/guide/toh/component-hierarchy.svg' alt="Components can be nested and belong to different modules">
 </figure>
 
 ## Libraries
