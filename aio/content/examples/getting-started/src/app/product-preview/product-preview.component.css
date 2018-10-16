@@ -1,0 +1,8 @@
+:host {
+  display:block;
+  width:150px;
+  height:150px;
+  padding:8px;
+  border:1px solid #CDCDCD;
+  margin: 8px;
+}

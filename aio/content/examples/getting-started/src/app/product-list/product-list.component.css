@@ -1,0 +1,8 @@
+:host {
+  float:left;
+  margin:8px;
+}
+.card-list {
+  display:flex;
+  flex-wrap: wrap;
+}
