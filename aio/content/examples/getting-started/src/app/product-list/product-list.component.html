@@ -1,4 +1,8 @@
 <h2>Products</h2>
 <div class="card-list">
-  <app-product-preview *ngFor="let product of products$ | async" [product]="product"></app-product-preview>
+  <app-product-preview
+    *ngFor="let product of products$ | async"
+    [product]="product"
+    (buy)="onBuy($event)">
+</app-product-preview>
 </div>

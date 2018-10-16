@@ -1,7 +1,11 @@
 <h2>Categories</h2>
+
 <div *ngFor="let category of categories">
   {{category}}
 </div>
-<div *ngIf="categories.length < 0">
+
+<div *ngIf="categories.length === 0">
   No product categories
 </div>
+
+<button routerLink="/checkout">Checkout</button>

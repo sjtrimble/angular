@@ -4,6 +4,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { ProductsService } from '../products.service';
 import { Product } from '../product';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -15,6 +16,7 @@ export class ProductDetailsComponent implements OnInit {
   
   constructor(
     private productsService: ProductsService,
+    private cartService: CartService,
     private route: ActivatedRoute
   ) { }
 
@@ -24,4 +26,7 @@ export class ProductDetailsComponent implements OnInit {
     ).subscribe(product => this.product = product);
   }
 
+  addToCart(id: number) {
+    this.cartService.add(id);
+  }
 }

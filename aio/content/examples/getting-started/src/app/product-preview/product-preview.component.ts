@@ -17,4 +17,8 @@ export class ProductPreviewComponent implements OnInit {
   ngOnInit() {
   }
 
+  buyProduct(id: number) {
+    this.buy.emit(id);
+  }
+
 }
