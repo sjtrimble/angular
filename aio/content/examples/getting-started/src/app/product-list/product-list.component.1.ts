@@ -1,7 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProductsService } from '../products.service';
-import { Product } from '../product';
 
 @Component({
   selector: 'app-product-list',
@@ -9,14 +6,16 @@ import { Product } from '../product';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products$: Observable<Product[]>;
+  @Input() products = [
+    { name: 'Pixel 3 XL', price: '799' },
+    { name: 'Pixel 3', price: '699' },
+  ];
 
   @Output() buy = new EventEmitter();
 
-  constructor(productsService: ProductsService) {
-    this.products$ = productsService.all();
-  }
+  constructor() { }
 
   ngOnInit() {
   }
+
 }
