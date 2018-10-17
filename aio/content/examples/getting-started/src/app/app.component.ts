@@ -10,5 +10,6 @@ export class AppComponent {
   products = [
     {product: 'Shoes', description: "A great pair of shoes"},
     {product: 'Pixel 2 XL', description: "A great phone with one of the best cameras"},
-  ]
+  ];
+  categories = ['Shoes', 'Phones'];
 }

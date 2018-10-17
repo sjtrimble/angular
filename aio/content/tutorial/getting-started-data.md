@@ -66,7 +66,7 @@ constructor(private fb: FormBuilder) {
 submit(checkoutData) {
   // Do something with the checkout data here
 }
-``
+```
 
 Now to show users this form, we have to add the HTML to our template.
 

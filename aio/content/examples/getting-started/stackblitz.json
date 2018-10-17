@@ -1,7 +1,9 @@
 {
-  "description": "Forms Overview",
+  "description": "Getting Started",
   "files":[
     "!**/*.d.ts",
-    "!**/*.js"
-  ]
+    "!**/*.js",
+    "!**/*.[0-9].*"
+  ],
+  "tags": ["Angular", "getting started", "tutorial"]
 }
