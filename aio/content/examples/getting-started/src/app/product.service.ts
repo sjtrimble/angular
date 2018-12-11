@@ -1,20 +1,31 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Product } from './product';
+
+export interface Product {
+  id: number;
+  name: string;
+  description;
+  price: string;
+  categories: string[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class ProductService {
   constructor(private http: HttpClient) { }
 
-  all() {
+  getAll() {
     return this.http.get<{ products: Product[] }>('/assets/products.json')
       .pipe(map(data => data.products));
   }
 
-  getProduct(id: number) {
-    return this.all().pipe(map(products => products.find(product => product.id === id)));
+  getOne(productId: number) {
+    return this.getAll()
+      .pipe(
+        map(products => products.find(product => product.id === productId))
+      );
   }
 }

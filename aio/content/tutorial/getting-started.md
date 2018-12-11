@@ -7,6 +7,7 @@ Angular has many advanced features that take care of everything from internation
 If you are new to web development or programming in general, read our requirements for getting started with Angular.
 
 ## Components
+
 Angular applications are composed of a tree of components that you create. Components act very similarly to HTML elements and can be given state or generate events. 
 
 If we imagine a normal shopping experience, like the one on express.google.com:
@@ -32,12 +33,14 @@ Each component in Angular has a template and a class. The template determines wh
 
 
 ## Live Editing with StackBlitz
+
 To demonstrate the use of Angular, we'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io) for local development.
 
 [Get your own environment](https://stackblitz.com/fork/angular)
 
 
 ## Template Syntax
+
 There are 5 things you can do within an Angular template to start to control the rendering of your component. These extend and build on top of HTML.
 
 |Symbol   |Name   |Example   |
@@ -48,9 +51,9 @@ There are 5 things you can do within an Angular template to start to control the
 |*ngIf   |ngIf   |`<div *ngIf="products.length < 1">No products are currently available</div>`   |
 | *ngFor  |ngFor   |`<div *ngFor="let product of products">{{product.name}}</div>`   |
 
-You can see and play with each of these in our [Angular template](https://stackblitz.com/edit/getting-started?file=src%2Fapp%2Fapp.component.ts). The root component of an application is called our App Component, we'll begin working here.
+You can see and play with each of these in our [Angular template](https://stackblitz.com/fork/angular?file=src%2Fapp%2Fapp.component.ts). The root component of an application is called our App Component, we'll begin working here.
 
-## {{ }} Interpolation
+### {{ }} Interpolation
 
 Interpolation lets you render the contents of a property of your component as text in your HTML. 
 
@@ -63,6 +66,7 @@ Following the mental model of HTML, components have state being given to them. T
 <aio-gs-property-binding></aio-gs-property-binding>
 
 ### ( ) Event Binding
+
 We can listen of standard HTML events, or custom events that we will create later on our components.
 
 <aio-gs-event-binding></aio-gs-event-binding>
@@ -72,7 +76,6 @@ We can listen of standard HTML events, or custom events that we will create late
 *ngIf is known as a structural directive because it changes which HTML or components are rendered to the user at any given moment. Any directive with a * is called a structural directive and will have similar functionality.
 
 <aio-gs-ng-if></aio-gs-ng-if>
-
 
 ### *ngFor
 
@@ -86,8 +89,7 @@ At this point you should be able to create your first Angular template, try to p
 
 The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](/guide/template-syntax).
 
-
-### Task
+## Task
 
 In our template, now create the scaffolding for a shopping cart.
 
@@ -95,7 +97,7 @@ In our template, now create the scaffolding for a shopping cart.
 * Create a list of product categories as a side nav
 * Create a container for our list of products
 
-#### Create a top bar
+### Create a top bar
 
 In StackBlitz in a brand new project, right click on the `app` folder and create a new component. Give this component a name like `top-bar` and then add it to the template of your app component, found in `app.component.html`.
 
@@ -105,10 +107,10 @@ In StackBlitz in a brand new project, right click on the `app` folder and create
 
 You can put any HTML you want for the header of your store in the `top-bar.component.html`.
 
-#### Create a list of product categories as a side nav
+### Create a list of product categories as a side nav
 Create another new component called `side-nav`. Reference it in your `app.component.html` with `<app-side-nav></app-side-nav>` and then add any HTML you would like for your side nav into `side-nav.component.html`
 
-#### Create a container for our list of products
+### Create a container for our list of products
 Create one more component called `product-list`. We can reference it temporarily in our `app.component.html`.
 
 

@@ -1,7 +1,16 @@
-<!-- #docregion -->
-<h3>{{product?.name}}</h3>
+<div *ngIf="product$ | async as product">
+  <h3>{{product.name}}</h3>
+  <p>${{product.price}}</p>
+  <p>{{product.description}}</p>
 
-<p>{{ product?.description }}</p>
-<p>{{product?.price | currency}}</p>
+  <button (click)="onBuy()">Buy</button>
 
-<button (click)="addToCart(product.id)">Buy</button>
+  <app-checkout-form
+    *ngIf="showForm"
+    (submit)="onSubmit($event, product)">
+  </app-checkout-form>
+
+  <p *ngIf="purchased">
+    Order Submitted!
+  </p>
+</div>

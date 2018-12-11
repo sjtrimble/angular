@@ -1,32 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
-import { ProductsService } from '../products.service';
-import { Product } from '../product';
-import { CartService } from '../cart.service';
+import { ProductService, Product } from '../product.service';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit {
-  product: Product;
-  
-  constructor(
-    private productsService: ProductsService,
-    private cartService: CartService,
-    private route: ActivatedRoute
-  ) { }
+export class ProductDetailsComponent {
+  product$: Observable<Product>;
+  showForm = false;
+  purchased = false;
 
-  ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap(params => this.productsService.getProduct(+params.get('productId')))
-    ).subscribe(product => this.product = product);
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) {
+    this.product$ = this.route.paramMap
+      .pipe(
+        switchMap(params => this.productService.getOne(+params.get('productId')))
+      );
   }
 
-  addToCart(id: number) {
-    this.cartService.add(id);
+  onBuy() {
+    this.showForm = true;
+  }
+
+  onSubmit(formData: any, product: Product) {
+    this.showForm = false;
+    this.purchased = true;
+
+    console.log('Submitted', formData, product);
   }
 }

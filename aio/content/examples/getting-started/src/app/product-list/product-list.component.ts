@@ -1,27 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductsService } from '../products.service';
-import { Product } from '../product';
-import { CartService } from '../cart.service';
+
+import { ProductService, Product } from '../product.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
   products$: Observable<Product[]>;
-
-  @Output() buy = new EventEmitter();
-
-  constructor(productsService: ProductsService, private cartService: CartService) {
-    this.products$ = productsService.all();
-  }
-
-  ngOnInit() {
-  }
-
-  onBuy(id: number) {
-    this.cartService.add(id);
+  
+  constructor(private productService: ProductService) {
+    this.products$ = this.productService.getAll();
   }
 }

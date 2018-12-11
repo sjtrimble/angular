@@ -1,8 +1,2 @@
-<!-- #docregion -->
-<h3>
-  <a [routerLink]="['/products', product.id]">{{product.name}}</a>
-</h3>
-
-<p>{{product.price | currency}}</p>
-
-<button (click)="buyProduct(product.id)">Buy</button>
+<h3><a [routerLink]="['products', product.id]">{{product.name}}</a></h3>
+<p>{{product.description}}</p>

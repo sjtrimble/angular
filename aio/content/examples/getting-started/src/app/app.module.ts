@@ -1,38 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductPreviewComponent } from './product-preview/product-preview.component';
+import { HelloComponent } from './hello.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductPreviewComponent } from './product-preview/product-preview.component';
+// import { ProductDetailsComponent } from './product-details/product-details.component';
+// import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    HttpClientModule,
     RouterModule.forRoot([
-      { path: 'products/:productId', component: ProductDetailsComponent },
-      { path: 'checkout', component: CheckoutComponent },
       { path: '', component: ProductListComponent },
-    ])
-    ],
+      { path: 'products/:productId', loadChildren: './product-details/product-details.module#ProductDetailsModule' }
+    ]),
+    HttpClientModule,
+  ],
   declarations: [
     AppComponent,
+    HelloComponent,
+    TopBarComponent,
+    SideNavComponent,
     ProductListComponent,
     ProductPreviewComponent,
-    SideNavComponent,
-    TopBarComponent,
-    ProductDetailsComponent,
-    CheckoutComponent,
+    // ProductDetailsComponent,
+    // CheckoutFormComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: []
 })
 export class AppModule { }
