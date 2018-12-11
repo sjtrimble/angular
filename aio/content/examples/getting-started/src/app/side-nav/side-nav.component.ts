@@ -1,3 +1,4 @@
+// #docregion
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,4 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent {
+  categories = ['Phones', 'Shoes'];
 }
