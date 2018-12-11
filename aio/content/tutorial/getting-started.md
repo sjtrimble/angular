@@ -54,56 +54,41 @@ You can see and play with each of these in our [Angular template](https://stackb
 
 Interpolation lets you render the contents of a property of your component as text in your HTML. 
 
-| Template                           | Data                     | Result              |
-|------------------------------------|--------------------------|---------------------|
-| `<h1>Welcome to {{siteName}}</h1>` | `siteName = 'My Store';` | Welcome to My Store |
-
+<aio-gs-interpolation></aio-gs-interpolation>
 
 ### [ ] Property Binding
+
 Following the mental model of HTML, components have state being given to them. This is accomplished by binding to the property of a component or HTML element.
 
-| Template                           | Data                     | Result              |
-|------------------------------------|--------------------------|---------------------|
-|`<img [src]="sourceUrl" [title]="imageTitle">`|sourceUrl = 'image.png';|title = 'An example image';|
-
-
+<aio-gs-property-binding></aio-gs-property-binding>
 
 ### ( ) Event Binding
 We can listen of standard HTML events, or custom events that we will create later on our components.
 
-
-| Template                           | Data                     | Result              |
-|------------------------------------|--------------------------|---------------------|
-|`<button (click)="hello()">Hello</button>`|`hello() {alert('Hello!')}`|Hello|
-
-
+<aio-gs-event-binding></aio-gs-event-binding>
 
 ### *ngIf
+
 *ngIf is known as a structural directive because it changes which HTML or components are rendered to the user at any given moment. Any directive with a * is called a structural directive and will have similar functionality.
 
-
-| Template                           | Data                     | Result              |
-|------------------------------------|--------------------------|---------------------|
-|`<p *ngIf="products.length > 0">We still have products available.</p>`|`products = ['Shoes', 'Phones'];`|We still have products available.|
+<aio-gs-ng-if></aio-gs-ng-if>
 
 
 ### *ngFor
+
 *ngFor is another structural directive that lets you iterate over a list, rendering the HTML or component once for each item in the list. 
 
-
-| Template                           | Data                     | Result              |
-|------------------------------------|--------------------------|---------------------|
-|`<span *ngFor="let product of products">{{product}} </span>`|`products = ['Shoes', 'Phones'];`|Shoes Phones|
-
+<aio-gs-ng-for></aio-gs-ng-for>
 
 ### Summary
+
 At this point you should be able to create your first Angular template, try to play around with these techniques to create HTML. You could create an entire application inside of a single component, but we recommend breaking down an application into smaller components that have fewer responsibilities.
 
 The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](/guide/template-syntax).
 
 
-
 ### Task
+
 In our template, now create the scaffolding for a shopping cart.
 
 * Create a top bar for your app
@@ -111,7 +96,8 @@ In our template, now create the scaffolding for a shopping cart.
 * Create a container for our list of products
 
 #### Create a top bar
-In Stackblitz in a brand new project, right click on the `app` folder and create a new component. Give this component a name like `top-bar` and then add it to the template of your app component, found in `app.component.html`.
+
+In StackBlitz in a brand new project, right click on the `app` folder and create a new component. Give this component a name like `top-bar` and then add it to the template of your app component, found in `app.component.html`.
 
 ```
 <app-top-bar></app-top-bar>
