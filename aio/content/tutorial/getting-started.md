@@ -89,7 +89,7 @@ At this point you should be able to create your first Angular template, try to p
 
 The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](/guide/template-syntax).
 
-## Tasks
+## Component Tasks
 
 To start building the tutorial application, create a [new project](https://stackblitz.com/fork/angular) in StackBlitz, then complete the 
 following tasks below to scaffold out the components for your shopping cart.
@@ -178,7 +178,7 @@ By property binding and event binding with a nested component we can build elabo
 Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
 
 
-## Task
+## Component Task
 
 ### Create a product preview component
 
@@ -288,7 +288,7 @@ export class MyDataService {
 
 This is called "injecting" a service and adds it to the properties on the class. Anywhere in the class you can now refer to the service directly by the name you gave it. Read more about Angular's `HttpClient` in the [HttpClient Guide](guide/http-client).
 
-## Tasks
+## Service Tasks
 
 ### Create a product service to store products
 
@@ -298,6 +298,12 @@ The product service stores your product list data to share throughout your appli
 1. Import the `Observable` type and `of` method from the RxJS library.
 
 <code-example header="src/app/products/product.service.ts (RxJS imports)" path="getting-started/src/app/products/product.service.1.ts" linenums="false" region="rxjs-imports">
+</code-example>
+
+Update the `Product` interface in the `product.ts` file with more properties about a given product, 
+such as its id, price, and categories.
+
+<code-example header="src/app/products/product.ts (Product interface)" path="getting-started/src/app/products/product.ts" linenums="false">
 </code-example>
 
 Next, import the `Product` interface.
@@ -358,47 +364,117 @@ Add the `app-product-list` component to your `app.component.html` below the `app
 
 Up until now, our application hasn't had any variable state or navigation. We'll now add the Angular router to our project that will allow us to show different components and data to the user based on where we are in the application.
 
-In the loosest form, the router takes the state of the URL bar, and maps it into a set of components to render to the screen. By navigating around our application, the router will swap one component for another.
-Setup
-To add the router to the application, you'll need to import the RouterModule and supply a configuration.
+In the loosest form, the router takes the state of the URL bar, and maps it into a set of components to render to the screen. By navigating around our application, the router swaps one set of components for another.
+
+To add the router to the application, import the RouterModule and supply a configuration.
 
 Next, decide where you want to render the current route by adding a `<router-outlet></router-outlet>`.
 
 ### Route Configuration
-Most applications will want the following:
 
-A default or catchall route: {path:  '' }
-Static routes: {path: 'about', component: AboutComponent}
-Variable Routes: Your paths can contain variables by prefixing the variable name with a colon.
+Most applications that use routing have a few common types of routes:
 
-e.g. {path: 'products/:productName', component: ProductDetailsComponent}
+* Default routes for destination pages in your application.
 
-### Navigation
-Navigation can either be done via a routerLink directive in a template, or imperatively via the router. For now we'll do this entirely in our template.
+```ts
+{ path: '', component: HomePageComponent }
+```
 
-Navigation is always done by string, or by array of url pieces, such as ['path', 'to', variable] which could result in a URL that looks like 'https://example.org/path/to/42'.
+* Catchall routes for displaying a 404 for non-existant pages.
+
+```ts
+{ path: '**', component: PageNotFoundComponent }
+```
+
+* Static routes for defined pages in your application
+
+```ts
+{ path: 'about', component: AboutPageComponent }
+```
+* Variable routes containing a path and a variable prefixed with a colon to designate substitution.
+
+```ts
+{ path: 'products/:productId', component: ProductDetailsComponent }
+```
+
+These routes enable you to build simple to complex URLs to navigate around your application, based on the purpose 
+and requirements of your application.
+
+Navigation is done through the `RouterLink` directive provided by the router in a template, or imperatively using the `Router` service. Navigation is always done by string, or by array of url paths, such as ['path', 'to', variable] which could result in a URL that looks like 'https://example.org/path/to/42'.
 
 ### Parameters
-In order to see the parameters of a component, you must inject the ActivatedRoute service, and access its params property.
 
+To see information provided by the router for a routed component, each routed component is provided an `ActivatedRoute` service. You inject the `ActivatedRoute` service to access its route parameters, route data, and other necessary information. The route parameters and route data are provided as observables you subscribe to. When the parameters or data observables are updated, the observables produce a new value. The example below shows you how to subscribe to a route and get its `productId` provided through a variable route from its URL.
+
+```ts
+export class MyPageComponent {
+  productId: string;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.productId = params.get('productId');
+    });
+  }
+}
 ```
-route.params.subscribe(params => {
-	this.productName = params['productName'];
-});
-```
+
 ### Summary
 
-Once you have setup the router, you can continue to create more components and routes in your RouteConfig.
+Once you have setup the router, you can continue to create more components and routes in your `RouteConfig`.
 
-To learn more about the more advanced features of the router, read the Router Guide.
+To learn more about the more advanced features of the router, read the [Router Guide](guide/router).
 
-### Task
-* Add the router to your project
-* Create a route that shows product list
-* Create a component for product details
-* Create a route that shows product details
+## Router Tasks
+
+### Add the router to your project
+
+Import the `RouterModule` from the `@angular/router` package into your app.module.ts file.
+
+<code-example header="src/app/app.module.ts (RouterModule)" path="getting-started/src/app/app.module.1.ts" region="router-module">
+</code-example>
+
+In the `imports` array, add the `RouterModule.forRoot([])` method with an empty array. Configured routes are stored in the array.
+
+<code-example header="src/app/app.module.ts (imports)" path="getting-started/src/app/app.module.1.ts" region="router-module-imports">
+</code-example>
+
+Your application is configured with Angular routing, but the template needs a placeholder where it renders routed components. Remove the components below the `app-side-nav` and add the `RouterOutlet` to the template. 
+
+<code-example header="src/app/app.component.html (Router outlet)" path="getting-started/src/app/app.component.html" region="router-outlet">
+</code-example>
+
+The router is ready to listen for changes in the browser URL, but you need to configure it with routes to transition from one set of components to the next.
+
+### Create a route that shows product list
+
+To register a route for the product list, in the app.module.ts, add an object to the array defined in `RouterModule.forRoot()` array with an empty string as the path and set the ProductListComponent as the component.
+
+<code-example header="src/app/app.module.ts (Product list route)" path="getting-started/src/app/app.module.ts" region="product-list-route">
+</code-example>
+
+Now when you navigate to base URL, the list of products is displayed.
+
+### Create a component for product details
+
+To display more information for a particular product, you'll use a specific route for product details.
+
+1. Right click on the `products` folder and generate a component named `product-details`.
+2. In the `app.module.ts` define a variable route for the product details. Use `products/:productId` as the `path`, with `productId` being substituted with the value from the URL, and `ProductDetailsComponent` for the `component`.
+
+<code-example header="src/app/app.module.ts (Product details route)" path="getting-started/src/app/app.module.2.ts" region="product-details-route">
+</code-example>
+
+3. In the `ProductPreviewComponent`, update the template to link to the product details page with the `productId` using a `RouterLink`. 
+
+<code-example header="src/app/products/product-preview/product-preview.component.html (Product preview routerLink)" path="getting-started/src/app/products/product-preview/product-preview.component.html" linenums="false">
+</code-example>
+
+When the user clicks on the product title, the router will navigate to the product details route, with the specific `productId`. Only placeholder text is displayed, but you'll retrieve the product details in the [data](/tutorial/getting-started-data) section.
 
 ## Finish!
+
 You have the basics of our shopping cart.
 
 Now we can [wire up the Data](/tutorial/getting-started-data) of our application.
