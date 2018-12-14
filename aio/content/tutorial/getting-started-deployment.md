@@ -51,7 +51,7 @@ One of the easiest ways to get your site live is to host it using firebase.
 
 ### Hosting an Angular app anywhere else
 
-To host an Angular app on another web host, you'll need to upload or send the files to the host, and because we are building a Single Page Application, you'll need to make sure you redirect any invalid URLs to your index.html file. Learn more about development and distribution of your application in the [Building & Serving](build) and [Deployment](guide/deployment) guides.
+To host an Angular app on another web host, you'll need to upload or send the files to the host, and because we are building a Single Page Application, you'll need to make sure you redirect any invalid URLs to your index.html file. Learn more about development and distribution of your application in the [Building & Serving](guide/build) and [Deployment](guide/deployment) guides.
 
 ## Tutorial Finish
 
