@@ -1,9 +1,13 @@
 // #docplaster
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+// #docregion http-client-module
 import { HttpClientModule } from '@angular/common/http';
+// #enddocregion http-client-module
+// #docregion reactive-forms-module
+import { ReactiveFormsModule } from '@angular/forms';
+// #enddocregion reactive-forms-module
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -12,20 +16,27 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { ProductPreviewComponent } from './products/product-preview/product-preview.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 
+// #docregion http-client-module-imports, reactive-forms-module-imports
 @NgModule({
   imports: [
+// #enddocregion http-client-module-imports, reactive-forms-module-imports
     BrowserModule,
-    ReactiveFormsModule,
-// #docregion product-list-route, product-details-route
+    // #docregion product-list-route, product-details-route
     RouterModule.forRoot([
-// #enddocregion product-list-route
+      // #enddocregion product-list-route
       { path: 'products/:productId', component: ProductDetailsComponent },
-// #docregion product-list-route
+      // #docregion product-list-route
       { path: '', component: ProductListComponent },
     ]),
-// #enddocregion product-list-route, product-details-route
+    // #enddocregion product-list-route, product-details-route
+    // #docregion http-client-module-imports, reactive-forms-module-imports
+    // Other imports ...
+    // #enddocregion reactive-forms-module-imports
     HttpClientModule,
+// #docregion reactive-forms-module-imports
+    ReactiveFormsModule,
   ],
+// #enddocregion http-client-module-imports, reactive-forms-module-imports
   declarations: [
     AppComponent,
     TopBarComponent,
@@ -36,4 +47,6 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
   ],
   bootstrap: [AppComponent],
 })
+// #docregion http-client-module-imports, reactive-forms-module-imports
 export class AppModule { }
+// #enddocregion http-client-module-imports, reactive-forms-module-imports

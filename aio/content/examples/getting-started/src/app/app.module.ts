@@ -14,16 +14,16 @@ import { ProductPreviewComponent } from './products/product-preview/product-prev
 @NgModule({
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
 // #docregion product-list-route, product-details-route
     RouterModule.forRoot([
-      // #enddocregion product-list-route
+// #enddocregion product-list-route
       { path: 'products/:productId', loadChildren: './product-details/product-details.module#ProductDetailsModule' },
-      // #docregion product-list-route
+// #docregion product-list-route
       { path: '', component: ProductListComponent },
     ]),
 // #enddocregion product-list-route, product-details-route
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 // #enddocregion rxjs-imports
-// #docregion activate-route-import
+// #docregion activated-route-import
 import { ActivatedRoute } from '@angular/router';
 // #enddocregion activated-route-import
 
@@ -13,17 +13,20 @@ import { ProductService } from '../product.service';
 import { Product } from '../product';
 // #enddocregion product-imports
 
-// #docregion product-details
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
+// #docregion product, flags
 export class ProductDetailsComponent {
+// #enddocregion flags  
   product$: Observable<Product>;
-// #enddocregion product-details  
+// #enddocregion product
+// #docregion flags
   showForm = false;
   purchased = false;
+// #enddocregion flags
 
 // #docregion product-details  
   constructor(
@@ -37,16 +40,20 @@ export class ProductDetailsComponent {
   }
 // #enddocregion product-details
 
+// #docregion buy
   onBuy() {
     this.showForm = true;
   }
+// #enddocregion buy
 
+// #docregion on-submit
   onSubmit(formData: any, product: Product) {
     this.showForm = false;
     this.purchased = true;
 
-    console.log('Submitted', formData, product);
+    // Do something with form and customer data
   }
-// #docregion product-details  
+// #enddocregion on-submit
+// #docregion product, product-details, flags  
 }
-// #enddocregion product-details
+// #enddocregion product, product-details, flags
