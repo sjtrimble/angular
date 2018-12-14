@@ -1,5 +1,5 @@
 // #docplaster
-// #docregion 
+// #docregion
 // #docregion core-imports
 import { Component, Output, EventEmitter } from '@angular/core';
 // #enddocregion core-imports
@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./checkout-form.component.css']
 })
 export class CheckoutFormComponent {
-// #docregion submit  
+// #docregion submit
   @Output() submit = new EventEmitter();
 // #enddocregion submit
 

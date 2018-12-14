@@ -1,5 +1,5 @@
 // #docplaster
-// #docregion 
+// #docregion
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 // #docregion router-module
@@ -20,15 +20,15 @@ import { ProductPreviewComponent } from './products/product-preview/product-prev
   imports: [
 // #enddocregion router-module-imports
     BrowserModule,
-// #docregion router-module-imports    
+// #docregion router-module-imports
     // Other imports ...
     RouterModule.forRoot([]),
-// #enddocregion router-module-imports    
+// #enddocregion router-module-imports
     HttpClientModule,
     ReactiveFormsModule,
-// #docregion router-module-imports    
+// #docregion router-module-imports
   ],
-// #enddocregion router-module-imports  
+// #enddocregion router-module-imports
   declarations: [
     AppComponent,
     TopBarComponent,

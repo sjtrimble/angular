@@ -1,5 +1,5 @@
 // #docplaster
-// #docregion 
+// #docregion
 import { Component, OnInit } from '@angular/core';
 // #docregion rxjs-import
 import { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import { Product } from '../product';
 // #docregion products-observable
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
-  
+
   constructor(private productService: ProductService) {
     this.products$ = this.productService.getAll();
   }
@@ -27,6 +27,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
 
   }
-// #docregion products-observable  
+// #docregion products-observable
 }
 // #enddocregion products-observable
+

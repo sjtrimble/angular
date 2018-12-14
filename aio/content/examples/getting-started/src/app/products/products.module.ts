@@ -1,5 +1,5 @@
 // #docplaster
-// #docregion 
+// #docregion
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // #docregion reactive-forms-module
@@ -16,9 +16,9 @@ import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 
 // #docregion reactive-module-imports, router-module-imports, declarations
 @NgModule({
-// #enddocregion declarations  
+// #enddocregion declarations
   imports: [
-// #enddocregion reactive-module-imports, router-module-imports    
+// #enddocregion reactive-module-imports, router-module-imports
     CommonModule,
 // #docregion reactive-module-imports
     // Other imports...
@@ -36,7 +36,7 @@ import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
     ProductDetailsComponent,
     CheckoutFormComponent
   ]
-// #docregion reactive-module-imports, router-module-imports  
+// #docregion reactive-module-imports, router-module-imports
 })
 export class ProductsModule { }
 // #enddocregion reactive-module-imports, router-module-imports, declarations

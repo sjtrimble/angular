@@ -1,5 +1,5 @@
 // #docplaster
-// #docregion 
+// #docregion
 import { Injectable } from '@angular/core';
 // #docregion httpclient
 import { HttpClient } from '@angular/common/http';

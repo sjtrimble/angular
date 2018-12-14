@@ -20,7 +20,7 @@ import { Product } from '../product';
 })
 // #docregion product, flags
 export class ProductDetailsComponent {
-// #enddocregion flags  
+// #enddocregion flags
   product$: Observable<Product>;
 // #enddocregion product
 // #docregion flags
@@ -28,7 +28,7 @@ export class ProductDetailsComponent {
   purchased = false;
 // #enddocregion flags
 
-// #docregion product-details  
+// #docregion product-details
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute
@@ -54,6 +54,6 @@ export class ProductDetailsComponent {
     // Do something with form and customer data
   }
 // #enddocregion on-submit
-// #docregion product, product-details, flags  
+// #docregion product, product-details, flags
 }
 // #enddocregion product, product-details, flags
