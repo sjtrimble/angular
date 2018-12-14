@@ -17,7 +17,7 @@ import { ProductPreviewComponent } from './products/product-preview/product-prev
 // #docregion product-list-route, product-details-route
     RouterModule.forRoot([
 // #enddocregion product-list-route
-      { path: 'products/:productId', loadChildren: './product-details/product-details.module#ProductDetailsModule' },
+      { path: 'products', loadChildren: './products/products.module#ProductsModule' },
 // #docregion product-list-route
       { path: '', component: ProductListComponent },
     ]),
