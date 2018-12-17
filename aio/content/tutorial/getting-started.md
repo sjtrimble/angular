@@ -6,6 +6,10 @@ Angular has many advanced features that take care of everything from internation
 
 If you are new to web development or programming in general, read our requirements for getting started with Angular.
 
+{@a toc}
+
+See the <live-example title="Getting Started">live-example</live-example>.
+
 ## Components
 
 Angular applications are composed of a tree of components that you create. Components act very similarly to HTML elements and can be given state or generate events. 
