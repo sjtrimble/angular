@@ -67,48 +67,46 @@ data using the `HttpClient` service.
 
 ### Pull data using Http Client
 
-In the `app.module.ts` file, import `HttpClientModule` from the `@angular/common/http` package.
+1. In the `app.module.ts` file, import `HttpClientModule` from the `@angular/common/http` package.
 
 <code-example header="src/app/app.module.ts (HttpClientModule)" path="getting-started/src/app/app.module.2.ts" region="http-client-module">
 </code-example>
 
-Add the `HttpClientModule` to the `imports` array of the `AppModule`.
+2. Add the `HttpClientModule` to the `imports` array of the `AppModule`.
 
 <code-example header="src/app/app.module.ts (HttpClientModule imports)" path="getting-started/src/app/app.module.2.ts" region="http-client-module-imports">
 </code-example>
 
-Right click on the `src` folder and create an `assets` folder.  the src folder to contain the products JSON file.
-Create a `products.json` file in the `assets` folder to contain the object data is currently hard-coded in the `ProductService`.
-Copy the contents from the `data` property in the `ProductService` to the `products.json` file.
+3. Right click on the `src` folder and create an `assets` folder.  the src folder to contain the products JSON file.
+4. Create a `products.json` file in the `assets` folder to contain the object data is currently hard-coded in the `ProductService`.
+5. Copy the contents from the `data` property in the `ProductService` to the `products.json` file.
 
 <code-example header="src/assets/products.json (Products JSON)" path="getting-started/src/assets/products.json">
 </code-example>
 
-Import the HttpClient class from the @angular/common/http package into the product.service.ts file
+6. Import the HttpClient class from the `@angular/common/http` package into the `product.service.ts` file
 
 <code-example header="src/app/products/product.service.ts (HttpClient import)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient">
 </code-example>
 
-Import the map operator from the RxJS library using the `rxjs/operators` path.
+7. Import the map operator from the RxJS library using the `rxjs/operators` path.
 
 <code-example header="src/app/products/product.service.ts (RxJS map operator)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="rxjs-import">
 </code-example>
 
-Inject the `HttpClient` service into the `ProductService` by adding it to the constructor as a private variable.
+8. Inject the `HttpClient` service into the `ProductService` by adding it to the constructor as a private variable.
 
 <code-example header="src/app/products/product.service.ts (HttpClient)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-inject">
 </code-example>
 
-Update the getAll() method to pipe the results of the HttpClient.get() method into the map function to return the products.
+9. Update the `getAll()` method to pipe the results of the `HttpClient.get()` method into the map function to return the products.
 
 <code-example header="src/app/products/product.service.ts (Http.get)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-get-all">
 </code-example>
 
 The `HttpClient.get` method returns an observable of the external request made to fetch the `products`. This observable will not execute until the method is subscribed to. The `products.json` is just an object with a `products` property. The `{ products: Product[] }` provides type information about the observable stream being returned from the request. The `map` operator is a function that is called with the results from the request, which then transforms the data into a new observable array of the products.
 
-Remove the `Observable` and `of` imports from the RxJS library, and the data property in the ProductService.
-
-This now has provided the `HttpClient` service to our application so we can use it to make HTTP Requests.
+10. Remove the `Observable` and `of` imports from the RxJS library, and the data property in the ProductService.
 
 ### Display product details
 
@@ -117,34 +115,41 @@ In the `ProductService`, add a `getOne()` method that takes an id and returns an
 <code-example header="src/app/products/product.service.ts (getOne())" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-get-one">
 </code-example>
 
-Import the Observable type from the RxJS library.
-Import the switchMap operator from the RxJS operators path.
+1. Import the Observable type from the RxJS library.
+2. Import the switchMap operator from the RxJS operators path.
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="rxjs-imports">
 </code-example>
 
-Import the `ActivatedRoute` from the `@angular/router` package
+3. Import the `ActivatedRoute` from the `@angular/router` package
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="activated-route-import">
 </code-example>
 
-Import the `ProductService` and `Product` interface.
+4. Import the `ProductService` and `Product` interface.
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-imports">
 </code-example>
 
-Create a `product$` property in the ProductDetailsComponent class with the type of `Observable<Product>`
+5. Create a `product$` property in the ProductDetailsComponent class with the type of `Observable<Product>`
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product">
 </code-example>
 
-Inject the `ProductService` and `ActivatedRoute` classes in the constructor of the `ProductDetailsComponent`.
-Define the `product$` property to retrieve the route’s params as an observable and `switchMap` it into a request to the `ProductService.getOne()` method using the `productId`
+6. Inject the `ProductService` and `ActivatedRoute` classes in the constructor of the `ProductDetailsComponent`.
+7. Define the `product$` property to retrieve the route’s params as an observable and `switchMap` it into a request to the `ProductService.getOne()` method using the `productId`
+
+<div class="alert is-important">
+
+**Note:** The process of transitioning from one observable stream into another is called "flattening". The route parameters
+stream is flattened and mapped into the second stream of retrieving the individual product. Read more about observable streams in the [Observables](guide/observables) guide.
+
+</div>
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-details">
 </code-example>
 
-Update the `ProductDetailsComponent` template to subscribe to `product$` using the `AsyncPipe` and assign it to a template variable `product` for reuse. Then display the product name, price, description and a button to buy the item.
+8. Update the `ProductDetailsComponent` template to subscribe to `product$` using the `AsyncPipe` and assign it to a template variable `product` for reuse. Then display the product name, price, description and a button to buy the item.
 
 <code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.1.html" linenums="false">
 </code-example>
@@ -161,93 +166,93 @@ For this example we'll use [reactive forms](/guide/reactive-forms).
 
 ### Create a simple checkout form that allows the user to purchase a selected product
 
-To get started, we'll need to add the `ReactiveFormsModule` to our App Module.
+1. Add the `ReactiveFormsModule` to our App Module.
 
 <code-example header="src/app/app.module.ts (ReactiveFormsModule imports)" path="getting-started/src/app/app.module.2.ts" region="reactive-forms-module">
 </code-example>
 
-Add `ReactiveFormsModule` to the `imports` array of the `AppModule`.
+2. Add `ReactiveFormsModule` to the `imports` array of the `AppModule`.
 
 <code-example header="src/app/app.module.ts (ReactiveFormsModule imports)" path="getting-started/src/app/app.module.2.ts" region="reactive-forms-module-imports">
 </code-example>
 
 Our form lives in both our component's TypeScript and its template. In the component we'll add the objects needed to store the checkout form in the constructor of our component. We'll also create a method to handle user submission of a valid form.
 
-Right click on the `products` folder and generate a component named `checkout-form`.
-Add Output and EventEmitter to imports from @angular/core
+3. Right click on the `products` folder and generate a component named `checkout-form`.
+4. Add Output and EventEmitter to imports from @angular/core
 
 <code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="core-imports">
 </code-example>
 
-Import FormGroup, FormBuilder and Validators from @angular/forms package
+5. Import FormGroup, FormBuilder and Validators from @angular/forms package
 
 <code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="forms-imports">
 </code-example>
 
-Create submit Output property with an instance of EventEmitter
+6. Create submit Output property with an instance of EventEmitter
 
 <code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="submit">
 </code-example>
 
-Create a checkoutForm property with type FormGroup
+7. Create a checkoutForm property with type FormGroup
 
 <code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="checkout-form">
 </code-example>
 
-Inject the FormBuilder class into the CheckoutFormComponent constructor and use the FormBuilder.group() method to create a form group with name and address.
+8. Inject the FormBuilder class into the CheckoutFormComponent constructor and use the FormBuilder.group() method to create a form group with name and address.
 
 <code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="formbuilder">
 </code-example>
 
-Define an `onSubmit()` method to emit the customer data when the form is submitted
+9. Define an `onSubmit()` method to emit the customer data when the form is submitted
 
 <code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="on-submit">
 </code-example>
 
-Update the template with a checkout header and form tag. Bind the checkoutForm from the component class to the formGroup attribute on the form. Set an event listener for the ngSubmit event and call the `onSubmit()` method with the checkoutForm value.
-Add input fields for name and address using formControlName directives
-Add a submit button to trigger the form submission
+10. Update the template with a checkout header and form tag. Bind the checkoutForm from the component class to the formGroup attribute on the form. Set an event listener for the ngSubmit event and call the `onSubmit()` method with the checkoutForm value.
+11. Add input fields for name and address using formControlName directives
+12. Add a submit button to trigger the form submission
 
 <code-example header="src/app/products/checkout-form/checkout-form.component.html (template)" path="getting-started/src/app/products/checkout-form/checkout-form.component.html" linenums="false">
 </code-example>
 
 ### Add checkout form to product details page
 
-Define showForm and purchased properties in the `ProductDetailsComponent` class and set them to false
+1. Define `showForm` and `purchased` properties in the `ProductDetailsComponent` class and set them to `false`.
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="flags">
 </code-example>
 
-Add an onBuy() method to the `ProductDetailsComponent` class that sets the showForm property to true
+2. Add an `onBuy()` method to the `ProductDetailsComponent` class that sets the `showForm` property to `true`.
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="buy">
 </code-example>
-
-Add on `onSubmit()` method to the `ProductDetailsComponent` class that takes two arguments: formData and product.  In the `onSubmit()` method, set the `showForm` to true and the `purchased` to false. 
+3. Add on `onSubmit()` method to the `ProductDetailsComponent` class that takes two arguments: formData and product.
+4. In the `onSubmit()` method, set the `showForm` to true and the `purchased` to false. 
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="on-submit">
 </code-example>
 
-Add a click event listener to the Buy button that calls the `onBuy()` method you defined in the component class.
+5. Add a click event listener to the Buy button that calls the `onBuy()` method you defined in the component class.
 
 <code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.html" region="buy">
 </code-example>
 
 This method is called when the submit event is emitted from the `app-checkout-form` component.
 
-Add the `app-checkout-form` element to the `ProductDetailsComponent` template
-Toggle the presence of the element with an `NgIf` based on the `showForm` flag.
-Add a submit event listener the `app-checkout-form` element to call the onSubmit() method with the $event argument. The `$event` will consist of the customer data entered in the form. The second argument is the `product` assigned as a template variable.
+6. Add the `app-checkout-form` component to the `ProductDetailsComponent` template
+7. Toggle the presence of the component with an `NgIf` based on the `showForm` flag.
+8. Add a submit event listener the `app-checkout-form` element to call the onSubmit() method with the `$event` argument. The `$event` will consist of the customer data entered in the form. The second argument is the `product` assigned as a template variable.
 
 <code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.html" region="checkout-form">
 </code-example>
 
-Add a paragraph element that is toggled by the `purchased` property that displays a message that the order is submitted.
+9. Add a paragraph element that is toggled by the `purchased` property that displays a message that the order is submitted.
 
 <code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.html" region="purchased">
 </code-example>
 
-Now you refresh the application, click on product details, click the Buy button, and the form is displayed to fill out and complete the purchase.
+10. Now you refresh the application, click on product details, click the Buy button, and the form is displayed to fill out and complete the purchase.
 
 ## Finish!
 

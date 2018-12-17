@@ -31,38 +31,38 @@ Following this strategy makes your application smaller to load initially, and im
 To get started with Lazy Loading, start in your route configuration at the top of your application and add a reference to a module, instead of a component.
 
 1. Right click on the app folder and generate an NgModule named products.
-1. Import `ReactiveFormsModule` from the `@angular/forms` package.
+2. Import `ReactiveFormsModule` from the `@angular/forms` package.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="reactive-forms-module">
 </code-example>
 
-1. Add `ReactiveFormsModule` to the `imports` array of the ProductsModule.
+3. Add `ReactiveFormsModule` to the `imports` array of the ProductsModule.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="reactive-module-imports">
 </code-example>
 
-Import `ProductDetailsComponent` and `CheckoutFormComponent`.
+4. Import `ProductDetailsComponent` and `CheckoutFormComponent`.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="components">
 </code-example>
 
-Add `ProductDetailsComponent` and `CheckoutFormComponent` add it them to the `declarations` array of the `ProductsModule`.
+5. Add `ProductDetailsComponent` and `CheckoutFormComponent` add it them to the `declarations` array of the `ProductsModule`.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="declarations">
 </code-example>
 
-1. Import `RouterModule` from the `@angular/router` package.
+6. Import `RouterModule` from the `@angular/router` package.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="router-module">
 </code-example>
 
-Add the `RouterModule.forChild()` method to the `imports` array of the `ProductsModule` and and a variable route for the product details. 
-Set the route path to `:productId`, and the component to `ProductDetailsComponent`.
+7. Add the `RouterModule.forChild()` method to the `imports` array of the `ProductsModule` and and a variable route for the product details. 
+8. Set the route path to `:productId`, and the component to `ProductDetailsComponent`.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="router-module-imports">
 </code-example>
 
-Update the path from `products/:productId` to `products`, use the `loadChildren` property with path to `products.module` and the `ProductModule` symbol, and remove all references to `ProductDetailsComponent` and `CheckoutFormComponent`.
+9. Update the path from `products/:productId` to `products`, use the `loadChildren` property with path to `products.module` and the `ProductModule` symbol, and remove all references to `ProductDetailsComponent` and `CheckoutFormComponent`.
 
 <code-example header="src/app/app.module.ts" path="getting-started/src/app/app.module.ts">
 </code-example>

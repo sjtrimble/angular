@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.css']
 })
+// #docregion name
 export class TopBarComponent {
   name = 'My Store';
 }
+// #enddocregion name

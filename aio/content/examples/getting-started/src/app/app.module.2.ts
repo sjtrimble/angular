@@ -33,8 +33,10 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
     // Other imports ...
     // #enddocregion reactive-forms-module-imports
     HttpClientModule,
+    // #enddocregion http-client-module-imports
 // #docregion reactive-forms-module-imports
     ReactiveFormsModule,
+// #docregion http-client-module-imports
   ],
 // #enddocregion http-client-module-imports, reactive-forms-module-imports
   declarations: [

@@ -13,8 +13,10 @@ import { Product } from './product';
   providedIn: 'root'
 })
 export class ProductService {
+// #enddocregion product-data
 /* tslint:disable:quotemark */
 // #enddocregion provider
+// #docregion product-data
   data = {
     "products": [
       {
@@ -33,7 +35,9 @@ export class ProductService {
       }
     ]
   };
+// #enddocregion product-data
 /* tslint:enable:quotemark */
+// #docregion product-data
   getAll(): Observable<Product[]> {
     return of(this.data.products);
   }
