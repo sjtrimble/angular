@@ -6,6 +6,12 @@ Angular has many advanced features that take care of everything from internation
 
 If you are new to web development or programming in general, read our requirements for getting started with Angular.
 
+* Basic prograamming knowledge.
+* Knowledge of HTML, CSS, and JavaScript.
+* Knowledge of command-line based tools including such as npm or yarn.
+
+This guide covers components, the building blocks of an Angular application, using services to store and share data, architecture for scaling your application, and deployment to a live website.
+
 {@a toc}
 
 See the <live-example title="Getting Started">live-example</live-example>.
