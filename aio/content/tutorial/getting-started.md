@@ -2,11 +2,11 @@
 
 Angular is the modern web developer's platform. Angular gives you the tools and the ecosystem to allow you to build and scale applications using web technologies.
 
-Angular has many advanced features that take care of everything from internationalization and mobile to service workers and server side rendering, but this tutorial will walk you through the basics that will help you get started as a productive Angular developer.
+Angular has many advanced features that take care of everything from internationalization, mobile, service workers, and server side rendering, but this tutorial will walk you through the basics that will help you get started as a productive Angular developer.
 
 If you are new to web development or programming in general, read our requirements for getting started with Angular.
 
-* Basic prograamming knowledge.
+* Basic programming knowledge.
 * Knowledge of HTML, CSS, and JavaScript.
 * Knowledge of command-line based tools including such as npm or yarn.
 
@@ -14,13 +14,11 @@ This guide covers components, the building blocks of an Angular application, usi
 
 {@a toc}
 
-See the <live-example title="Getting Started">live-example</live-example>.
-
 ## Components
 
-Angular applications are composed of a tree of components that you create. Components act very similarly to HTML elements and can be given state or generate events. 
+Angular applications are made up of a tree of components. A component is the combination of an HTML template, a class that handles data and functionality, and styles that display a certain look and feel. This provides you a consistent way to combine and present HTML, CSS, and Javascript on a page. Each component has a specific purpose and responsibility in an Angular application. Angular components act very similarly to HTML elements and can be given state or generate events. 
 
-If we imagine a normal shopping experience, like the one on express.google.com:
+If we imagine a normal shopping experience, like the one on https://express.google.com:
 
 <figure>
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
@@ -37,31 +35,11 @@ We can think of this as an application made up of a tree of components.
     * app-product-preview
     * app-product-preview
 
-There are many valid ways you can break down your application into components. In this tutorial, we won't be separating our top bar, side nav, or product list into components.
-
-Each component in Angular has a template and a class. The template determines what will be rendered to the screen, and the class determines the data and functionality of the component. You can nest components by referring to another component's selector in the same way that you would use an HTML element. If you have an `app-product-preview` component, you can nest one with `<app-product-preview></app-product-preview>`.
-
-
-## Live Editing with StackBlitz
-
-To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io) for local development.
-
-[Get your own environment](https://stackblitz.com/fork/angular)
-
+The components above are referred to by their `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. Just like HTML elements, components can be referred to or nested in another component's template. Angular provides template syntax that gives components control over the rendering of content.
 
 ## Template Syntax
 
-There are 5 things you can do within an Angular template to start to control the rendering of your component. These extend and build on top of HTML.
-
-|Symbol   |Name   |Example   |
-|---|---|---|
-|{{ }}   |interpolation   |`<p>Welcome to {{storeName}}</p>`   |
-|[ ]   |property binding   |`<img [src]="sourceUrl">`   |
-|( )   |event binding   |`<button (hover)="doHover()">Buy</button>`   |
-|*ngIf   |ngIf   |`<div *ngIf="products.length < 1">No products are currently available</div>`   |
-| *ngFor  |ngFor   |`<div *ngFor="let product of products">{{product.name}}</div>`   |
-
-You can see and play with each of these in our [Angular template](https://stackblitz.com/fork/angular?file=src%2Fapp%2Fapp.component.ts). The root component of an application is called our App Component, we'll begin working here.
+Angular extends and builds on top of HTML. There are 5 things you can do within an Angular template to start to control the rendering of your component. 
 
 ### {{ }} Interpolation
 
@@ -77,13 +55,13 @@ Following the mental model of HTML, components have state being given to them. T
 
 ### ( ) Event Binding
 
-We can listen of standard HTML events, or custom events that we will create later on our components.
+You can listen of standard HTML events, or custom events that you will create later on our components.
 
 <aio-gs-event-binding></aio-gs-event-binding>
 
 ### *ngIf
 
-*ngIf is known as a structural directive because it changes which HTML or components are rendered to the user at any given moment. Any directive with a * is called a structural directive and will have similar functionality.
+*ngIf is known as a structural directive because it changes which HTML or components are rendered to the user at any given moment. Any directive with an * is called a structural directive and will have similar functionality.
 
 <aio-gs-ng-if></aio-gs-ng-if>
 
@@ -93,15 +71,21 @@ We can listen of standard HTML events, or custom events that we will create late
 
 <aio-gs-ng-for></aio-gs-ng-for>
 
+The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](/guide/template-syntax).
+
 ### Summary
 
 At this point you should be able to create your first Angular template, try to play around with these techniques to create HTML. You could create an entire application inside of a single component, but we recommend breaking down an application into smaller components that have fewer responsibilities.
 
-The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](/guide/template-syntax).
+## Live Editing with StackBlitz
+
+To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io) for local development.
+
+[Get your own environment](https://stackblitz.com/fork/angular)
 
 ## Component Tasks
 
-To start building the tutorial application, create a [new project](https://stackblitz.com/fork/angular) in StackBlitz, then complete the 
+To start building the tutorial application, create a [new project](https://stackblitz.com/fork/ng-getting-started) in StackBlitz, then complete the 
 following tasks below to scaffold out the components for your shopping cart.
 
 * Create a top bar for your application.
