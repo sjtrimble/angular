@@ -2,21 +2,25 @@
 
 Angular is the modern web developer's platform. Angular gives you the tools and the ecosystem to allow you to build and scale applications using web technologies.
 
-Angular has many advanced features that take care of everything from internationalization, mobile, service workers, and server side rendering, but this tutorial will walk you through the basics that will help you get started as a productive Angular developer.
+## Introduction
+
+Angular has many advanced features that support everything from internationalization, mobile, service workers, and server side rendering. These features help you as a developer to build apps as quickly as possible.
 
 If you are new to web development or programming in general, read our requirements for getting started with Angular.
 
 * Basic programming knowledge.
-* Knowledge of HTML, CSS, and JavaScript.
-* Knowledge of command-line based tools including such as npm or yarn.
+* Knowledge of HTML, CSS, and JavaScript and/or TypeScript.
+* Knowledge of command-line based tools such as git, npm or yarn.
 
-This guide covers components, the building blocks of an Angular application, using services to store and share data, architecture for scaling your application, and deployment to a live website.
+This guide walks you through building a simple shopping cart application. You'll cover components, the building blocks of an Angular application, using services to store and share data, architecture for scaling your application, and deployment to a live website.
 
 {@a toc}
 
 ## Components
 
-Angular applications are made up of a tree of components. A component is the combination of an HTML template, a class that handles data and functionality, and styles that display a certain look and feel. This provides you a consistent way to combine and present HTML, CSS, and Javascript on a page. Each component has a specific purpose and responsibility in an Angular application. Angular components act very similarly to HTML elements and can be given state or generate events. 
+Angular applications are made up of a tree of components. A component is the combination of an HTML template, a class that handles data and functionality, and styles that display a certain look and feel. This provides you a consistent way to combine and present HTML, CSS, and Javascript on a page. Each component has a specific purpose and responsibility in an Angular application. Angular components act very similarly to HTML elements and can be given state or generate events.
+
+You could create an entire application inside of a single component, but we recommend breaking down an application into smaller components that have fewer responsibilities.
 
 If we imagine a normal shopping experience, like the one on https://express.google.com:
 
@@ -61,7 +65,7 @@ You can listen of standard HTML events, or custom events that you will create la
 
 ### *ngIf
 
-*ngIf is known as a structural directive because it changes which HTML or components are rendered to the user at any given moment. Any directive with an * is called a structural directive and will have similar functionality.
+You can add and remove elements from the page dynamically using an `NgIf` directive. `*ngIf` is known as a structural directive because it changes which HTML or components are rendered to the user at any given moment. Any directive with an * is called a structural directive and will have similar functionality.
 
 <aio-gs-ng-if></aio-gs-ng-if>
 
@@ -73,28 +77,33 @@ You can listen of standard HTML events, or custom events that you will create la
 
 The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](/guide/template-syntax).
 
-### Summary
+## Building a shopping cart
 
-At this point you should be able to create your first Angular template, try to play around with these techniques to create HTML. You could create an entire application inside of a single component, but we recommend breaking down an application into smaller components that have fewer responsibilities.
+To show how to build an Angular application, you'll walk through the steps to build a shopping cart application with multiple components, a list of products, and a checkout process.
 
-## Live Editing with StackBlitz
+#### Live Editing
 
-To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io) for local development.
+To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io for local development.
 
-[Get your own environment](https://stackblitz.com/fork/angular)
-
-## Component Tasks
+### 1. Create a new project
 
 To start building the tutorial application, create a [new project](https://stackblitz.com/fork/ng-getting-started) in StackBlitz, then complete the 
 following tasks below to scaffold out the components for your shopping cart.
 
-* Create a top bar for your application.
-* Create a list of product categories as a side menu.
-* Create a container for our list of products.
+### 2. Create the top bar component
 
-### Create the top bar component
+1. Right click on the `app` folder and use the `Angular Generator` to generate a new component named `top-bar`.
 
-1. Right click on the `app` folder and generate a new component named `top-bar`.
+<code-example header="src/app/top-bar/top-bar.component.ts" path="getting-started/src/app/top-bar/top-bar.component.ts" region="v1">
+</code-example>
+
+Every component has distinct pieces.
+
+ * The `Component` decorator that provides metadata about the component, including its templates, styles, and a selector.
+ * An exported class that handles functionality for the component.
+
+Right now, the `TopBarComponent` doesn't do much, but you'll update it to show the name of your store.
+
 2. Define a `name` property to the `TopBarComponent` class with a value of `My Store`.
 
 <code-example header="src/app/top-bar/top-bar.component.ts" path="getting-started/src/app/top-bar/top-bar.component.ts" region="name">
@@ -105,12 +114,14 @@ following tasks below to scaffold out the components for your shopping cart.
 <code-example header="src/app/top-bar/top-bar.component.html" path="getting-started/src/app/top-bar/top-bar.component.html">
 </code-example>
 
-4. Add the `app-top-bar` component to your `app.component.html`.
+4. Replace the contents of your `app.component.html` with the `app-top-bar` component.
 
 <code-example header="src/app/app.component.html" path="getting-started/src/app/app.component.1.html" linenums="false" region="top-bar">
 </code-example>
 
-### Create the side nav component
+Now your shopping cart displays the title of your store at the top of your application.
+
+### 3. Create the side nav component
 
 The side navigation lists categories for the products in your store.
 
@@ -132,7 +143,7 @@ The side navigation lists categories for the products in your store.
 
 <div class="alert is-important">
 
-The styles for each component is scoped so that they do not impact the styles of other components in your application. The `:host` pseudo-class selector targets the styles inside the host component. Read more about these selectors in the [Component Styles Guide](guide/component-styles).
+The styles for each component is scoped so that they do not impact the styles of other components in your application. Read more about styling components in the [Component Styles Guide](guide/component-styles).
 
 </div>
 
