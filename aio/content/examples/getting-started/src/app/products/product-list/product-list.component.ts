@@ -17,10 +17,10 @@ import { Product } from '../product';
 })
 // #docregion products-observable
 export class ProductListComponent implements OnInit {
-  products$: Observable<Product[]>;
+  products: Observable<Product[]>;
 
   constructor(private productService: ProductService) {
-    this.products$ = this.productService.getAll();
+    this.products = this.productService.getAll();
   }
 // #enddocregion products-observable
 

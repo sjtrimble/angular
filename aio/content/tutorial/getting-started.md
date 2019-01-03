@@ -90,7 +90,7 @@ To demonstrate the use of Angular, you'll open an empty application using StackB
 To start building the tutorial application, create a [new project](https://stackblitz.com/fork/ng-getting-started) in StackBlitz, then complete the 
 following tasks below to scaffold out the components for your shopping cart.
 
-### 2. Create the top bar component
+### 2. Generate the top bar component
 
 1. Right click on the `app` folder and use the `Angular Generator` to generate a new component named `top-bar`.
 
@@ -125,11 +125,11 @@ Now your shopping cart displays the title of your store at the top of your appli
 
 The side navigation lists categories for the products in your store.
 
-1. Generate a component named `side-nav`.
+1. Right click on the `app` folder, using the `Angular Generator`, generate a component named `side-nav`.
 2. Define a `categories` property in the `SideNavComponent` as an array with two items: `Phones` and `Shoes`.
 
 <code-example header="src/app/side-nav/side-nav.component.ts" path="getting-started/src/app/side-nav/side-nav.component.ts">
-</code-example>
+</code-example> 
 
 3. Update the `side-nav.component.html` to display a list of categories using an `NgFor` directive.
 
@@ -149,11 +149,41 @@ The styles for each component is scoped so that they do not impact the styles of
 
 5. Add the `app-side-nav` component to your `app.component.html` under the `app-top-bar` component.
 
+<code-example header="src/app/app.component.html" path="getting-started/src/app/app.component.1.html" linenums="false" region="side-nav">
+</code-example>
+
+The side nav is display to the far left of the page under the top bar.
+
 ## Component Communication
 
-Just like any element in HTML, Angular components can take state, and can emit events. We achieve these by creating Inputs and Outputs as properties in our component class. Below is an example of a component used to display and update a name.
+Just like any element in HTML, Angular components take state, and emit events. We achieve these by creating Inputs and Outputs as properties in our component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. These decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
+
+### Providing state with an Input
+
+Below is an example of a component used to display a name.
 
 ```ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  template: `
+    <div>{{name}}</div>
+  `
+})
+export class EditableNameComponent {
+  @Input() name: string;
+}
+```
+
+Inputs define what data can be passed INTO your component. This data is updated through `bindings`, defined in a parent component's template. Whenever a parent component's property binding is updated, the property you mark with `@Input()` will also be updated as a part of Angular's change detection. In the example above, the `name` property is updated when the parent component updates the `name` through a binding.
+
+### External communication with an Output
+
+Look at the `editName` property to see how the component communicates externally.
+
+```ts
+import { Component, Input, Output } from '@angular/core';
+
 @Component({
   template: `
     <div>{{name}}</div>
@@ -167,64 +197,66 @@ export class EditableNameComponent {
 }
 ```
 
-### @Input()
+Outputs are used to create custom events in your component. We create a new `EventEmitter` and store it as an `@Output()` property of our component. This newly created `EventEmitter` instance has a method `emit` that you can call whenever your custom event has occurred, in response to some action from the template, or based on some asynchronous process.
 
-Inputs define what data can be passed INTO your component. Whenever a parent component's property binding is updated, the property you mark with `@Input` will also be updated as a part of Angular's change detection. In the example above, the `name` property is updated when the parent component updates the `name` through a binding.
+With inputs and outputs, you build elaborate tree structures of components that take in state, and give back events using property and event bindings. Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
 
-### @Output()
+## Display a product preview
 
-Outputs are used to create custom events in your component. We create a new EventEmitter and store it as an `@Output()` property of our component. This newly created `EventEmitter` has a method `emit` that you can call whenever your custom event has occurred, in response to some action from the template, or based on some asynchronous process.
+The steps below show you how to use an `Input` to display details for a single product.
 
-By property binding and event binding with a nested component we can build elaborate structures of components that take in state, and give back events.
+### 1. Create a products folder
 
-Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
+Right click on the `app` folder and create a new folder named `products`. This folder will contain the relevant functionality for the `products` feature area.
 
+### 2. Create a product interface
 
-## Component Task
-
-### Create a product preview component
-
-1. Right click on the `app` folder and create a new folder named `products`.
-2. In the `products` folder, generate an interface named `product`. 
+Right click on the `products` folder, use the `Angular Generator` to generate an interface named `product`. 
 
 <code-example header="src/app/products/product.ts" path="getting-started/src/app/products/product.1.ts">
 </code-example>
 
 This interface refers to the structure of a product, including its name, description, and other details as needed. It also provides you a consistent way to reference a `Product` throughout your application.
 
-3. Right on the `products` folder and generate a new component named `product-preview`.
-4. In the `ProductPreviewComponent` class, add `Input` the imports from the `@angular/core` package.
+### 3. Create a product preview component
+
+1. Right on the `products` folder and generate a new component named `product-preview`.
+2. In the `ProductPreviewComponent` class, add `Input` the imports from the `@angular/core` package.
 
 <code-example header="src/app/products/product-preview/product-preview.component.ts" path="getting-started/src/app/products/product-preview/product-preview.component.ts" region="core-imports">
 </code-example>
 
-5. Import the `Product` interface using its path relative to the `product-preview` folder.
+3. Import the `Product` interface using its path relative to the `product-preview` folder.
 
 <code-example header="src/app/products/product-preview/product-preview.component.ts" path="getting-started/src/app/products/product-preview/product-preview.component.ts" region="product-imports">
 </code-example>
 
-6. Define a property in the `ProductPreviewComponent` class named `product` and use the `Input` decorator on it. Give the `product` a define type using the `Product` interface.
+4. Define a property in the `ProductPreviewComponent` class named `product` and use the `Input` decorator on it. Give the `product` a define type using the `Product` interface.
 
 <code-example header="src/app/products/product-preview/product-preview.component.ts" path="getting-started/src/app/products/product-preview/product-preview.component.ts" region="inputs-outputs">
 </code-example>
 
-7. Update the `ProductPreviewComponent` template to display the data received from our `Input`.
+When the `app-product-preview` component is used within a template and its `product` property is updated, change detection will be run on the component with the new data being displayed.
+
+5. Update the `ProductPreviewComponent` template to display the data received from our `Input`.
 
 <code-example header="src/app/products/product-preview/product-preview.component.html (Product Input)" path="getting-started/src/app/products/product-preview/product-preview.component.1.html">
 </code-example>
 
-8. Ttest the `app-product-preview` component and provide a product with its name and description.
+6. Test the `app-product-preview` component and provide a product with its name and description.
 
 <code-example header="src/app/app.component.1.html (Sample Preview)" path="getting-started/src/app/app.component.1.html" linenums="false" region="product-preview">
 </code-example>
 
+The `app-product-preview` component displays a single product with the product name and description.
+
 ## Services
 
-Services are an important part of Angular applications. Services in Angular are a shared instance of a class that can be made available to any part of your application using the [dependency injection system](/guide/dependency-injection).
+Services are an integral part of Angular applications. Services in Angular are an instance of a class that can be made available to any part of your application using the [dependency injection system](/guide/dependency-injection).
 
 Services are used to encapsulate data and functionality.
 
-### Creating
+### Creating a service
 
 To create a service, simply create a class and decorate it with `@Injectable()`.
 
@@ -239,7 +271,7 @@ export class MyService {}
 
 The service now has defined metadata used for requesting an instance of the service. The `providedIn: 'root'` or `Tree-shakable  provider` syntax provides the Angular compiler information to register the provider globally within Angular's dependency injection.
 
-### Providing
+### Providing services
 
 Before you use a service, you must make sure it is provided in your application. 
 
@@ -267,7 +299,7 @@ export class AppModule {}
 
 Once the `HttpClientModule` is registered, the `HttpClient` service can be accessed anywhere in your application.
 
-### Accessing
+### Injecting services
 
 To access a service, you import its type from a package or import path.
 
@@ -288,17 +320,22 @@ export class MyDataService {
 
 This is called "injecting" a service and adds it to the properties on the class. Anywhere in the class you can now refer to the service directly by the name you gave it. Read more about Angular's `HttpClient` in the [HttpClient Guide](guide/http).
 
-## Service Tasks
-
-### Create a product service to store products
+## Create a product service to store products
 
 The product service stores your product list data to share throughout your application.
 
-1. In the `products` folder, generate a service name `Product`.
+### 1. Generate the product service
+
+Right click on the the `products` folder, use the `Angular Generator` to generate a service name `Product`.
+
+### 2. Import the observable and product types
+
 2. Import the `Observable` type and `of` method from the RxJS library.
 
 <code-example header="src/app/products/product.service.ts (RxJS imports)" path="getting-started/src/app/products/product.service.1.ts" linenums="false" region="rxjs-imports">
 </code-example>
+
+Angular integrates with the popular open-source library [Reactive Extensions for Javascript](https://rxjs.dev)(RxJS) to handle asynchronous behavior in your application. Here you are importing the `of` method that creates and returns an observable. Later, you will use this method to return an observable array of products.
 
 3. Update the `Product` interface in the `product.ts` file with more properties about a given product, 
 such as its id, price, and categories.
@@ -311,51 +348,60 @@ such as its id, price, and categories.
 <code-example header="src/app/products/product.service.ts (Product interface)" path="getting-started/src/app/products/product.service.1.ts" linenums="false" region="product-import">
 </code-example>
 
+### 3. Define data properties and methods
+
 5. Define a `data` property in the `ProductService` class that contains product list data.
 6. Add a `getAll()` method using the `of` method to return the products from the data property.
 
 <code-example header="src/app/products/product.service.ts (Product Data)" path="getting-started/src/app/products/product.service.1.ts" region="product-data">
 </code-example>
 
+<div class="alert is-important">
+
+Read more about observable streams in the [Observables guide](guide/observables).
+
+</div>
+
 The `ProductService` is ready to be injected into many different areas in your application using Angular's dependency injection.
 
-### Display the product list using a service
+## Display the product list using a service
 
 The products list component displays a listing of each product available in your store with a brief description.
 
-1. In the `products` folder, generate a component named `product-list`.
-2. Import the `Observable` type from the `RxJS` library.
+### 1. Generate the product list component
+
+1. Right click on the `products` folder, use the `Angular Generator` to generate a component named `product-list`.
+
+### 2. Import the observable and product types
+
+1. Import the `Observable` type from the `RxJS` library.
 
 <code-example header="src/app/products/product-list/product-list.component.ts (Observable import)" path="getting-started/src/app/products/product-list/product-list.component.ts" region="rxjs-import">
 </code-example>
 
-3. Import the `ProductService` that provides the product data and Product interface.
+2. Import the `ProductService` that provides the product data, and the `Product` interface.
 
 <code-example header="src/app/products/product-list/product-list.component.ts (Product imports)" path="getting-started/src/app/products/product-list/product-list.component.ts" region="product-imports">
 </code-example>
 
-4. Define a `products$` property in the `ProductListComponent` as an observable array of products.
-5. Inject the `ProductService` into the constructor of the `ProductListComponent` and define the `products$` using the `getAll()` method from the `ProductService`.
+### 3. Define the products and inject the product service
+
+1. Define a `products$` property in the `ProductListComponent` as an observable array of products.
+2. Inject the `ProductService` into the constructor of the `ProductListComponent` and define the `products$` using the `getAll()` method from the `ProductService`.
 
 <code-example header="src/app/products/product-list/product-list.component.ts (Products Observable)" path="getting-started/src/app/products/product-list/product-list.component.ts" region="products-observable">
 </code-example>
 
-<div class="alert is-important">
+### 4. Display the product list
 
- **Note:** The `$` used to suffix the `products` property is a convention to denote the variable as an observable
- stream. It's used to easily glance at a property to distinguish it from other class properties. Read more about
- observable streams in the [Observables guide](guide/observables).
-
-</div>
-
-6. Update the `product-list.component.html` to display the products using an `NgFor` directive, an `AsyncPipe` and the `app-product-preview` component. 
+1. Update the `product-list.component.html` to display the products using an `NgFor` directive, an `AsyncPipe` and the `app-product-preview` component. 
 
 <code-example header="src/app/products/product-list/product-list.component.html (Product List)" path="getting-started/src/app/products/product-list/product-list.component.html">
 </code-example>
 
 The `AsyncPipe` used in the template subscribes to the `products$` observable that provides the array of products. The `NgFor` directive iterates over product and binds a `product` to the `app-product-preview`. Learn more about pipes in the [Pipes Guide](guide/pipes).
 
-7. Add the `app-product-list` component to your `app.component.html` below the `app-side-nav` component.
+2. Add the `app-product-list` component to your `app.component.html` below the `app-side-nav` component.
 
 <code-example header="src/app/app.component.html (Product List)" path="getting-started/src/app/app.component.1.html" region="product-list">
 </code-example>
@@ -402,7 +448,7 @@ and requirements of your application.
 
 Navigation is done through the `RouterLink` directive provided by the router in a template, or imperatively using the `Router` service. Navigation is always done by string, or by array of url paths, such as ['path', 'to', variable] which could result in a URL that looks like 'https://example.org/path/to/42'.
 
-### Parameters
+### Retrieving route information
 
 To see information provided by the router for a routed component, each routed component is provided an `ActivatedRoute` service. You inject the `ActivatedRoute` service to access its route parameters, route data, and other necessary information. 
 
@@ -422,57 +468,66 @@ export class MyPageComponent {
 
 The route parameters and route data are provided as observables you subscribe to. When the parameters or data observables are updated, the observables produce a new value. The example below shows you how to subscribe to a route and get its `productId` provided through a variable route from its URL.
 
-### Summary
-
 Once you have setup the router, you can continue to create more components and routes in your `RouteConfig`.
 
 To learn more about the more advanced features of the router, read the [Router Guide](guide/router).
 
-## Router Tasks
+## Adding the router to your project
 
-### Add the router to your project
+### 1. Import RouterModule
 
-1. Import the `RouterModule` from the `@angular/router` package into your app.module.ts file.
+Import `RouterModule` from the `@angular/router` package into your app.module.ts file.
 
 <code-example header="src/app/app.module.ts (RouterModule)" path="getting-started/src/app/app.module.1.ts" region="router-module">
 </code-example>
 
-2. In the `imports` array, add the `RouterModule.forRoot([])` method with an empty array. Configured routes are stored in the array.
+### 2. Register RouterModule
+
+In the `imports` array, add the `RouterModule.forRoot([])` method with an empty array. Configured routes are stored in the array.
 
 <code-example header="src/app/app.module.ts (imports)" path="getting-started/src/app/app.module.1.ts" region="router-module-imports">
 </code-example>
 
 Your application is configured with Angular routing, but the template needs a placeholder where it renders routed components. 
 
-3. Remove the components below the `app-side-nav` and add the `RouterOutlet` to the template. 
+### 3. Add a router outlet
+
+Remove the components below the `app-side-nav` and add the `RouterOutlet` to the template. 
 
 <code-example header="src/app/app.component.html (Router outlet)" path="getting-started/src/app/app.component.html" region="router-outlet">
 </code-example>
 
 The router is ready to listen for changes in the browser URL, but you need to configure it with routes to transition from one set of components to the next.
 
-### Create a route that shows product list
+## Create a route that shows product list
 
 To register a route for the product list, it must be defined in the array of routes.
 
-1. In the app.module.ts, add an object to the array defined in `RouterModule.forRoot()` array with an empty string as the `path` and set the `ProductListComponent` as the `component`.
+### 1. Add a product list route
+
+In the app.module.ts, add an object to the array defined in `RouterModule.forRoot()` array with an empty string as the `path` and set the `ProductListComponent` as the `component`.
 
 <code-example header="src/app/app.module.ts (Product list route)" path="getting-started/src/app/app.module.ts" region="product-list-route">
 </code-example>
 
-2. Now when you navigate to your example URL with only the `/`, the list of products is displayed.
+Now when you navigate to your example URL with only the `/`, the list of products is displayed.
 
-### Create a component for product details
+## Create a route for product details
 
 To display more information for a particular product, you'll use a specific route for product details.
 
-1. Right click on the `products` folder and generate a component named `product-details`.
-2. In the `app.module.ts` define a variable route for the product details. Use `products/:productId` as the `path`, with `productId` being substituted with the value from the URL, and `ProductDetailsComponent` for the `component`.
+### 1. Generate the product details route component
+
+1. Right click on the `products` folder, use the `Angular Generator` and generate a component named `product-details`.
+
+### 2. Add a product details route
+
+1. In the `app.module.ts` define a variable route for the product details. Use `products/:productId` as the `path`, with `productId` being substituted with the value from the URL, and `ProductDetailsComponent` for the `component`.
 
 <code-example header="src/app/app.module.ts (Product details route)" path="getting-started/src/app/app.module.2.ts" region="product-details-route">
 </code-example>
 
-3. In the `ProductPreviewComponent`, update the template to link to the product details page with the `productId` using a `RouterLink`. 
+2. In the `ProductPreviewComponent`, update the template to link to the product details page with the `productId` using a `RouterLink`. 
 
 <code-example header="src/app/products/product-preview/product-preview.component.html (Product preview routerLink)" path="getting-started/src/app/products/product-preview/product-preview.component.html" linenums="false">
 </code-example>
@@ -483,4 +538,4 @@ When the user clicks on the product title, the router will navigate to the produ
 
 You have the basics of our shopping cart.
 
-Now we can [wire up the Data](/tutorial/getting-started-data) of our application.
+Now we can [wire up the data](/tutorial/getting-started-data) of our application.
