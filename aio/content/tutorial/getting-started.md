@@ -201,7 +201,7 @@ Outputs are used to create custom events in your component. We create a new `Eve
 
 With inputs and outputs, you build elaborate tree structures of components that take in state, and give back events using property and event bindings. Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
 
-## Display a product preview
+## Displaying a product preview
 
 The steps below show you how to use an `Input` to display details for a single product.
 
@@ -320,7 +320,7 @@ export class MyDataService {
 
 This is called "injecting" a service and adds it to the properties on the class. Anywhere in the class you can now refer to the service directly by the name you gave it. Read more about Angular's `HttpClient` in the [HttpClient Guide](guide/http).
 
-## Create a product service to store products
+## Creating a product service to store products
 
 The product service stores your product list data to share throughout your application.
 
@@ -364,7 +364,7 @@ Read more about observable streams in the [Observables guide](guide/observables)
 
 The `ProductService` is ready to be injected into many different areas in your application using Angular's dependency injection.
 
-## Display the product list using a service
+## Displaying the product list using a service
 
 The products list component displays a listing of each product available in your store with a brief description.
 
@@ -406,7 +406,7 @@ The `AsyncPipe` used in the template subscribes to the `products$` observable th
 <code-example header="src/app/app.component.html (Product List)" path="getting-started/src/app/app.component.1.html" region="product-list">
 </code-example>
 
-## Router
+## Routing
 
 Up until now, our application hasn't had any variable state or navigation. We'll now add the Angular router to our project that will allow us to show different components and data to the user based on where we are in the application.
 
@@ -499,7 +499,7 @@ Remove the components below the `app-side-nav` and add the `RouterOutlet` to the
 
 The router is ready to listen for changes in the browser URL, but you need to configure it with routes to transition from one set of components to the next.
 
-## Create a route that shows product list
+## Creating a route that shows product list
 
 To register a route for the product list, it must be defined in the array of routes.
 
@@ -512,7 +512,7 @@ In the app.module.ts, add an object to the array defined in `RouterModule.forRoo
 
 Now when you navigate to your example URL with only the `/`, the list of products is displayed.
 
-## Create a route for product details
+## Creating a route for product details
 
 To display more information for a particular product, you'll use a specific route for product details.
 
