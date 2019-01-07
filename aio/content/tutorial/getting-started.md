@@ -421,13 +421,9 @@ The `AsyncPipe` used in the template subscribes to the `products` observable tha
 
 ## Routing
 
-Up until now, our application hasn't had any variable state or navigation. We'll now add the Angular router to our project that will allow us to show different components and data to the user based on where we are in the application.
+Up until now, your application hasn't had any variable state or navigation. The Angular router allows us to show different components and data to the user based on where we are in the application.
 
 In the loosest form, the router takes the state of the URL bar, and maps it into a set of components to render to the screen. By navigating around our application, the router swaps one set of components for another.
-
-To add the router to the application, import the RouterModule and supply a configuration.
-
-Next, decide where you want to render the current route by adding a `<router-outlet></router-outlet>`.
 
 #### Route Configuration
 
@@ -439,27 +435,27 @@ Most applications that use routing have a few common types of routes:
 { path: '', component: HomePageComponent }
 ```
 
-* Catchall routes for displaying a 404 for non-existent pages.
-
-```ts
-{ path: '**', component: PageNotFoundComponent }
-```
-
 * Static routes for defined pages in your application
 
 ```ts
 { path: 'about', component: AboutPageComponent }
 ```
+
 * Variable routes containing a path and a variable prefixed with a colon to designate substitution.
 
 ```ts
 { path: 'products/:productId', component: ProductDetailsComponent }
 ```
 
-These routes enable you to build simple to complex URLs to navigate around your application, based on the purpose 
-and requirements of your application.
+* Catchall routes for displaying a 404 for non-existent pages.
 
-Navigation is done through the `RouterLink` directive provided by the router in a template, or imperatively using the `Router` service. Navigation is always done by string, or by array of url paths, such as ['path', 'to', variable] which could result in a URL that looks like 'https://example.org/path/to/42'.
+```ts
+{ path: '**', component: PageNotFoundComponent }
+```
+
+These routes enable you to build simple to complex URLs to navigate around your application, based on the purpose and requirements of your application.
+
+Navigation is done through the `RouterLink` directive provided by the `Router` in a template, or imperatively using the `Router` service. Navigation is always done by string, or by array of url paths, such as `['path', 'to', variable]` which results in a URL that looks like 'https://example.org/path/to/42'.
 
 #### Retrieving route information
 
