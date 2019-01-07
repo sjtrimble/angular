@@ -1,10 +1,8 @@
 # Getting Started with Angular
 
-Angular is the modern web developer's platform. Angular gives you the tools and the ecosystem to allow you to build and scale applications using web technologies.
+Angular is the modern web developer's platform. Angular gives you the tools and the ecosystem to allow you to build and scale applications using web technologies. Angular has many advanced features that support everything from internationalization, mobile, service workers, and server side rendering. These features help you as a developer to build apps as quickly as possible.
 
 ## Introduction
-
-Angular has many advanced features that support everything from internationalization, mobile, service workers, and server side rendering. These features help you as a developer to build apps as quickly as possible.
 
 If you are new to web development or programming in general, read our requirements for getting started with Angular.
 
@@ -175,7 +173,7 @@ export class EditableNameComponent {
 }
 ```
 
-Inputs define what data can be passed INTO your component. This data is updated through `bindings`, defined in a parent component's template. Whenever a parent component's property binding is updated, the property you mark with `@Input()` will also be updated as a part of Angular's change detection. In the example above, the `name` property is updated when the parent component updates the `name` through a binding.
+Inputs define what data can be passed into your component. This data is updated through `bindings`, defined in a parent component's template. Whenever a parent component's property binding is updated, the property you mark with `@Input()` will also be updated as a part of Angular's change detection. In the example above, the `name` property is updated when the parent component updates the `name` through a binding.
 
 #### External communication with an Output
 
@@ -252,11 +250,11 @@ The `app-product-preview` component displays a single product with the product n
 
 ## Services
 
-Services are an integral part of Angular applications. Services in Angular are an instance of a class that can be made available to any part of your application using the [dependency injection system](/guide/dependency-injection).
+Services are an integral part of Angular applications. Services in Angular are an instance of a class that can be made available to any part of your application using Angular's dependency injection system.
 
 Services are used to encapsulate data and functionality.
 
-#### Creating a service
+#### Creating and providing a service
 
 To create a service, simply create a class and decorate it with `@Injectable()`.
 
@@ -269,23 +267,29 @@ import { Injectable } from '@angular/core';
 export class MyService {}
 ```
 
-The service now has defined metadata used for requesting an instance of the service. The `providedIn: 'root'` or `Tree-shakable  provider` syntax provides the Angular compiler information to register the provider globally within Angular's dependency injection.
+The service now has defined metadata used for requesting an instance of the service. The `providedIn: 'root'` or `Tree-shakable provider` syntax provides the Angular compiler information to register the provider globally within Angular's dependency injection.
 
-#### Providing services
+Learn more about Angular's dependency injection system in the [Dependency Injection guide](guide/dependency-injection).
 
 Before you use a service, you must make sure it is provided in your application. 
 
-1st party services are often provided automatically using the `providedIn` metadata as part of the `@Injectable` decorator. 
+Services necessary for your application functionality are often provided automatically using the `providedIn` metadata as part of the `@Injectable` decorator. 
 
 3rd party services provide services through their `NgModule` definition that you import into your application. 
 
-Angular's HttpClient is an example of how a service is provided through an `NgModule`. First, you import the `HttpClientModule` from the `@angular/common/http` package.
+<div class="alert is-important">
+
+An `NgModule` is a class marked by the `@NgModule` decorator. An `@NgModule` describes how to compile a component's template and how to create an injector at runtime. You don't need to focus much on how an `NgModule` works for this guide, but you can learn more about them in the [NgModules guide](guide/ngmodules).
+
+</div>
+
+Angular's HttpClient is an example of how a service is provided through an `NgModule`. To use the `NgModule`, import `HttpClientModule` from the `@angular/common/http` package.
 
 ```ts
 import { HttpClientModule } from '@angular/common/http';
 ```
 
-Then you add the `HttpClientModule` to your `AppModule` imports to register its providers globally in your application.
+Then add the `HttpClientModule` to your `AppModule` imports to register its providers globally in your application.
 
 ```ts
 @NgModule({
@@ -322,39 +326,31 @@ This is called "injecting" a service and adds it to the properties on the class.
 
 ## Creating a product service to store products
 
-The product service stores your product list data to share throughout your application.
+Services are the place where you share data between parts of your application. For the shopping cart, a product service is where you to store your product data and methods.
 
-#### 1. Generate the product service
+#### 1. Update the product interface
 
-Right click on the the `products` folder, use the `Angular Generator` to generate a service name `Product`.
-
-#### 2. Import the observable and product types
-
-2. Import the `Observable` type and `of` method from the RxJS library.
-
-<code-example header="src/app/products/product.service.ts (RxJS imports)" path="getting-started/src/app/products/product.service.1.ts" linenums="false" region="rxjs-imports">
-</code-example>
-
-Angular integrates with the popular open-source library [Reactive Extensions for Javascript](https://rxjs.dev)(RxJS) to handle asynchronous behavior in your application. Here you are importing the `of` method that creates and returns an observable. Later, you will use this method to return an observable array of products.
-
-3. Update the `Product` interface in the `product.ts` file with more properties about a given product, 
+Update the `Product` interface in the `product.ts` file with more properties about a given product, 
 such as its id, price, and categories.
 
 <code-example header="src/app/products/product.ts (Product interface)" path="getting-started/src/app/products/product.ts" linenums="false">
 </code-example>
 
-4. Import the `Product` interface.
+#### 2. Generate the product service
 
-<code-example header="src/app/products/product.service.ts (Product interface)" path="getting-started/src/app/products/product.service.1.ts" linenums="false" region="product-import">
+Right click on the the `products` folder, use the `Angular Generator` to generate a service name `Product`.
+
+<code-example header="src/app/products/product.service.ts (Initial code)" path="getting-started/src/app/products/product.service.1.ts">
 </code-example>
 
-#### 3. Define data properties and methods
+#### 3. Import the observable and product types
 
-5. Define a `data` property in the `ProductService` class that contains product list data.
-6. Add a `getAll()` method using the `of` method to return the products from the data property.
+To get the type information for an observable, import the `Observable` type. Import the `of` method from the RxJS library to create an observable from a predefined value.
 
-<code-example header="src/app/products/product.service.ts (Product Data)" path="getting-started/src/app/products/product.service.1.ts" region="product-data">
+<code-example header="src/app/products/product.service.ts (RxJS imports)" path="getting-started/src/app/products/product.service.2.ts" linenums="false" region="rxjs-imports">
 </code-example>
+
+Angular integrates with the popular open-source library [Reactive Extensions for Javascript](https://rxjs.dev)(RxJS) to handle asynchronous behavior in your application. Here you are importing the `of` method that creates and returns an observable. Later, you will use this method to return an observable array of products.
 
 <div class="alert is-important">
 
@@ -362,11 +358,26 @@ Read more about observable streams in the [Observables guide](guide/observables)
 
 </div>
 
+Import the `Product` interface.
+
+<code-example header="src/app/products/product.service.ts (Product interface)" path="getting-started/src/app/products/product.service.2.ts" linenums="false" region="product-import">
+</code-example>
+
+#### 3. Define data properties and methods
+
+Use methods to expose the data from the `ProductService.data` property.
+
+1. Define a `data` property in the `ProductService` class that contains product list data.
+2. Add a `getAll()` method using the `of` method to return the products from the data property.
+
+<code-example header="src/app/products/product.service.ts (Product Data)" path="getting-started/src/app/products/product.service.2.ts" region="product-data">
+</code-example>
+
 The `ProductService` is ready to be injected into many different areas in your application using Angular's dependency injection.
 
 ## Displaying the product list using a service
 
-The products list component displays a listing of each product available in your store with a brief description.
+The data for the products is stored in a service accessible from components and other services. The products list component displays a listing of each product available in your store with a brief description.
 
 #### 1. Generate the product list component
 
@@ -386,20 +397,22 @@ The products list component displays a listing of each product available in your
 
 #### 3. Define the products and inject the product service
 
-1. Define a `products$` property in the `ProductListComponent` as an observable array of products.
-2. Inject the `ProductService` into the constructor of the `ProductListComponent` and define the `products$` using the `getAll()` method from the `ProductService`.
+1. Define a `products` property in the `ProductListComponent` as an observable array of products.
+2. Inject the `ProductService` into the constructor of the `ProductListComponent` and define the `products` using the `getAll()` method from the `ProductService`.
 
 <code-example header="src/app/products/product-list/product-list.component.ts (Products Observable)" path="getting-started/src/app/products/product-list/product-list.component.ts" region="products-observable">
 </code-example>
 
 #### 4. Display the product list
 
-1. Update the `product-list.component.html` to display the products using an `NgFor` directive, an `AsyncPipe` and the `app-product-preview` component. 
+To wire up the product data in the component template, you'll need to subscribe and listen to the values from the `products` observable. This is done in the component template using an `AsyncPipe` that handles subscribing to observables in the template and cleaning up after the component is destroyed.
+
+1. Update the `product-list.component.html` to display the products using an `NgFor` directive, an `AsyncPipe`, and the `app-product-preview` component. 
 
 <code-example header="src/app/products/product-list/product-list.component.html (Product List)" path="getting-started/src/app/products/product-list/product-list.component.html">
 </code-example>
 
-The `AsyncPipe` used in the template subscribes to the `products$` observable that provides the array of products. The `NgFor` directive iterates over product and binds a `product` to the `app-product-preview`. Learn more about pipes in the [Pipes Guide](guide/pipes).
+The `AsyncPipe` used in the template subscribes to the `products` observable that emits the array of products. The `NgFor` directive iterates over each product and binds a `product` to an `app-product-preview` component. Learn more about pipes in the [Pipes Guide](guide/pipes).
 
 2. Add the `app-product-list` component to your `app.component.html` below the `app-side-nav` component.
 
