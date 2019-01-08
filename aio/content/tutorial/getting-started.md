@@ -73,7 +73,7 @@ You can add and remove elements from the page dynamically using an `NgIf` direct
 
 <aio-gs-ng-for></aio-gs-ng-for>
 
-The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](/guide/template-syntax).
+The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](guide/template-syntax).
 
 ## Building a shopping cart
 
@@ -152,7 +152,7 @@ The styles for each component is scoped so that they do not impact the styles of
 
 The side nav is display to the far left of the page under the top bar.
 
-## Component Communication
+## Communcating between components
 
 Just like any element in HTML, Angular components take state, and emit events. We achieve these by creating Inputs and Outputs as properties in our component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. These decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
 
@@ -248,7 +248,7 @@ When the `app-product-preview` component is used within a template and its `prod
 
 The `app-product-preview` component displays a single product with the product name and description.
 
-## Services
+## Storing data with services
 
 Services are an integral part of Angular applications. Services in Angular are an instance of a class that can be made available to any part of your application using Angular's dependency injection system.
 
@@ -419,7 +419,7 @@ The `AsyncPipe` used in the template subscribes to the `products` observable tha
 <code-example header="src/app/app.component.html (Product List)" path="getting-started/src/app/app.component.1.html" region="product-list">
 </code-example>
 
-## Routing
+## Navigating with the Angular Router
 
 Up until now, your application hasn't had any variable state or navigation. The Angular router allows us to show different components and data to the user based on where we are in the application.
 
@@ -541,10 +541,10 @@ To display more information for a particular product, you'll use a specific rout
 <code-example header="src/app/products/product-preview/product-preview.component.html (Product preview routerLink)" path="getting-started/src/app/products/product-preview/product-preview.component.html" linenums="false">
 </code-example>
 
-When the user clicks on the product title, the router will navigate to the product details route, with the specific `productId`. Only placeholder text is displayed, but you'll retrieve the product details in the [data](/tutorial/getting-started-data) section.
+When the user clicks on the product title, the router will navigate to the product details route, with the specific `productId`. Only placeholder text is displayed, but you'll retrieve the product details in the [data](tutorial/getting-started-data) section.
 
-## Finish!
+## Next Steps
 
 You have the basics of our shopping cart.
 
-Now we can [wire up the data](/tutorial/getting-started-data) of our application.
+Now we can [wire up the data](tutorial/getting-started-data) of our application.

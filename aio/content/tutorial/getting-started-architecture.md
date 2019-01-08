@@ -69,7 +69,7 @@ To get started with Lazy Loading, start in your route configuration at the top o
 
 The string provided in `loadChildren` references the path of our module's TypeScript file, and then after the `#` sign, references the symbol that contains our module.
 
-When the user navigates to `products/42`, the router automatically load an execute the code for the Lazy Loaded Products Module.
+When the user navigates to `products/42`, the router automatically loads and executes the code for the lazy loaded `ProductsModule`.
 
 As the router descends the tree, it consumes the matched segements of the route. This means our `:productId` route in the child module matches `/products/42` in the URL bar because `products` was consumed by the parent module.
 

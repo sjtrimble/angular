@@ -12,10 +12,10 @@ Any operation you would like to define on a stream is defined with the use of `.
 
 ### Transforming Data
 
-If we wanted to take a stream of events, and create a new stream of event statuses, we should use the `map` operator.
+To take a stream of events, and create a new stream of event statuses, use the `map` operator.
 
 ```
-stream$.pipe(
+stream.pipe(
   map(...),
 )
 ```
@@ -34,31 +34,31 @@ An example of this would be if your API returns an object:
 }
 ```
 
-If you wanted only the `items` from the results, you could use the map operator to define a new stream that only contains the `items` property.
+To only return the `items` from the results, use the `map` operator to define a new stream that only contains the `items` property.
 
-```
-stream$.pipe(
+```ts
+stream.pipe(
   map(result => result.items),
 )
 ```
 
 ### Combining Multiple Streams
 
-It's very common to need to combine multiple streams. This is needed to have multiple HTTP requests, or to combine information from the Router with an HTTP request.
+It's a very common need to combine multiple streams. This is needed to have multiple HTTP requests, or to combine information from the Router with an HTTP request.
 
-```
-router.paramsMap.pipe(
-  switchMap(params => http.get(`/items/${params.get(id)`)),
+```ts
+router.paramMap.pipe(
+  switchMap(params => http.get(`/items/${params.get('id')}`)),
 )
 ```
 
-This `switchMap` operator will take the parameters of my current route and use it to create a new stream with data for that route. Any time the user's route changes, the stream will automatically make an additional HTTP request.
+This `switchMap` operator will take the parameters of the current route and use it to create a new stream with data for that route. If the user visits the same route again only with different parameters, the stream will automatically make an additional HTTP request.
 
 ## Fetching JSON Data from APIs with HttpClient
 
 Angular includes an easy way to fetch and render data from external APIs, which are generally JSON-based. These external APIs are consumed and provided to your application as a stream of data.
 
-The `HttpClientModule` registers the providers needed to use the `HttpClient` service throughout your application. The `HttpClient` service is what you inject into your services to fetch data and interact with external APIs and resources. The `HttpClient` uses observables to handle asynchronous requests and responses. Learn more about Angular's HTTP client in the [HttpCient guide](guide/http).
+The `HttpClientModule` registers the providers needed to use the `HttpClient` service throughout your application. The `HttpClient` service is what you inject into your services to fetch data and interact with external APIs and resources. The `HttpClient` uses observables to handle requests and provide responses. Learn more about Angular's HTTP client in the [HttpCient guide](guide/http).
 
 ## Data Tasks
 
@@ -99,14 +99,14 @@ data using the `HttpClient` service.
 <code-example header="src/app/products/product.service.ts (HttpClient)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-inject">
 </code-example>
 
-9. Update the `getAll()` method to pipe the results of the `HttpClient.get()` method into the map function to return the products.
+9. Update the `getAll()` method to pipe the results of the `HttpClient#get()` method into the map function to return the products.
 
 <code-example header="src/app/products/product.service.ts (Http.get)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-get-all">
 </code-example>
 
-The `HttpClient.get` method returns an observable of the external request made to fetch the `products`. This observable will not execute until the method is subscribed to. The `products.json` is just an object with a `products` property. The `{ products: Product[] }` provides type information about the observable stream being returned from the request. The `map` operator is a function that is called with the results from the request, which then transforms the data into a new observable array of the products.
+The `HttpClient#get()` method returns an observable of the external request made to fetch the `products`. This observable will not execute until the method is subscribed to. The `products.json` is just an object with a `products` property. The `{ products: Product[] }` provides type information about the observable stream being returned from the request. The `map` operator is a function that is called with the results from the request, which then transforms the data into a new observable array of the products.
 
-10. Remove the `Observable` and `of` imports from the RxJS library, and the data property in the ProductService.
+10. Remove the `Observable` and `of` imports from the RxJS library, and the data property in the `ProductService`.
 
 ### Display product details
 
@@ -115,8 +115,8 @@ In the `ProductService`, add a `getOne()` method that takes an id and returns an
 <code-example header="src/app/products/product.service.ts (getOne())" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-get-one">
 </code-example>
 
-1. Import the Observable type from the RxJS library.
-2. Import the switchMap operator from the RxJS operators path.
+1. Import the `Observable` type from the RxJS library.
+2. Import the `switchMap` operator from the RxJS operators path.
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="rxjs-imports">
 </code-example>
@@ -126,18 +126,18 @@ In the `ProductService`, add a `getOne()` method that takes an id and returns an
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="activated-route-import">
 </code-example>
 
-4. Import the `ProductService` and `Product` interface.
+4. Import the `ProductService` class and `Product` interface.
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-imports">
 </code-example>
 
-5. Create a `product$` property in the ProductDetailsComponent class with the type of `Observable<Product>`
+5. Create a `product` property in the ProductDetailsComponent class with the type of `Observable<Product>`
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product">
 </code-example>
 
 6. Inject the `ProductService` and `ActivatedRoute` classes in the constructor of the `ProductDetailsComponent`.
-7. Define the `product$` property to retrieve the route’s params as an observable and `switchMap` it into a request to the `ProductService.getOne()` method using the `productId`
+7. Define the `product` property to retrieve the route’s params as an observable and `switchMap` it into a request made by the `ProductService.getOne()` method using the `productId`.
 
 <div class="alert is-important">
 
@@ -149,7 +149,7 @@ stream is flattened and mapped into the second stream of retrieving the individu
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-details">
 </code-example>
 
-8. Update the `ProductDetailsComponent` template to subscribe to `product$` using the `AsyncPipe` and assign it to a template variable `product` for reuse. Then display the product name, price, description and a button to buy the item.
+8. Update the `ProductDetailsComponent` template to subscribe to `product` using the `AsyncPipe` and assign it to a template variable `product` for reuse. Then display the product name, price, description and a button to buy the item.
 
 <code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.1.html" linenums="false">
 </code-example>
@@ -164,9 +164,9 @@ There are two parts to an Angular Form, the visualization of the form that lives
 
 For this example we'll use [reactive forms](/guide/reactive-forms).
 
-### Create a simple checkout form that allows the user to purchase a selected product
+### Create a checkout form 
 
-1. Add the `ReactiveFormsModule` to our App Module.
+1. Add the `ReactiveFormsModule` to the `imports` array of the `AppModule`.
 
 <code-example header="src/app/app.module.ts (ReactiveFormsModule imports)" path="getting-started/src/app/app.module.2.ts" region="reactive-forms-module">
 </code-example>
@@ -176,37 +176,37 @@ For this example we'll use [reactive forms](/guide/reactive-forms).
 <code-example header="src/app/app.module.ts (ReactiveFormsModule imports)" path="getting-started/src/app/app.module.2.ts" region="reactive-forms-module-imports">
 </code-example>
 
-Our form lives in both our component's TypeScript and its template. In the component we'll add the objects needed to store the checkout form in the constructor of our component. We'll also create a method to handle user submission of a valid form.
+The form lives in both our component's TypeScript class and its template. In the component we'll add the objects needed to store the checkout form in the constructor of our component. We'll also create a method to handle user submission of a valid form.
 
-3. Right click on the `products` folder and generate a component named `checkout-form`.
-4. Add Output and EventEmitter to imports from @angular/core
+3. Right click on the `products` folder, use the `Angular Generator`, and generate a component named `checkout-form`.
+4. Add `Output` and `EventEmitter` to imports from the `@angular/core` package.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="core-imports">
+<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Output imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="core-imports">
 </code-example>
 
-5. Import FormGroup, FormBuilder and Validators from @angular/forms package
+5. Import `FormGroup`, `FormBuilder` and `Validators` from `@angular/forms` package.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="forms-imports">
+<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Reactive forms imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="forms-imports">
 </code-example>
 
-6. Create submit Output property with an instance of EventEmitter
+6. Create submit `Output` property with an instance of `EventEmitter`.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="submit">
+<code-example header="src/app/products/checkout-form/checkout-form.component.ts (submit)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="submit">
 </code-example>
 
-7. Create a checkoutForm property with type FormGroup
+7. Create a `checkoutForm` property with type `FormGroup`.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="checkout-form">
+<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Checkout form)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="checkout-form">
 </code-example>
 
-8. Inject the FormBuilder class into the CheckoutFormComponent constructor and use the FormBuilder.group() method to create a form group with name and address.
+8. Inject the `FormBuilder` class into the `CheckoutFormComponent` constructor and use the `FormBuilder#group()` method to create a form group with name and address.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="formbuilder">
+<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Form Builder)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="formbuilder">
 </code-example>
 
-9. Define an `onSubmit()` method to emit the customer data when the form is submitted
+9. Define an `onSubmit()` method to emit the customer data when the form is submitted.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (ReactiveFormsModule imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="on-submit">
+<code-example header="src/app/products/checkout-form/checkout-form.component.ts (on submit)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="on-submit">
 </code-example>
 
 10. Update the template with a checkout header and form tag. Bind the checkoutForm from the component class to the formGroup attribute on the form. Set an event listener for the ngSubmit event and call the `onSubmit()` method with the checkoutForm value.
