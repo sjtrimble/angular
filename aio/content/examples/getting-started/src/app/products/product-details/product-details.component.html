@@ -1,9 +1,9 @@
 <!-- #docplaster -->
 <!-- #docregion -->
-<div *ngIf="product$ | async as product">
-  <h3>{{product.name}}</h3>
-  <p>${{product.price}}</p>
-  <p>{{product.description}}</p>
+<div *ngIf="product$ | async as productInfo">
+  <h3>{{productInfo.name}}</h3>
+  <p>${{productInfo.price}}</p>
+  <p>{{productInfo.description}}</p>
 
 <!-- #docregion buy -->
   <button (click)="onBuy()">Buy</button>
@@ -12,7 +12,7 @@
 <!-- #docregion checkout-form -->
   <app-checkout-form
     *ngIf="showForm"
-    (submit)="onSubmit($event, product)">
+    (submit)="onSubmit($event, productInfo)">
   </app-checkout-form>
 <!-- #enddocregion checkout-form -->
 

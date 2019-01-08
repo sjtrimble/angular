@@ -1,6 +1,6 @@
 # Getting Started - Data
 
-Once an Angular app has its general component structure, the next most important thing is the use and management of data.
+Once an Angular app has its general component structure, the next step is the use and management of data.
 
 ## Streams of Data
 
@@ -8,21 +8,25 @@ Data coming back from servers in Angular applications most frequently take the f
 
 The three most common tasks users will do with a stream of data are to transform the data, combine multiple streams, and to perform an action for each of the pieces of data in a stream. Streams are created and managed using [RxJS](https://rxjs.dev/) in Angular.
 
-Any operation you would like to define on a stream is defined with the use of `.pipe([operations])`. This will return a new stream, and the operations defined on the stream will only execute when one of your components or services is using the data.
+Any operation you would like to define on a stream is defined with the use of RxJS operators. These will return a new stream, and the operations defined on the stream will only execute when one of your components or services is subscribed to the stream of data.
 
-### Transforming Data
+Read more about observable streams in the [Observables guide](guide/observables).
 
-To take a stream of events, and create a new stream of event statuses, use the `map` operator.
+## Transforming Data
 
-```
-stream.pipe(
-  map(...),
+To take a stream of events, and create a new stream of event statuses, use the `pipe()` method and provide the `map()` operator from the RxJS library.
+
+```ts
+events.pipe(
+  map(events => event.statuses),
 )
 ```
 
-An example of this would be if your API returns an object:
+The `map` operator uses a function to transform the value from the source stream into a new value. The new value is returned as a stream to the subscriber.
 
-```
+Another example of this is a JSON object returned from an external API:
+
+```json
 {
   status: 'success',
   results_count: 42,
@@ -34,15 +38,15 @@ An example of this would be if your API returns an object:
 }
 ```
 
-To only return the `items` from the results, use the `map` operator to define a new stream that only contains the `items` property.
+To only return the `items` from the results, use the `map()` operator to define a new stream that only returns the `items` property.
 
 ```ts
-stream.pipe(
+data.pipe(
   map(result => result.items),
 )
 ```
 
-### Combining Multiple Streams
+## Combining Multiple Streams
 
 It's a very common need to combine multiple streams. This is needed to have multiple HTTP requests, or to combine information from the Router with an HTTP request.
 
@@ -52,119 +56,161 @@ router.paramMap.pipe(
 )
 ```
 
-This `switchMap` operator will take the parameters of the current route and use it to create a new stream with data for that route. If the user visits the same route again only with different parameters, the stream will automatically make an additional HTTP request.
+The `switchMap()` operator will take the parameters of the current route and use it to create a new stream to request data for that route. If the user visits the same route again only with different parameters, the stream will automatically make an additional HTTP request.
 
-## Fetching JSON Data from APIs with HttpClient
+## Angular HTTP Client
 
 Angular includes an easy way to fetch and render data from external APIs, which are generally JSON-based. These external APIs are consumed and provided to your application as a stream of data.
 
 The `HttpClientModule` registers the providers needed to use the `HttpClient` service throughout your application. The `HttpClient` service is what you inject into your services to fetch data and interact with external APIs and resources. The `HttpClient` uses observables to handle requests and provide responses. Learn more about Angular's HTTP client in the [HttpCient guide](guide/http).
 
-## Data Tasks
+## Pulling data using `HttpClient`
 
-Currently, your products data is using the `data` property in the `ProductService` for its data. For a real world application, this data would be fetched from an external API or resource. To show how to use `HttpClient`, update the `ProductService` to pull the
-data using the `HttpClient` service.
+Currently, your products data is using the `data` property in the `ProductService` for its data. For a real world application, this data would be fetched from an external API or resource such as a JSON file. To show how to use `HttpClient`, you'll update the `ProductService` to pull the data from a JSON file using the `HttpClient` service.
 
-### Pull data using Http Client
+#### 1. Import HttpClientModule
 
-1. In the `app.module.ts` file, import `HttpClientModule` from the `@angular/common/http` package.
+In the `app.module.ts` file, import `HttpClientModule` from the `@angular/common/http` package.
 
 <code-example header="src/app/app.module.ts (HttpClientModule)" path="getting-started/src/app/app.module.2.ts" region="http-client-module">
 </code-example>
 
-2. Add the `HttpClientModule` to the `imports` array of the `AppModule`.
+#### 2. Register `HttpClientModule`
+
+Add the `HttpClientModule` to the `imports` array of the `AppModule`.
 
 <code-example header="src/app/app.module.ts (HttpClientModule imports)" path="getting-started/src/app/app.module.2.ts" region="http-client-module-imports">
 </code-example>
 
-3. Right click on the `src` folder and create an `assets` folder.  the src folder to contain the products JSON file.
-4. Create a `products.json` file in the `assets` folder to contain the object data is currently hard-coded in the `ProductService`.
-5. Copy the contents from the `data` property in the `ProductService` to the `products.json` file.
+#### 3. Create external JSON data file
+
+Currently, the data for the product list is hard-coded into the `ProductService`, which is not something you want to do often. Instead, you request the data from an external file or resource that is more dynamic. Below, you'll create an external file for the `HttpClient` to retrieve the product list data. 
+
+1. Right click on the `src` folder and create an `assets` folder.  the src folder to contain the products JSON file.
+2. Create a `products.json` file in the `assets` folder to contain the object data is currently hard-coded in the `ProductService`.
+3. Copy the contents from the `data` property in the `ProductService` to the `products.json` file.
 
 <code-example header="src/assets/products.json (Products JSON)" path="getting-started/src/assets/products.json">
 </code-example>
 
-6. Import the HttpClient class from the `@angular/common/http` package into the `product.service.ts` file
+#### 4. Import HttpClient
+
+Import the HttpClient class from the `@angular/common/http` package into the `product.service.ts` file
 
 <code-example header="src/app/products/product.service.ts (HttpClient import)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient">
 </code-example>
 
-7. Import the map operator from the RxJS library using the `rxjs/operators` path.
+#### 5. Import RxJS operators
+
+Import the map operator from the RxJS library using the `rxjs/operators` package.
 
 <code-example header="src/app/products/product.service.ts (RxJS map operator)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="rxjs-import">
 </code-example>
 
-8. Inject the `HttpClient` service into the `ProductService` by adding it to the constructor as a private variable.
+#### 6. Inject HttpClient
+
+Inject the `HttpClient` service into the `ProductService` by adding it to the constructor as a private variable.
 
 <code-example header="src/app/products/product.service.ts (HttpClient)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-inject">
 </code-example>
 
-9. Update the `getAll()` method to pipe the results of the `HttpClient#get()` method into the map function to return the products.
+
+#### 7. Request and return data from JSON file
+
+Update the `getAll()` method to transform the results of the `HttpClient#get()` method using the `map()` operator to return the products.
 
 <code-example header="src/app/products/product.service.ts (Http.get)" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-get-all">
 </code-example>
 
-The `HttpClient#get()` method returns an observable of the external request made to fetch the `products`. This observable will not execute until the method is subscribed to. The `products.json` is just an object with a `products` property. The `{ products: Product[] }` provides type information about the observable stream being returned from the request. The `map` operator is a function that is called with the results from the request, which then transforms the data into a new observable array of the products.
+The `HttpClient#get()` method returns an observable of the external request made to fetch the `products`. This observable will not execute until the method is subscribed to. The `products.json` is an object with a `products` property. The `{ products: Product[] }` provides type information about the observable stream being returned from the request. The `map()` operator is a function that is called with the results from the request, which then transforms the data into a new observable array of the products.
 
-10. Remove the `Observable` and `of` imports from the RxJS library, and the data property in the `ProductService`.
+Remove the `Observable` and `of` imports from the rxjs package, and the data property in the `ProductService`.
 
-### Display product details
+When you reload the page, the product list still displays the same information, but the data can be changed dynamically without changing your code.
+
+## Retrieving details for a product
+
+You've retrieved a list of the products with their associated information. You'll use that list to show the details of an individual product. In a real world application, retrieving an individual product might have a separate endpoint, but for this guide, you'll reuse the product list for an individual product.
 
 In the `ProductService`, add a `getOne()` method that takes an id and returns an observable of one product based on the `productId`.
 
 <code-example header="src/app/products/product.service.ts (getOne())" path="getting-started/src/app/products/product.service.ts" linenums="false" region="httpclient-get-one">
 </code-example>
 
-1. Import the `Observable` type from the RxJS library.
-2. Import the `switchMap` operator from the RxJS operators path.
+The `map()` operator takes the existing array of products, and uses the `Array#filter()` method to find the product based on the `productId`. As mentioned earlier, you are transforming a stream of an array of products into a new stream of a single product.
 
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="rxjs-imports">
+## Displaying details for a product
+
+The `ProductService` handles retrieving of all products and a a single product. You'll use the `ProductService` and the Angular Router to combine and transform streams of data to display the product details.
+
+#### Import RxJS types and operators
+
+1. Import the `Observable` type from the `rxjs` package.
+2. Import the `switchMap` operator from the `rxjs/operators` package.
+
+<code-example header="src/app/products/product-details/product-details.component.ts (RxJS imports)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="rxjs-imports">
 </code-example>
 
-3. Import the `ActivatedRoute` from the `@angular/router` package
+#### Import current route information
 
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="activated-route-import">
+Import the `ActivatedRoute` from the `@angular/router` package
+
+<code-example header="src/app/products/product-details/product-details.component.ts (Router imports)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="activated-route-import">
 </code-example>
 
-4. Import the `ProductService` class and `Product` interface.
+#### Import product types
 
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-imports">
+Import the `ProductService` class and `Product` interface.
+
+<code-example header="src/app/products/product-details/product-details.component.ts (Product imports)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-imports">
 </code-example>
 
-5. Create a `product` property in the ProductDetailsComponent class with the type of `Observable<Product>`
+#### Define product property
+
+To reference the `product` in the component template, you need to define it as a property of the component class.
+
+Create a `product` property in the `ProductDetailsComponent` class with the type of `Observable<Product>`.
 
 <code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product">
 </code-example>
 
-6. Inject the `ProductService` and `ActivatedRoute` classes in the constructor of the `ProductDetailsComponent`.
-7. Define the `product` property to retrieve the route’s params as an observable and `switchMap` it into a request made by the `ProductService.getOne()` method using the `productId`.
+#### Retreive the individual product
+
+To retreive an individual product, you must transform the stream containing the `productId` into a request for the product information. The Angular Router contains the route information, and the `ProductService` requests the product. Map these two streams together to retrieve the product.
+
+1. Inject the `ProductService` and `ActivatedRoute` classes in the constructor of the `ProductDetailsComponent`.
+2. Define the `product` property to retrieve the route’s params as an observable and `switchMap` it into a request made by the `ProductService.getOne()` method using the `productId`.
 
 <div class="alert is-important">
 
-**Note:** The process of transitioning from one observable stream into another is called "flattening". The route parameters
-stream is flattened and mapped into the second stream of retrieving the individual product. Read more about observable streams in the [Observables](guide/observables) guide.
+**Note:** The process of transitioning from one observable stream into another with an operator ending with `Map` is called "flattening". The route parameters stream is flattened and mapped into the second stream of retrieving the individual product. Read more about observable streams in the [Observables](guide/observables) guide.
 
 </div>
 
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-details">
+<code-example header="src/app/products/product-details/product-details.component.ts (Product stream)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-details">
 </code-example>
 
-8. Update the `ProductDetailsComponent` template to subscribe to `product` using the `AsyncPipe` and assign it to a template variable `product` for reuse. Then display the product name, price, description and a button to buy the item.
+#### Display the product details in the template
 
-<code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.1.html" linenums="false">
+The `product` property is defined as a stream for an individual `Product`. To display it in the component's template, you need to subscribe to the stream of data to consume its value. Angular provides an `AsyncPipe` to subscribe to an observable stream directly in the template.
+
+Update the `ProductDetailsComponent` template to subscribe to `product`.
+
+1. Use the `AsyncPipe` and assign it to a template variable `productInfo`.
+2. Display the product name, price, description and a button to buy the item.
+
+<code-example header="src/app/products/product-details/product-details.component.html (Product details template)" path="getting-started/src/app/products/product-details/product-details.component.1.html" linenums="false">
 </code-example>
+
+In the example above, you assigned the `product` as an `productInfo` in the template. This allows you to reuse the same reference in multiple places, instead of using the `AsyncPipe` multiple times, which creates multiple subscriptions.
 
 ## Collecting data with Angular Forms
 
-Forms in Angular take the standard capabilities of the HTML based forms and add an orchestration layer to help with creating custom form controls, and to supply great validation experiences. 
-
-## Forms Task
-
-There are two parts to an Angular Form, the visualization of the form that lives in the template, and the objects that live in our component to store and manage form.
+Forms in Angular take the standard capabilities of the HTML based forms and add an orchestration layer to help with creating custom form controls, and to supply great validation experiences. There are two parts to an Angular Reactive form, the visualization of the form that lives in the template, and the objects that live in our component to store and manage form.
 
 For this example we'll use [reactive forms](/guide/reactive-forms).
 
-### Create a checkout form 
+## Creating a checkout form 
 
 1. Add the `ReactiveFormsModule` to the `imports` array of the `AppModule`.
 
@@ -216,7 +262,7 @@ The form lives in both our component's TypeScript class and its template. In the
 <code-example header="src/app/products/checkout-form/checkout-form.component.html (template)" path="getting-started/src/app/products/checkout-form/checkout-form.component.html" linenums="false">
 </code-example>
 
-### Add checkout form to product details page
+## Adding a checkout page
 
 1. Define `showForm` and `purchased` properties in the `ProductDetailsComponent` class and set them to `false`.
 

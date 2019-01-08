@@ -21,7 +21,7 @@ import { Product } from '../product';
 // #docregion product, flags
 export class ProductDetailsComponent {
 // #enddocregion flags
-  product$: Observable<Product>;
+  product: Observable<Product>;
 // #enddocregion product
 // #docregion flags
   showForm = false;
@@ -33,7 +33,7 @@ export class ProductDetailsComponent {
     private productService: ProductService,
     private route: ActivatedRoute
   ) {
-    this.product$ = this.route.paramMap
+    this.product = this.route.paramMap
       .pipe(
         switchMap(params => this.productService.getOne(+params.get('productId')))
       );
