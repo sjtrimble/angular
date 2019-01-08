@@ -13,25 +13,26 @@ import { ProductService } from '../product.service';
 import { Product } from '../product';
 // #enddocregion product-imports
 
-// #docregion cart-imports
-import { CartService } from '../../cart.service';
-// #enddocregion cart-imports
-
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
+// #docregion product, flags
 export class ProductDetailsComponent {
+// #enddocregion flags
   product: Observable<Product>;
+// #enddocregion product
+// #docregion flags
+  showForm = false;
+  purchased = false;
+// #enddocregion flags
 
-// #docregion product-details, cart-service
+// #docregion product-details
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute,
-    private cartService: CartService
+    private route: ActivatedRoute
   ) {
-// #enddocregion cart-service
     this.product = this.route.paramMap
       .pipe(
         switchMap(params => this.productService.getOne(+params.get('productId')))
@@ -40,10 +41,19 @@ export class ProductDetailsComponent {
 // #enddocregion product-details
 
 // #docregion buy
-  onBuy(product: Product) {
-    this.cartService.add(product);
+  onBuy() {
+    this.showForm = true;
   }
 // #enddocregion buy
+
+// #docregion on-submit
+  onSubmit(formData: any, product: Product) {
+    this.showForm = false;
+    this.purchased = true;
+
+    // Do something with form and customer data
+  }
+// #enddocregion on-submit
 // #docregion product, product-details, flags
 }
 // #enddocregion product, product-details, flags

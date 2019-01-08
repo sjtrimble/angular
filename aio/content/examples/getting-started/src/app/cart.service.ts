@@ -18,13 +18,17 @@ export class CartService {
 
   constructor(private productsService: ProductService) {}
 
+  add(product: Product) {
+    this.items.push(product);
+  }
+
   all(): Observable<CartItem[]> {
     return this.productsService.getAll()
       .pipe(map(products => {
         // create an object of each product and its total
         const cartItems = this.items.reduce((items, product) => {
           if (!items[product.id]) {
-            items[product.id] = this.items.find(item => item.id === product.id);
+            items[product.id] = this.items.filter(item => item.id === product.id).length;
           }
 
           return items;
@@ -43,7 +47,4 @@ export class CartService {
     }));
   }
 
-  add(product: Product) {
-    this.items.push(product);
-  }
 }

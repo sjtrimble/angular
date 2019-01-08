@@ -145,24 +145,26 @@ The `ProductService` handles retrieving of all products and a a single product. 
 
 #### Import RxJS types and operators
 
+In the `product-details.component.ts`:
+
 1. Import the `Observable` type from the `rxjs` package.
 2. Import the `switchMap` operator from the `rxjs/operators` package.
 
-<code-example header="src/app/products/product-details/product-details.component.ts (RxJS imports)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="rxjs-imports">
+<code-example header="src/app/products/product-details/product-details.component.ts (RxJS imports)" path="getting-started/src/app/products/product-details/product-details.component.2.ts" linenums="false" region="rxjs-imports">
 </code-example>
 
 #### Import current route information
 
 Import the `ActivatedRoute` from the `@angular/router` package
 
-<code-example header="src/app/products/product-details/product-details.component.ts (Router imports)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="activated-route-import">
+<code-example header="src/app/products/product-details/product-details.component.ts (Router imports)" path="getting-started/src/app/products/product-details/product-details.component.2.ts" linenums="false" region="activated-route-import">
 </code-example>
 
 #### Import product types
 
 Import the `ProductService` class and `Product` interface.
 
-<code-example header="src/app/products/product-details/product-details.component.ts (Product imports)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-imports">
+<code-example header="src/app/products/product-details/product-details.component.ts (Product imports)" path="getting-started/src/app/products/product-details/product-details.component.2.ts" linenums="false" region="product-imports">
 </code-example>
 
 #### Define product property
@@ -171,7 +173,7 @@ To reference the `product` in the component template, you need to define it as a
 
 Create a `product` property in the `ProductDetailsComponent` class with the type of `Observable<Product>`.
 
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product">
+<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.2.ts" linenums="false" region="product">
 </code-example>
 
 #### Retreive the individual product
@@ -187,7 +189,7 @@ To retreive an individual product, you must transform the stream containing the 
 
 </div>
 
-<code-example header="src/app/products/product-details/product-details.component.ts (Product stream)" path="getting-started/src/app/products/product-details/product-details.component.ts" linenums="false" region="product-details">
+<code-example header="src/app/products/product-details/product-details.component.ts (Product stream)" path="getting-started/src/app/products/product-details/product-details.component.2.ts" linenums="false" region="product-details">
 </code-example>
 
 #### Display the product details in the template
@@ -204,106 +206,174 @@ Update the `ProductDetailsComponent` template to subscribe to `product`.
 
 In the example above, you assigned the `product` as an `productInfo` in the template. This allows you to reuse the same reference in multiple places, instead of using the `AsyncPipe` multiple times, which creates multiple subscriptions.
 
-## Adding a product to the cart
-
 ## Collecting data with Angular Forms
 
 Forms in Angular take the standard capabilities of the HTML based forms and add an orchestration layer to help with creating custom form controls, and to supply great validation experiences. There are two parts to an Angular Reactive form, the visualization of the form that lives in the template, and the objects that live in our component to store and manage form.
 
 For this example we'll use [reactive forms](/guide/reactive-forms).
 
-## Adding a checkout page 
+## Storing products for the cart
 
-1. Add the `ReactiveFormsModule` to the `imports` array of the `AppModule`.
+The product details includes `Buy` button for each product that you need to capture for the checkout process. You'll store the cart items using a service that is accessible from the page where the user checks out.
+
+Right click on the `app` folder, use the `Angular Generator`, and generate a service named `cart`.
+
+<code-example header="src/app/cart.service.ts" path="getting-started/src/app/cart.service.1.ts">
+</code-example>
+
+Update the `CartService` file with functionality to add products, and return a list of the products purchased. There are many ways to implement this service, but for this guide you'll only focus on two methods.
+
+<code-example header="src/app/cart.service.ts" path="getting-started/src/app/cart.service.ts">
+</code-example>
+
+* The `ProductService` is injected into the `CartService` as a dependency to retrieve all products.
+* The `items` property stores a list of the current products in the cart.
+* The `add()` method appends a product to an array of `items` defined in the `CartService`. 
+* The `getAll()` method collects the items added to the cart and returns each item with its associated quantity.
+
+## Adding products to the cart
+
+The `CartService` adds the product each time the `CartService#add` method is called. Because services are shared, the `ProductDetailsComponent` can use the service to add products to the cart. Update the `ProductDetailsComponent` to add the `product` to the cart when the `Buy` button is clicked. 
+
+#### Import CartService
+
+In the `product-details.component.ts` file:
+
+Import the `CartService`.
+
+<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="cart-imports">
+</code-example>
+
+#### Inject CartService
+
+Inject the `CartService` as a dependency to the constructor of the `ProductDetailsComponent`.
+
+<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="cart-service">
+</code-example>
+
+#### Add product to cart
+
+Add an `onBuy()` method to the `ProductDetailsComponent` class that calls the `CartService#add()` method with the `product`.
+
+<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="buy">
+</code-example>
+
+Add a click event listener to the Buy button that calls the `onBuy()` method you defined in the component class.
+
+<code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.html" region="buy">
+</code-example>
+
+Now you refresh the application, click on product details, click the Buy button, and the product is added to the store list of items.
+
+## Creating a checkout page
+
+The products are stored each time the `Buy` button is clicked, but the checkout page is where the checkout process is completed. You'll build out the checkout page to list the cart items and submit the purchase.
+
+#### Import ReactiveFormsModule
+
+1. Import `ReactiveFormsModule` from the `@angular/forms` package.
 
 <code-example header="src/app/app.module.ts (ReactiveFormsModule imports)" path="getting-started/src/app/app.module.2.ts" region="reactive-forms-module">
 </code-example>
+
+#### Register ReactiveFormsModule
 
 2. Add `ReactiveFormsModule` to the `imports` array of the `AppModule`.
 
 <code-example header="src/app/app.module.ts (ReactiveFormsModule imports)" path="getting-started/src/app/app.module.2.ts" region="reactive-forms-module-imports">
 </code-example>
 
+#### Create checkout component
+
 The form lives in both our component's TypeScript class and its template. In the component we'll add the objects needed to store the checkout form in the constructor of our component. We'll also create a method to handle user submission of a valid form.
 
-3. Right click on the `app` folder, use the `Angular Generator`, and generate a component named `checkout`.
-4. Add `Output` and `EventEmitter` to imports from the `@angular/core` package.
+Right click on the `app` folder, use the `Angular Generator`, and generate a component named `checkout`.
 
-<code-example header="src/app/checkout/checkout.component.ts (Output imports)" path="getting-started/src/app/checkout/checkout.component.ts" region="core-imports">
-</code-example>
+#### Import reactive forms classes
 
-5. Import `FormGroup`, `FormBuilder` and `Validators` from `@angular/forms` package.
+Import `FormGroup`, `FormBuilder` and `Validators` from `@angular/forms` package.
 
 <code-example header="src/app/checkout/checkout.component.ts (Reactive forms imports)" path="getting-started/src/app/checkout/checkout.component.ts" region="forms-imports">
 </code-example>
 
-6. Create submit `Output` property with an instance of `EventEmitter`.
+#### Import CartService
 
-<code-example header="src/app/checkout/checkout.component.ts (submit)" path="getting-started/src/app/checkout/checkout.component.ts" region="submit">
+Import the `CartService` class, and the `CartItem` interface for type information.
+
+<code-example header="src/app/checkout/checkout.component.ts" path="getting-started/src/app/checkout/checkout.component.ts" region="cart-imports">
 </code-example>
 
-7. Create a `checkoutForm` property with type `FormGroup`.
+#### Create items property
+
+To store the cart item locally in the component class, you need to create a class property.
+
+Create an `items` property with type `CartItem[]`. You'll reference the items in the class and in the component template.
 
 <code-example header="src/app/checkout/checkout.component.ts (Checkout form)" path="getting-started/src/app/checkout/checkout.component.ts" region="checkout-form">
 </code-example>
 
-8. Inject the `FormBuilder` class into the `CheckoutFormComponent` constructor and use the `FormBuilder#group()` method to create a form group with name and address.
+#### Create form property
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Form Builder)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="formbuilder">
+Create a `checkoutForm` property with type `FormGroup`. You'll create the `FormGroup` in the constructor using the `FormBuilder`.
+
+<code-example header="src/app/checkout/checkout.component.ts (Checkout form)" path="getting-started/src/app/checkout/checkout.component.ts" region="checkout-form">
 </code-example>
 
-9. Define an `onSubmit()` method to emit the customer data when the form is submitted.
+#### Inject CartService
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (on submit)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="on-submit">
+Inject the `CartService` and `CartService` as dependencies in the constructor of the `CheckoutComponent`.
+
+<code-example header="src/app/checkout/checkout.component.ts" path="getting-started/src/app/checkout/checkout.component.ts" region="cart-service">
 </code-example>
 
-10. Update the template with a checkout header and form tag. Bind the checkoutForm from the component class to the formGroup attribute on the form. Set an event listener for the ngSubmit event and call the `onSubmit()` method with the checkoutForm value.
-11. Add input fields for name and address using formControlName directives
-12. Add a submit button to trigger the form submission
+#### Create form model
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.html (template)" path="getting-started/src/app/products/checkout-form/checkout-form.component.html" linenums="false">
+The source of truth for the form model for reactive forms is defined in the component class. The form model is reflected in the template through directives provided by Angular reactive forms.
+
+Inject the `FormBuilder` class into the `CheckoutComponent` constructor and use the `FormBuilder#group()` method to create a form group with name and address.
+
+<code-example header="src/app/checkout/checkout.component.ts (Form Builder)" path="getting-started/src/app/checkout/checkout.component.ts" region="formbuilder">
 </code-example>
 
-## Adding products to the cart
+#### Populate list of cart items
 
-1. Define `showForm` and `purchased` properties in the `ProductDetailsComponent` class and set them to `false`.
+The `ngOnInit()` method in each component class is a lifecycle hook. The `ngOnInit()` method is called after the component is initialized. This initialization is after the constructor, but provides you a place to wire up initial logic for your component. Read more about this and other hooks in the [lifecycle hooks](guide/lifecycle-hooks) guide.
 
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="flags">
+In the `ngOnInit()` method, subscribe to the `CartService#getAll()` method to listen to a stream its values. When the stream outputs a value, you want to store the items with the `items` property in the component class.
+
+<code-example header="src/app/checkout/checkout.component.ts (ngOnInit())" path="getting-started/src/app/checkout/checkout.component.ts" region="on-init">
 </code-example>
 
-2. Add an `onBuy()` method to the `ProductDetailsComponent` class that sets the `showForm` property to `true`.
+Define an `onSubmit()` method to log the customer data when the form is submitted. To go further, you would submit the data to an external API using the `CartService`, but for now you'll log to the browser console.
 
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="buy">
-</code-example>
-3. Add on `onSubmit()` method to the `ProductDetailsComponent` class that takes two arguments: formData and product.
-4. In the `onSubmit()` method, set the `showForm` to true and the `purchased` to false. 
-
-<code-example header="src/app/products/product-details/product-details.component.ts" path="getting-started/src/app/products/product-details/product-details.component.ts" region="on-submit">
+<code-example header="src/app/checkout/checkout.component.ts (on submit)" path="getting-started/src/app/checkout/checkout.component.ts" region="on-submit">
 </code-example>
 
-5. Add a click event listener to the Buy button that calls the `onBuy()` method you defined in the component class.
+#### Displaying the form model in the template
 
-<code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.html" region="buy">
+The form model is defined in the `CheckoutComponent` class. The template needs to be updated to reflect the form model.
+
+1. Add a `Checkout` header to the template.
+
+<code-example header="src/app/checkout/checkout.component.html (template)" path="getting-started/src/app/checkout/checkout.component.html" linenums="false" region="header">
 </code-example>
 
-This method is called when the submit event is emitted from the `app-checkout-form` component.
+2. Use an `NgFor` directive to iterate over the `items`, display each product name and total for the quantity purchased.
 
-6. Add the `app-checkout-form` component to the `ProductDetailsComponent` template
-7. Toggle the presence of the component with an `NgIf` based on the `showForm` flag.
-8. Add a submit event listener the `app-checkout-form` element to call the onSubmit() method with the `$event` argument. The `$event` will consist of the customer data entered in the form. The second argument is the `product` assigned as a template variable.
-
-<code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.html" region="checkout-form">
+<code-example header="src/app/checkout/checkout.component.html (template)" path="getting-started/src/app/checkout/checkout.component.html" linenums="false" region="list">
 </code-example>
 
-9. Add a paragraph element that is toggled by the `purchased` property that displays a message that the order is submitted.
+3. Define a `form` tag in the template and bind the `checkoutForm` from the component class to the `formGroup` attribute on the form. 
+4. Set an event listener for the `ngSubmit` event and call the `onSubmit()` method with the checkoutForm value.
+5. Add input fields for name and address using `formControlName` directive.
+6. Add a `submit` button to trigger the form submission.
 
-<code-example header="src/app/products/product-details/product-details.component.html" path="getting-started/src/app/products/product-details/product-details.component.html" region="purchased">
+<code-example header="src/app/checkout/checkout.component.html (template)" path="getting-started/src/app/checkout/checkout.component.html" linenums="false" region="form">
 </code-example>
 
-10. Now you refresh the application, click on product details, click the Buy button, and the form is displayed to fill out and complete the purchase.
+When the user fills out the form and submits the button, the customer data is logged to the browser console. 
+Your shopping cart is now accessing data from the internet and allowing users to checkout.
 
-## Finish!
-
-Our shopping cart is now accessing data from the internet and allows users to checkout.
+## Next steps!
 
 As our application grows, we should starting thinking about the [architecture](/tutorial/getting-started-architecture) of our application.

@@ -18,35 +18,30 @@ It is very common to create a component library as a module or set of modules th
 
 You have the same ability to create and publish libraries that can be imported by other teams. Read more about using, creating, and publish libraries in the libraries guide.
 
-## Lazy Loading
+### Lazy Loading Features
 
 Lazy loading is a common and recommended strategy in Angular where you take your application and split it into modules using the router. You define these modules in such a way that Angular only loads the code for a given module when the router has identified that user is attempting to access the route that requires it.
 
 Following this strategy makes your application smaller to load initially, and improves the experience of your users.
 
-## Tasks
-
-### Lazy Load Product Details
+## Lazy loading product details
 
 To get started with Lazy Loading, start in your route configuration at the top of your application and add a reference to a module, instead of a component.
 
-1. Right click on the app folder and generate an NgModule named products.
-2. Import `ReactiveFormsModule` from the `@angular/forms` package.
+#### Create products NgModule
 
-<code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="reactive-forms-module">
-</code-example>
+As mentioned earlier, an `NgModule` contains metadata about injector creation at runtime. Because you are lazy loading the product details, a separate child injector will need to be created at runtime. Use an `NgModule` to store the metadata for the injector in the code that will be lazy loaded. 
 
-3. Add `ReactiveFormsModule` to the `imports` array of the ProductsModule.
+1. Right click on the `app` folder, use the `Angular Generator` and generate an `NgModule` named `products`.
 
-<code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="reactive-module-imports">
-</code-example>
+### Import `ProductDetailsComponent`
 
-4. Import `ProductDetailsComponent` and `CheckoutFormComponent`.
+In the `product. `ProductDetailsComponent`.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="components">
 </code-example>
 
-5. Add `ProductDetailsComponent` and `CheckoutFormComponent` add it them to the `declarations` array of the `ProductsModule`.
+5. Add `ProductDetailsComponent` add it them to the `declarations` array of the `ProductsModule`.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="declarations">
 </code-example>
@@ -62,7 +57,7 @@ To get started with Lazy Loading, start in your route configuration at the top o
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="router-module-imports">
 </code-example>
 
-9. Update the path from `products/:productId` to `products`, use the `loadChildren` property with path to `products.module` and the `ProductModule` symbol, and remove all references to `ProductDetailsComponent` and `CheckoutFormComponent`.
+9. Update the path from `products/:productId` to `products`, use the `loadChildren` property with path to `products.module` and the `ProductModule` symbol, and remove all references to `ProductDetailsComponent`.
 
 <code-example header="src/app/app.module.ts" path="getting-started/src/app/app.module.ts">
 </code-example>
@@ -77,4 +72,4 @@ As the router descends the tree, it consumes the matched segements of the route.
 
 The application now has a very basic landing page, pull data from the internet, and lazily loads Angular code as the user moves around the application.
 
-The next step is to [deploy our application](/tutorial/getting-started-deployment).
+The next step is to [deploy our application](tutorial/getting-started-deployment).

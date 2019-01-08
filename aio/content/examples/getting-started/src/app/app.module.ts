@@ -10,16 +10,22 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductPreviewComponent } from './products/product-preview/product-preview.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-// #docregion product-list-route, product-details-route
+// #docregion product-list-route, product-details-route, checkout-route
     RouterModule.forRoot([
-// #enddocregion product-list-route
+// #enddocregion checkout-route
       { path: 'products', loadChildren: './products/products.module#ProductsModule' },
+// #enddocregion product-details-route, product-list-route
+// #docregion checkout-route
+      { path: 'checkout', component: CheckoutComponent },
+// #enddocregion checkout-route
 // #docregion product-list-route
       { path: '', component: ProductListComponent },
+// #docregion product-details-route
     ]),
 // #enddocregion product-list-route, product-details-route
     HttpClientModule,
@@ -31,6 +37,7 @@ import { ProductPreviewComponent } from './products/product-preview/product-prev
     SideNavComponent,
     ProductListComponent,
     ProductPreviewComponent,
+    CheckoutComponent,
   ],
   bootstrap: [AppComponent],
 })

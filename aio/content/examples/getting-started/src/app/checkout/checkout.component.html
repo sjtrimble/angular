@@ -1,12 +1,17 @@
+<!-- #docregion header -->
 <h2>Checkout</h2>
+<!-- #enddocregion header -->
 
+<!-- #docregion list -->
 <ul>
-  <li *ngFor="let item of items | async">
-    {{ item.product.name }} - {{ item.quantity }}
+  <li *ngFor="let item of items">
+    {{ item.product.name }} - {{ item.quantity * item.product.price | currency }}
     <hr>
   </li>
 </ul>
+<!-- #enddocregion list -->
 
+<!-- #docregion form -->
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
   <p>
     Name: <input type="text" formControlName="name">
@@ -18,3 +23,4 @@
 
   <button type="submit">Purchase</button>
 </form>
+<!-- #enddocregion form -->

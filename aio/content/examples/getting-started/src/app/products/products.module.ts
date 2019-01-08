@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 
 // #docregion components
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 // #enddocregion components
 
 // #docregion reactive-module-imports, router-module-imports, declarations
@@ -34,7 +33,6 @@ import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 // #docregion declarations
   declarations: [
     ProductDetailsComponent,
-    CheckoutFormComponent
   ]
 // #docregion reactive-module-imports, router-module-imports
 })
