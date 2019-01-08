@@ -204,13 +204,15 @@ Update the `ProductDetailsComponent` template to subscribe to `product`.
 
 In the example above, you assigned the `product` as an `productInfo` in the template. This allows you to reuse the same reference in multiple places, instead of using the `AsyncPipe` multiple times, which creates multiple subscriptions.
 
+## Adding a product to the cart
+
 ## Collecting data with Angular Forms
 
 Forms in Angular take the standard capabilities of the HTML based forms and add an orchestration layer to help with creating custom form controls, and to supply great validation experiences. There are two parts to an Angular Reactive form, the visualization of the form that lives in the template, and the objects that live in our component to store and manage form.
 
 For this example we'll use [reactive forms](/guide/reactive-forms).
 
-## Creating a checkout form 
+## Adding a checkout page 
 
 1. Add the `ReactiveFormsModule` to the `imports` array of the `AppModule`.
 
@@ -224,25 +226,25 @@ For this example we'll use [reactive forms](/guide/reactive-forms).
 
 The form lives in both our component's TypeScript class and its template. In the component we'll add the objects needed to store the checkout form in the constructor of our component. We'll also create a method to handle user submission of a valid form.
 
-3. Right click on the `products` folder, use the `Angular Generator`, and generate a component named `checkout-form`.
+3. Right click on the `app` folder, use the `Angular Generator`, and generate a component named `checkout`.
 4. Add `Output` and `EventEmitter` to imports from the `@angular/core` package.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Output imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="core-imports">
+<code-example header="src/app/checkout/checkout.component.ts (Output imports)" path="getting-started/src/app/checkout/checkout.component.ts" region="core-imports">
 </code-example>
 
 5. Import `FormGroup`, `FormBuilder` and `Validators` from `@angular/forms` package.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Reactive forms imports)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="forms-imports">
+<code-example header="src/app/checkout/checkout.component.ts (Reactive forms imports)" path="getting-started/src/app/checkout/checkout.component.ts" region="forms-imports">
 </code-example>
 
 6. Create submit `Output` property with an instance of `EventEmitter`.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (submit)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="submit">
+<code-example header="src/app/checkout/checkout.component.ts (submit)" path="getting-started/src/app/checkout/checkout.component.ts" region="submit">
 </code-example>
 
 7. Create a `checkoutForm` property with type `FormGroup`.
 
-<code-example header="src/app/products/checkout-form/checkout-form.component.ts (Checkout form)" path="getting-started/src/app/products/checkout-form/checkout-form.component.ts" region="checkout-form">
+<code-example header="src/app/checkout/checkout.component.ts (Checkout form)" path="getting-started/src/app/checkout/checkout.component.ts" region="checkout-form">
 </code-example>
 
 8. Inject the `FormBuilder` class into the `CheckoutFormComponent` constructor and use the `FormBuilder#group()` method to create a form group with name and address.
@@ -262,7 +264,7 @@ The form lives in both our component's TypeScript class and its template. In the
 <code-example header="src/app/products/checkout-form/checkout-form.component.html (template)" path="getting-started/src/app/products/checkout-form/checkout-form.component.html" linenums="false">
 </code-example>
 
-## Adding a checkout page
+## Adding products to the cart
 
 1. Define `showForm` and `purchased` properties in the `ProductDetailsComponent` class and set them to `false`.
 
