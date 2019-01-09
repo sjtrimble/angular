@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // #enddocregion forms-imports
 
-// #docregion cart-imports 
+// #docregion cart-imports
 import { CartService, CartItem } from '../cart.service';
 // #enddocregion cart-imports
 
@@ -29,13 +29,13 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService
   ) {
 // #enddocregion cart-service
-// #docregion checkout-form-group    
+// #docregion checkout-form-group
     this.checkoutForm = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
     });
-// #enddocregion checkout-form-group, formbuilder 
-// #docregion cart-service    
+// #enddocregion checkout-form-group, formbuilder
+// #docregion cart-service
   }
 // #enddocregion cart-service
 
@@ -52,10 +52,10 @@ export class CheckoutComponent implements OnInit {
       customer: customerData,
       items: this.items
     };
-    
+
     // Do something with the checkout data here
     console.log(checkoutData);
-  }  
+  }
 // #enddocregion on-submit
 // #docregion cart-items
 }
