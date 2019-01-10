@@ -19,7 +19,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     RouterModule.forRoot([
 // #enddocregion checkout-route, product-list-route
       { path: 'products', loadChildren: './products/products.module#ProductsModule' },
-// #enddocregion product-details-route, product-list-route
+// #enddocregion product-details-route
 // #docregion checkout-route
       { path: 'checkout', component: CheckoutComponent },
 // #enddocregion checkout-route
