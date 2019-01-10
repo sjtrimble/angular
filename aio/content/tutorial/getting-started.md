@@ -4,13 +4,13 @@ Angular is the modern web developer's platform. Angular gives you the tools and 
 
 ## Introduction
 
-If you are new to web development or programming in general, read our requirements for getting started with Angular.
+If you are new to web development or programming in general, read the fundamentals for getting started with Angular.
 
 * Basic programming knowledge.
 * Knowledge of HTML, CSS, and JavaScript and/or TypeScript.
 * Knowledge of command-line based tools such as git, npm or yarn.
 
-This guide walks you through building a simple shopping cart application. You'll cover components, the building blocks of an Angular application, using services to store and share data, architecture for scaling your application, and deployment to a live website.
+These fundamentals aren't required for this guide, but will make it easier to complete. This guide walks you through building a simple shopping cart application. You'll cover components, the building blocks of an Angular application, using services to store and share data, architecture for scaling your application, and deployment to a live website.
 
 {@a toc}
 
@@ -20,13 +20,13 @@ Angular applications are made up of a tree of components. A component is the com
 
 You could create an entire application inside of a single component, but we recommend breaking down an application into smaller components that have fewer responsibilities.
 
-If we imagine a normal shopping experience, like the one on https://express.google.com:
+If you imagine a normal shopping experience, like the one on https://express.google.com:
 
 <figure>
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
 </figure>
 
-We can think of this as an application made up of a tree of components.
+You can think of this as an application made up of a tree of components.
 
 * app-root
   * app-top-bar
@@ -57,7 +57,7 @@ Following the mental model of HTML, components have state being given to them. T
 
 #### ( ) Event Binding
 
-You can listen of standard HTML events, or custom events that you will create later on our components.
+You can listen of standard HTML events, or custom events that you will create later through components.
 
 <aio-gs-event-binding></aio-gs-event-binding>
 
@@ -150,11 +150,11 @@ The styles for each component is scoped so that they do not impact the styles of
 <code-example header="src/app/app.component.html" path="getting-started/src/app/app.component.1.html" linenums="false" region="side-nav">
 </code-example>
 
-The side nav is display to the far left of the page under the top bar.
+The `app-side-nav` component is display to the far left of the page under the top bar.
 
 ## Communcating between components
 
-Just like any element in HTML, Angular components take state, and emit events. We achieve these by creating Inputs and Outputs as properties in our component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. These decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
+Just like any element in HTML, Angular components take state, and emit events. You achieve these by creating Inputs and Outputs as properties in the component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. These decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
 
 #### Providing state with an Input
 
@@ -195,7 +195,7 @@ export class EditableNameComponent {
 }
 ```
 
-Outputs are used to create custom events in your component. We create a new `EventEmitter` and store it as an `@Output()` property of our component. This newly created `EventEmitter` instance has a method `emit` that you can call whenever your custom event has occurred, in response to some action from the template, or based on some asynchronous process.
+Outputs are used to create custom events in your component. You create a new `EventEmitter` and store it as an `@Output()` property of the component. This newly created `EventEmitter` instance has a method `emit` that you call whenever your custom event has occurred, in response to some action from the template, or based on some asynchronous process.
 
 With inputs and outputs, you build elaborate tree structures of components that take in state, and give back events using property and event bindings. Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
 
@@ -236,7 +236,7 @@ This interface refers to the structure of a product, including its name, descrip
 
 When the `app-product-preview` component is used within a template and its `product` property is updated, change detection will be run on the component with the new data being displayed.
 
-5. Update the `ProductPreviewComponent` template to display the data received from our `Input`.
+5. Update the `ProductPreviewComponent` template to display the data received from the `Input`.
 
 <code-example header="src/app/products/product-preview/product-preview.component.html (Product Input)" path="getting-started/src/app/products/product-preview/product-preview.component.1.html">
 </code-example>
@@ -421,9 +421,9 @@ The `AsyncPipe` used in the template subscribes to the `products` observable tha
 
 ## Navigating with the Angular Router
 
-Up until now, your application hasn't had any variable state or navigation. The Angular router allows us to show different components and data to the user based on where we are in the application.
+Up until now, your application hasn't had any variable state or navigation. The Angular router allows us to show different components and data to the user based on where the user is in the application.
 
-In the loosest form, the router takes the state of the URL bar, and maps it into a set of components to render to the screen. By navigating around our application, the router swaps one set of components for another.
+In the loosest form, the router takes the state of the URL bar, and maps it into a set of components to render to the screen. When navigating around the application, the router swaps one set of components for another.
 
 #### Route Configuration
 
@@ -541,10 +541,10 @@ To display more information for a particular product, you'll use a specific rout
 <code-example header="src/app/products/product-preview/product-preview.component.html (Product preview routerLink)" path="getting-started/src/app/products/product-preview/product-preview.component.html" linenums="false">
 </code-example>
 
-When the user clicks on the product title, the router will navigate to the product details route, with the specific `productId`. Only placeholder text is displayed, but you'll retrieve the product details in the [data](tutorial/getting-started-data) section.
+When the user clicks on the product title, the router will navigate to the product details route, with the specific `productId`. Only placeholder text is displayed, but you'll retrieve the product details in the data section.
 
 ## Next Steps
 
-You have the basics of our shopping cart.
+You have the basics of the shopping cart.
 
-Now we can [wire up the data](tutorial/getting-started-data) of our application.
+Now you can [wire up the data](tutorial/getting-started-data) of the application.

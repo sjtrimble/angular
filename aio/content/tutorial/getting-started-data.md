@@ -1,10 +1,10 @@
-# Getting Started - Data
+# Data
 
 Once an Angular app has its general component structure, the next step is the use and management of data.
 
 ## Streams of Data
 
-Data coming back from servers in Angular applications most frequently take the form of a stream. Streams are useful because they make it easy to transform the data that is coming back, and to make modifications to the way we request data.
+Data coming back from servers in Angular applications most frequently take the form of a stream. Streams are useful because they make it easy to transform the data that is coming back, and to make modifications to the way data is requested.
 
 The three most common tasks users will do with a stream of data are to transform the data, combine multiple streams, and to perform an action for each of the pieces of data in a stream. Streams are created and managed using [RxJS](https://rxjs.dev/) in Angular.
 
@@ -208,9 +208,9 @@ In the example above, you assigned the `product` as an `productInfo` in the temp
 
 ## Collecting data with Angular Forms
 
-Forms in Angular take the standard capabilities of the HTML based forms and add an orchestration layer to help with creating custom form controls, and to supply great validation experiences. There are two parts to an Angular Reactive form, the visualization of the form that lives in the template, and the objects that live in our component to store and manage form.
+Forms in Angular take the standard capabilities of the HTML based forms and add an orchestration layer to help with creating custom form controls, and to supply great validation experiences. There are two parts to an Angular Reactive form, the visualization of the form that lives in the template, and the objects that live in the component to store and manage the form.
 
-For this example we'll use [reactive forms](/guide/reactive-forms).
+For this example you'll use [reactive forms](/guide/reactive-forms). To learn about Angular forms in general, read the [Forms Overview](guide/forms-overview) guide.
 
 ## Storing products for the cart
 
@@ -283,9 +283,11 @@ The products are stored each time the `Buy` button is clicked, but the checkout 
 <code-example header="src/app/app.module.ts (ReactiveFormsModule imports)" path="getting-started/src/app/app.module.2.ts" region="reactive-forms-module-imports">
 </code-example>
 
+The `ReactiveFormsModule` provides the services and directives to build reactive forms in Angular. Read more about Angular forms in the [Forms Overview](guide/forms-overview).
+
 #### Create checkout component
 
-The form lives in both our component's TypeScript class and its template. In the component we'll add the objects needed to store the checkout form in the constructor of our component. We'll also create a method to handle user submission of a valid form.
+The form lives in a component's TypeScript class and its template. In the component you'll add the objects needed to store the checkout form in the constructor of the component. You'll also create a method to handle user submission of a valid form.
 
 Right click on the `app` folder, use the `Angular Generator`, and generate a component named `checkout`.
 
@@ -371,9 +373,23 @@ The form model is defined in the `CheckoutComponent` class. The template needs t
 <code-example header="src/app/checkout/checkout.component.html (template)" path="getting-started/src/app/checkout/checkout.component.html" linenums="false" region="form">
 </code-example>
 
+## Adding the checkout route
+
+To access the checkout route from your application, it needs to be registered with the Angular Router.
+
+Add a route in the array of routes for the `CheckoutComponent`.
+
+<code-example header="src/app/app.module.ts (checkout route)" path="getting-started/src/app/app.module.ts" linenums="false" region="checkout-route">
+</code-example>
+
+The route is registered, so you can type the URL in manually. To access the checkout route easily, add a `routerLink` to the `SideNavComponent` template.
+
+<code-example header="src/app/side-nav/side-nav.component.html (checkout link)" path="getting-started/src/app/side-nav/side-nav.component.html" linenums="false" region="checkout-link">
+</code-example>
+
 When the user fills out the form and submits the button, the customer data is logged to the browser console. 
 Your shopping cart is now accessing data from the internet and allowing users to checkout.
 
-## Next steps!
+## Next steps
 
-As our application grows, we should starting thinking about the [architecture](/tutorial/getting-started-architecture) of our application.
+As your application grows, you should starting thinking about the [architecture](/tutorial/getting-started-architecture) of your application.
