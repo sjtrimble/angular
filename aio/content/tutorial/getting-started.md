@@ -92,8 +92,18 @@ following tasks below to scaffold out the components for your shopping cart.
 
 1. Right click on the `app` folder and use the `Angular Generator` to generate a new component named `top-bar`.
 
-<code-example header="src/app/top-bar/top-bar.component.ts" path="getting-started/src/app/top-bar/top-bar.component.ts" region="v1">
-</code-example>
+<code-tabs>
+
+  <code-pane header="src/app/top-bar/top-bar.component.ts" path="getting-started/src/app/top-bar/top-bar.component.ts" region="v1">
+  </code-pane>
+
+  <code-pane header="src/app/top-bar/top-bar.component.html" path="getting-started/src/app/top-bar/top-bar.component.html" region="initial">
+  </code-pane>
+
+  <code-pane header="src/app/top-bar/top-bar.component.css" path="getting-started/src/app/top-bar/top-bar.component.css">
+  </code-pane>
+
+</code-tabs>
 
 Every component has distinct pieces.
 
@@ -109,7 +119,7 @@ Right now, the `TopBarComponent` doesn't do much, but you'll update it to show t
 
 3. Update the `TopBarComponent` template to display a welcome message with an interpolation of the `name` property.
 
-<code-example header="src/app/top-bar/top-bar.component.html" path="getting-started/src/app/top-bar/top-bar.component.html">
+<code-example header="src/app/top-bar/top-bar.component.html" path="getting-started/src/app/top-bar/top-bar.component.html" region="header">
 </code-example>
 
 4. Replace the contents of your `app.component.html` with the `app-top-bar` component.
