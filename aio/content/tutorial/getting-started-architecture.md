@@ -50,7 +50,7 @@ In the `product.module.ts` file, import `ProductDetailsComponent`.
 
 #### Register `ProductDetailsComponent` declaration
 
-Add `ProductDetailsComponent` add it them to the `declarations` array of the `ProductsModule`.
+Add `ProductDetailsComponent` to the `declarations` array of the `ProductsModule`.
 
 <code-example header="src/app/products/products.module.ts" path="getting-started/src/app/products/products.module.ts" linenums="false" region="declarations">
 </code-example>
@@ -76,7 +76,7 @@ The `AppModule` currently builds the application as one complete bundle. When yo
 
 1. For the product details route, update the `path` from `products/:productId` to `products`
 2. Use the `loadChildren` property with a path to `./products/products.module.ts` file and the `ProductModule` symbol.
-3. Remove all references to `ProductDetailsComponent`.
+3. Remove all references to `ProductDetailsComponent` in the `app.module.ts` file.
 
 <code-example header="src/app/app.module.ts" path="getting-started/src/app/app.module.ts">
 </code-example>

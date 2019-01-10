@@ -81,7 +81,7 @@ To show how to build an Angular application, you'll walk through the steps to bu
 
 #### Live Editing
 
-To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io for local development.
+To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io) for local development.
 
 #### 1. Create a new project
 
