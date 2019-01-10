@@ -526,7 +526,7 @@ To register a route for the product list, it must be defined in the array of rou
 
 In the app.module.ts, add an object to the array defined in `RouterModule.forRoot()` array with an empty string as the `path` and set the `ProductListComponent` as the `component`.
 
-<code-example header="src/app/app.module.ts (Product list route)" path="getting-started/src/app/app.module.ts" region="product-list-route">
+<code-example header="src/app/app.module.ts (Product list route)" path="getting-started/src/app/app.module.2.ts" region="product-list-route">
 </code-example>
 
 Now when you navigate to your example URL with only the `/`, the list of products is displayed.

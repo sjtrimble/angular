@@ -17,7 +17,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     BrowserModule,
 // #docregion product-list-route, product-details-route, checkout-route
     RouterModule.forRoot([
-// #enddocregion checkout-route
+// #enddocregion checkout-route, product-list-route
       { path: 'products', loadChildren: './products/products.module#ProductsModule' },
 // #enddocregion product-details-route, product-list-route
 // #docregion checkout-route

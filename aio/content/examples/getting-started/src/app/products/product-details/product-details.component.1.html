@@ -1,8 +1,8 @@
 <!-- #docregion -->
-<div *ngIf="product$ | async as product">
-  <h3>{{product.name}}</h3>
-  <p>${{product.price}}</p>
-  <p>{{product.description}}</p>
+<div *ngIf="product | async as productInfo">
+  <h3>{{productInfo.name}}</h3>
+  <p>${{productInfo.price}}</p>
+  <p>{{productInfo.description}}</p>
 
   <button>Buy</button>
 </div>
