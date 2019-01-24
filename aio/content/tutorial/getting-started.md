@@ -2,17 +2,41 @@
 
 Angular is the modern web developer's platform. Angular gives you the tools and the ecosystem to allow you to build and scale applications using web technologies. Angular has many advanced features that support everything from internationalization, mobile, service workers, and server side rendering. These features help you as a developer to build apps as quickly as possible.
 
-## Introduction
+## Complimentary skills
 
-If you are new to web development or programming in general, read the fundamentals for getting started with Angular.
+Angular is built on standard web technologies. 
 
-* Basic programming knowledge.
-* Knowledge of HTML, CSS, and JavaScript and/or TypeScript.
-* Knowledge of command-line based tools such as git, npm or yarn.
+To get the most benefit from Angular, we recommend that you have experience in the following areas: 
 
-These fundamentals aren't required for this guide, but will make it easier to complete. This guide walks you through building a simple shopping cart application. You'll cover components, the building blocks of an Angular application, using services to store and share data, architecture for scaling your application, and deployment to a live website.
+If you are new to web application development, we encourage you to obtain a basic level of experience in the following areas: 
 
-{@a toc}
+* Basic programming (ideally in an object-oriented language)
+* HTML, CSS, JavaScript, and TypeScript
+* Command-line tools such as git, npm, or yarn
+
+This tutorial assumes basic familiarity with HTML and CSS. 
+
+
+## Introduction to this tutorial
+
+This tutorial walks you through the steps to build a simple shopping cart application. 
+The app includes a catalog of products and a checkout process.
+
+As you build the shopping cart app, you'll learn about: 
+
+* Components, which are the building blocks of an Angular application
+* Angular's template syntax, which extends HTML to provide integration with data and services
+* Using services to store and share data
+* Architecture for scaling your application
+* Deployment to a live website
+
+You don't need to install anything. You'll build the shopping cart using [StackBlitz](https://stackblitz.com/). StackBlitz is an online development environment with accelerators that make it easy to start building an Angular application. 
+
+<div class="alert is-helpful">
+
+After you complete this tutorial, we recommend downloading and installing the [Angular CLI](cli) for local development. The Angular CLI is a commmand-line tool that offers the same code-generation capability as the `Angular Generator` feature of StackBlitz, as well as build, update, and other lifecycle tools. 
+
+</div>
 
 ## Components
 
@@ -39,7 +63,7 @@ You can think of this as an application made up of a tree of components.
 
 The components above are referred to by their `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. Just like HTML elements, components can be referred to or nested in another component's template. Angular provides template syntax that gives components control over the rendering of content.
 
-## Template Syntax
+## Template syntax
 
 Angular extends and builds on top of HTML. There are 5 things you can do within an Angular template to start to control the rendering of your component. 
 
@@ -49,13 +73,13 @@ Interpolation lets you render the contents of a property of your component as te
 
 <aio-gs-interpolation></aio-gs-interpolation>
 
-#### [ ] Property Binding
+#### [ ] Property binding
 
 Following the mental model of HTML, components have state being given to them. This is accomplished by binding to the property of a component or HTML element.
 
 <aio-gs-property-binding></aio-gs-property-binding>
 
-#### ( ) Event Binding
+#### ( ) Event binding
 
 You can listen of standard HTML events, or custom events that you will create later through components.
 
@@ -73,15 +97,24 @@ You can add and remove elements from the page dynamically using an `NgIf` direct
 
 <aio-gs-ng-for></aio-gs-ng-for>
 
-The Angular template syntax is very powerful. To learn about more of the things it can do, see the full [Template Syntax documentation](guide/template-syntax).
+
+<div class="alert is-helpful">
+
+The [Angular Cheat Sheet](guide/cheatsheet) includes a summary of Angular's template syntax. 
+To learn about the full capabilities of the template syntax, see the [Template Syntax guide](guide/template-syntax).
+
+</div>
+
 
 ## Building a shopping cart
 
+
+
 To show how to build an Angular application, you'll walk through the steps to build a shopping cart application with multiple components, a list of products, and a checkout process.
 
-#### Live Editing
+#### Live editing
 
-To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](https://cli.angular.io) for local development.
+To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](cli) for local development.
 
 #### 1. Create a new project
 
@@ -144,14 +177,17 @@ The side navigation lists categories for the products in your store.
 <code-example header="src/app/side-nav/side-nav.component.html" path="getting-started/src/app/side-nav/side-nav.component.html" linenums="false">
 </code-example>
 
-4. Add some styles in the `side-nav.component.css` to position the side nav on the left side of the page.
+4. To position the category names on the left side of the page, add the following styles in the `side-nav.component.css` file.
 
 <code-example header="src/app/side-nav/side-nav.component.css" path="getting-started/src/app/side-nav/side-nav.component.css" linenums="false">
 </code-example>
 
-<div class="alert is-important">
+<div class="alert is-helpful">
 
-The styles for each component is scoped so that they do not impact the styles of other components in your application. Read more about styling components in the [Component Styles Guide](guide/component-styles).
+The styles that are defined for a component are specific to that component. 
+They do not impact the styles of other components in the application. 
+
+For more information about styling components, see the [Component Styles guide](guide/component-styles).
 
 </div>
 
@@ -160,13 +196,13 @@ The styles for each component is scoped so that they do not impact the styles of
 <code-example header="src/app/app.component.html" path="getting-started/src/app/app.component.1.html" linenums="false" region="side-nav">
 </code-example>
 
-The `app-side-nav` component is display to the far left of the page under the top bar.
+The `app-side-nav` component displays on the left side of the page, under the top bar.
 
 ## Communcating between components
 
 Just like any element in HTML, Angular components take state, and emit events. You achieve these by creating Inputs and Outputs as properties in the component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. These decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
 
-#### Providing state with an Input
+#### Providing state with an input
 
 Below is an example of a component used to display a name.
 
@@ -185,7 +221,7 @@ export class EditableNameComponent {
 
 Inputs define what data can be passed into your component. This data is updated through `bindings`, defined in a parent component's template. Whenever a parent component's property binding is updated, the property you mark with `@Input()` will also be updated as a part of Angular's change detection. In the example above, the `name` property is updated when the parent component updates the `name` through a binding.
 
-#### External communication with an Output
+#### External communication with an output
 
 Look at the `editName` property to see how the component communicates externally.
 
@@ -429,13 +465,13 @@ The `AsyncPipe` used in the template subscribes to the `products` observable tha
 <code-example header="src/app/app.component.html (Product List)" path="getting-started/src/app/app.component.1.html" region="product-list">
 </code-example>
 
-## Navigating with the Angular Router
+## Navigating with the Angular router
 
 Up until now, your application hasn't had any variable state or navigation. The Angular router allows us to show different components and data to the user based on where the user is in the application.
 
 In the loosest form, the router takes the state of the URL bar, and maps it into a set of components to render to the screen. When navigating around the application, the router swaps one set of components for another.
 
-#### Route Configuration
+#### Route configuration
 
 Most applications that use routing have a few common types of routes:
 
@@ -553,7 +589,7 @@ To display more information for a particular product, you'll use a specific rout
 
 When the user clicks on the product title, the router will navigate to the product details route, with the specific `productId`. Only placeholder text is displayed, but you'll retrieve the product details in the data section.
 
-## Next Steps
+## Next steps
 
 You have the basics of the shopping cart.
 
