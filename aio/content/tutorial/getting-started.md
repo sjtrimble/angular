@@ -2,7 +2,11 @@
 
 Angular is the modern web developer's platform. Angular gives you the tools and the ecosystem to allow you to build and scale applications using web technologies. Angular has many advanced features that support everything from internationalization, mobile, service workers, and server side rendering. These features help you as a developer to build apps as quickly as possible.
 
-## Complimentary skills
+## Introduction
+
+{@a intro-skills}
+### Prerequisites
+<!-- prerequisite skills, required skills, recommended skills, recommended experience -->
 
 Angular is built on standard web technologies. 
 
@@ -17,10 +21,16 @@ If you are new to web application development, we encourage you to obtain a basi
 This tutorial assumes basic familiarity with HTML and CSS. 
 
 
-## Introduction to this tutorial
+{@a intro-tutorial}
+### What you'll learn
+<!-- Tutorial application -->
 
 This tutorial walks you through the steps to build a simple shopping cart application. 
 The app includes a catalog of products and a checkout process.
+
+<figure>
+  <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
+</figure>
 
 As you build the shopping cart app, you'll learn about: 
 
@@ -30,40 +40,64 @@ As you build the shopping cart app, you'll learn about:
 * Architecture for scaling your application
 * Deployment to a live website
 
+
+{@a intro-tutorial}
+### Development environment 
+<!-- where you'll learn -->
+
 You don't need to install anything. You'll build the shopping cart using [StackBlitz](https://stackblitz.com/). StackBlitz is an online development environment with accelerators that make it easy to start building an Angular application. 
 
 <div class="alert is-helpful">
 
-After you complete this tutorial, we recommend downloading and installing the [Angular CLI](cli) for local development. The Angular CLI is a commmand-line tool that offers the same code-generation capability as the `Angular Generator` feature of StackBlitz, as well as build, update, and other lifecycle tools. 
+After you complete this tutorial, we recommend downloading and installing the [Angular CLI](cli) for local development. The Angular CLI is a commmand-line tool that offers the same code-generation capability as the `Angular Generator` feature of StackBlitz. It also has build, update, and other lifecycle tools. 
 
 </div>
 
-## Components
 
-Angular applications are made up of a tree of components. A component is the combination of an HTML template, a class that handles data and functionality, and styles that display a certain look and feel. This provides you a consistent way to combine and present HTML, CSS, and Javascript on a page. Each component has a specific purpose and responsibility in an Angular application. Angular components act very similarly to HTML elements and can be given state or generate events.
+{@a components}
+## Key concepts
 
-You could create an entire application inside of a single component, but we recommend breaking down an application into smaller components that have fewer responsibilities.
 
-If you imagine a normal shopping experience, like the one on https://express.google.com:
+{@a components}
+### Components
+
+An Angular application is composed of a tree of components. A component is the combination of three things: 
+
+* An HTML template, which determines what is presented to the user
+* A class that handles data and functionality
+* Styles that define the look and feel 
+
+This combination provides a consistent way to combine and present HTML, CSS, and Javascript on a page. 
+Angular components behave similarly to HTML elements, and they can be given state or generate events.
+
+You could create an entire application inside of a single component, but we recommend organizing an application into smaller components, each of which has fewer responsibilities. 
+Ideally, each Angular component has a specific purpose and responsibility. 
+
+Imagine a normal shopping experience, such as [Google Express](https://express.google.com): 
+
+**What if we used the shopping cart that we're building. We do the component design/arch here, and then build it?** 
 
 <figure>
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
 </figure>
 
-You can think of this as an application made up of a tree of components.
+You can organize this application into a tree of components:
 
-* app-root
-  * app-top-bar
-  * app-side-nav
-  * app-product-list
-    * app-product-carousel
-    * app-product-preview
-    * app-product-preview
-    * app-product-preview
+* Root
+  * Top bar, with branding and site-wide controls
+  * Side navigation, which includes the list of departments and other site areas 
+  * Product list 
+    * Product carousel, which displays a rotating series of highlighted products
+    * Product preview
+    * Product preview
+    * Product preview
 
-The components above are referred to by their `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. Just like HTML elements, components can be referred to or nested in another component's template. Angular provides template syntax that gives components control over the rendering of content.
+Components are referred to by their `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. Just like HTML elements, components can be referred to or nested in another component's template. Angular provides template syntax that gives components control over the rendering of content.
 
-## Template syntax
+
+
+{@a template-syntax}
+### Template syntax
 
 Angular extends and builds on top of HTML. There are 5 things you can do within an Angular template to start to control the rendering of your component. 
 
@@ -106,20 +140,38 @@ To learn about the full capabilities of the template syntax, see the [Template S
 </div>
 
 
-## Building a shopping cart
+{@a basic-app}
+## Building the basic shopping cart application
+<!-- skeleton, framework, site layout, app layout -->
 
+Let's get started. 
 
+As mentioned above, you'll develop this tutorial application in the StackBlitz development environment. 
 
-To show how to build an Angular application, you'll walk through the steps to build a shopping cart application with multiple components, a list of products, and a checkout process.
+In this section, you'll create a new project in StackBlitz, and then scaffod out the components for your shopping cart.
 
-#### Live editing
+You'll learn: 
 
-To demonstrate the use of Angular, you'll open an empty application using StackBlitz. StackBlitz allows us to get started building an Angular application without needing any local tooling or installs. Once you are comfortable with the basics, we recommend downloading and installing the [Angular CLI](cli) for local development.
+* The parts of a component (typescript, html, and css files)
+* How to use data defined in the component
+* How to ??? 
+
 
 #### 1. Create a new project
+<!-- does this def of project match local def? when and how do we introduce workspace? -->
+<!-- 
+You develop apps in the context of an Angular workspace. A workspace contains the files for one or more projects. A project is the set of files that comprise an app, a library, or end-to-end (e2e) tests.  -->
 
-To start building the tutorial application, create a [new project](https://stackblitz.com/fork/ng-getting-started) in StackBlitz, then complete the 
-following tasks below to scaffold out the components for your shopping cart.
+To create a new project in StackBlitz, [click here](https://stackblitz.com/fork/ng-getting-started).
+
+StackBlitz creates a new Angular project, based on a template that we created specifically for this tutorial. 
+
+<div class="alert is-helpful">
+
+StackBlitz also has a general starter project for any Angular app, which can then be exported to your local system and managed by the Angular CLI. 
+
+</div>
+
 
 #### 2. Generate the top bar component
 
