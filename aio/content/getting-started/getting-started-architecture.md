@@ -93,4 +93,4 @@ You continue to move other parts of your application to be lazy loaded as needed
 
 The application now has a very basic landing page, pull data from the internet, and lazily loads Angular code as the user moves around the application.
 
-The next step is to [deploy the application](tutorial/getting-started-deployment).
+The next step is to [deploy the application](getting-started/getting-started-deployment).

@@ -5,11 +5,11 @@ Welcome to Angular! Angular helps you develop modern applications for the web, m
 
 If you're... | Start here... 
 --------------------- | ------------------------------
-Evaluating or new to Angular | [Getting Started](tutorial/getting-started)
+Evaluating or new to Angular | [Getting Started](getting-started)
 Starting a new local development project | [Prerequisites and Setup](guide/prerequisites-setup)
 Looking for details on Angular syntax | [Cheat Sheet](guide/cheatsheet), [API List](api), [CLI commands](cli)
 Updating to the latest release | [Update Guide](http://update.angular.io)
-Upgrading from AngularJS | [Upgrading from AngularJS](upgrade)
+Upgrading from AngularJS | [Upgrading from AngularJS](guide/upgrade)
 Reporting an issue with the docs or code | [Angular github new issue form](https://github.com/angular/angular/issues/new/choose) 
 Interested in contributing | [Contributing to Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md)
 

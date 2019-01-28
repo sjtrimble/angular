@@ -392,4 +392,4 @@ Your shopping cart is now accessing data from the internet and allowing users to
 
 ## Next steps
 
-As your application grows, you should starting thinking about the [architecture](/tutorial/getting-started-architecture) of your application.
+As your application grows, you should starting thinking about the [architecture](getting-started/getting-started-architecture) of your application.

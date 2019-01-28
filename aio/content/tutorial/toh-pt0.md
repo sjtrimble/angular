@@ -12,10 +12,10 @@ In this part of the tutorial, you'll do the following:
 
 ## Set up your environment
 
-To set up your development environment, follow these instructions in [Getting Started](guide/quickstart):
+To set up your development environment, follow these instructions in [Prerequisites and Setup](guide/prerequisites-setup):
 
-* [Prerequisites](guide/quickstart#prerequisites)
-* [Install the Angular CLI](guide/quickstart#install-cli)
+* [Prerequisites](guide/prerequisites-setup#prerequisites)
+* [Install the Angular CLI](guide/prerequisites-setup#install-cli)
 
 <div class="alert is-helpful">
 

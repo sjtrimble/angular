@@ -1,57 +1,70 @@
-# Getting Started with Angular
+# Getting Started with Angular: Your First App
 
-Angular is the modern web developer's platform. Angular gives you the tools and the ecosystem to allow you to build and scale applications using web technologies. Angular has many advanced features that support everything from internationalization, mobile, service workers, and server side rendering. These features help you as a developer to build apps as quickly as possible.
+Angular is the modern web developer's platform. 
+Angular gives you the tools and the ecosystem to build web applications that scale. 
+Angular provides advanced capabilities for internationalization, mobile apps, server-side rendering, and more, so that you can deliver more quickly, with less risk. 
 
-## Introduction
+In this tutorial, we'll introduce you to the building blocks of Angular. We'll leverage what you already know about web development, and teach you the essentials of Angular so you can begin exploring Angular's native capabilities and its extensive [network of 3rd-party tools and libraries](https://angular.io/resources). 
 
-{@a intro-skills}
-### Prerequisites
-<!-- prerequisite skills, required skills, recommended skills, recommended experience -->
+## Orientation
 
-Angular is built on standard web technologies. 
+This tutorial walks you through the steps to build a simple shopping cart application.
+The application displays a catalog of products, and lets users select products to put in their carts. 
 
-To get the most benefit from Angular, we recommend that you have experience in the following areas: 
+<figure>
+  <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
+</figure>
 
-If you are new to web application development, we encourage you to obtain a basic level of experience in the following areas: 
+*JAF: Replace with image of this tutorial's final app. Mention Google Express?*
 
-* Basic programming (ideally in an object-oriented language)
-* HTML, CSS, JavaScript, and TypeScript
-* Command-line tools such as git, npm, or yarn
-
-This tutorial assumes basic familiarity with HTML and CSS. 
+You don't need to install anything. You'll build the shopping cart using [StackBlitz](https://stackblitz.com/). StackBlitz is an online development environment with accelerators that make it easy to develop an Angular application. 
 
 
 {@a intro-tutorial}
 ### What you'll learn
 <!-- Tutorial application -->
 
-This tutorial walks you through the steps to build a simple shopping cart application. 
-The app includes a catalog of products and a checkout process.
-
-<figure>
-  <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
-</figure>
-
-As you build the shopping cart app, you'll learn about: 
+This first part takes about an hour to complete. In that hour, you'll create the catalog part of the application. You'll learn about:
 
 * Components, which are the building blocks of an Angular application
 * Angular's template syntax, which extends HTML to provide integration with data and services
-* Using services to store and share data
-* Architecture for scaling your application
-* Deployment to a live website
+* How to use services to deliver data to components
+* How to use routing to synchronize URL changes and app changes in response to user actions 
 
+You can then choose to continue to extend the app to add the shopping cart feature. You'll learn about: 
 
-{@a intro-tutorial}
-### Development environment 
-<!-- where you'll learn -->
+* Data: Managing external data and using services to keep data in sync
+* Architecture: 
+    - Scaling your app by using ngModules to control (compilation context?)
+    - Improving performance by using lazy loading
 
-You don't need to install anything. You'll build the shopping cart using [StackBlitz](https://stackblitz.com/). StackBlitz is an online development environment with accelerators that make it easy to start building an Angular application. 
+Finally, you can deploy your app to a live website or to your local environment. If you chose to deploy to a local environment, you'll learn how to use the [Angular CLI](cli).
+
 
 <div class="alert is-helpful">
 
-After you complete this tutorial, we recommend downloading and installing the [Angular CLI](cli) for local development. The Angular CLI is a commmand-line tool that offers the same code-generation capability as the `Angular Generator` feature of StackBlitz. It also has build, update, and other lifecycle tools. 
+The Angular CLI offers the same code-generation capability as the `Angular Generator` feature of StackBlitz, which you will use in this tutorial. 
 
 </div>
+
+
+{@a intro-skills}
+### Recommended experience
+
+To get the most benefit from Angular and this tutorial, we recommend that you have experience in the following areas: 
+
+* Basic programming
+* HTML, CSS, and JavaScript or TypeScript
+
+This tutorial uses the [RxJS](https://rxjs.dev/) library. We provide sufficient instruction for you to create the app, even if you don't have prior experience with [observables](guide/observables). 
+
+*JAF: Let's talk about how to handle the RxJS/observables parts. We might want to teach them a bit, rather than expect* 
+
+<div class="alert is-helpful">
+
+If you are new to web development, you'll find there are lots of resources available to compliment the Angular docs. Mozilla's MDN docs include both [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML) and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript). [TypeScript's docs] (https://www.typescriptlang.org/docs/home.html) include a 5-minute tutorial. Various online course platforms, such as Udemy and CodeAcademy, also cover web development basics. 
+
+</div> 
 
 
 {@a components}
@@ -75,7 +88,7 @@ Ideally, each Angular component has a specific purpose and responsibility.
 
 Imagine a normal shopping experience, such as [Google Express](https://express.google.com): 
 
-**What if we used the shopping cart that we're building. We do the component design/arch here, and then build it?** 
+*JAF: Use the shopping cart that we'll build*
 
 <figure>
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
@@ -83,15 +96,16 @@ Imagine a normal shopping experience, such as [Google Express](https://express.g
 
 You can organize this application into a tree of components:
 
-* Root
-  * Top bar, with branding and site-wide controls
-  * Side navigation, which includes the list of departments and other site areas 
-  * Product list 
-    * Product carousel, which displays a rotating series of highlighted products
-    * Product preview
-    * Product preview
-    * Product preview
-
+* app-root: Root
+  * app-top-bar: Top bar, with branding and site-wide controls
+  * app-side-nav: Side navigation, which includes the list of departments and other site areas 
+  * app-product-list: Product list 
+    * app-product-carousel: Product carousel, which displays a rotating series of highlighted products
+    * app-product-preview: Product preview, with basic information such as name and description
+    * app-product-preview: Product preview
+    * app-product-preview: Product preview
+    * app-product-preview: Product preview
+    
 Components are referred to by their `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. Just like HTML elements, components can be referred to or nested in another component's template. Angular provides template syntax that gives components control over the rendering of content.
 
 
@@ -254,7 +268,7 @@ The `app-side-nav` component displays on the left side of the page, under the to
 
 Just like any element in HTML, Angular components take state, and emit events. You achieve these by creating Inputs and Outputs as properties in the component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. These decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
 
-#### Providing state with an input
+### Providing state with an input
 
 Below is an example of a component used to display a name.
 
@@ -273,7 +287,7 @@ export class EditableNameComponent {
 
 Inputs define what data can be passed into your component. This data is updated through `bindings`, defined in a parent component's template. Whenever a parent component's property binding is updated, the property you mark with `@Input()` will also be updated as a part of Angular's change detection. In the example above, the `name` property is updated when the parent component updates the `name` through a binding.
 
-#### External communication with an output
+### External communication with an output
 
 Look at the `editName` property to see how the component communicates externally.
 
@@ -297,7 +311,7 @@ Outputs are used to create custom events in your component. You create a new `Ev
 
 With inputs and outputs, you build elaborate tree structures of components that take in state, and give back events using property and event bindings. Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
 
-## Displaying a product preview
+### Displaying a product preview
 
 The steps below show you how to use an `Input` to display details for a single product.
 
@@ -312,12 +326,12 @@ Right click on the `products` folder, use the `Angular Generator` to generate an
 <code-example header="src/app/products/product.ts" path="getting-started/src/app/products/product.1.ts">
 </code-example>
 
-This interface refers to the structure of a product, including its name, description, and other details as needed. It also provides you a consistent way to reference a `Product` throughout your application.
+This interface defines the structure of a product, including its name, description, and other details as needed. It also provides you a consistent way to reference a `Product` throughout your application.
 
 #### 3. Create a product preview component
 
-1. Right on the `products` folder and generate a new component named `product-preview`.
-2. In the `ProductPreviewComponent` class, add `Input` the imports from the `@angular/core` package.
+1. Right click on the `products` folder and generate a new component named `product-preview`.
+2. In the `ProductPreviewComponent` class, add `Input` to the imports from the `@angular/core` package.
 
 <code-example header="src/app/products/product-preview/product-preview.component.ts" path="getting-started/src/app/products/product-preview/product-preview.component.ts" region="core-imports">
 </code-example>
@@ -352,7 +366,7 @@ Services are an integral part of Angular applications. Services in Angular are a
 
 Services are used to encapsulate data and functionality.
 
-#### Creating and providing a service
+### Creating and providing a service
 
 To create a service, simply create a class and decorate it with `@Injectable()`.
 
@@ -401,7 +415,7 @@ export class AppModule {}
 
 Once the `HttpClientModule` is registered, the `HttpClient` service can be accessed anywhere in your application.
 
-#### Injecting services
+### Injecting services
 
 To access a service, you import its type from a package or import path.
 
@@ -422,7 +436,7 @@ export class MyDataService {
 
 This is called "injecting" a service and adds it to the properties on the class. Anywhere in the class you can now refer to the service directly by the name you gave it. Read more about Angular's `HttpClient` in the [HttpClient Guide](guide/http).
 
-## Creating a product service to store products
+### Creating a product service to store products
 
 Services are the place where you share data between parts of your application. For the shopping cart, a product service is where you to store your product data and methods.
 
@@ -433,6 +447,7 @@ such as its id, price, and categories.
 
 <code-example header="src/app/products/product.ts (Product interface)" path="getting-started/src/app/products/product.ts" linenums="false">
 </code-example>
+
 
 #### 2. Generate the product service
 
@@ -448,11 +463,19 @@ To get the type information for an observable, import the `Observable` type. Imp
 <code-example header="src/app/products/product.service.ts (RxJS imports)" path="getting-started/src/app/products/product.service.2.ts" linenums="false" region="rxjs-imports">
 </code-example>
 
-Angular integrates with the popular open-source library [Reactive Extensions for Javascript](https://rxjs.dev)(RxJS) to handle asynchronous behavior in your application. Here you are importing the `of` method that creates and returns an observable. Later, you will use this method to return an observable array of products.
+<div class="alert is-helpful">
+
+Angular integrates with the popular open-source library [Reactive Extensions for Javascript](https://rxjs.dev)(RxJS), which uses [observables](guide/glossary#observable) to handle asynchronous behavior in your application. Learn more about observable streams in Angular's [Observables guide](guide/observables).
+
+</div>
+
+Here you are importing the `of` method that creates and returns an observable. Later, you will use this method to return an observable array of products.
+
+
 
 <div class="alert is-important">
 
-Read more about observable streams in the [Observables guide](guide/observables).
+
 
 </div>
 
@@ -517,109 +540,137 @@ The `AsyncPipe` used in the template subscribes to the `products` observable tha
 <code-example header="src/app/app.component.html (Product List)" path="getting-started/src/app/app.component.1.html" region="product-list">
 </code-example>
 
+
+{@a routing}
 ## Navigating with the Angular router
 
-Up until now, your application hasn't had any variable state or navigation. The Angular router allows us to show different components and data to the user based on where the user is in the application.
+Up to this point, the application doesn't have any variable states or navigation. There is one URL, and that URL always displays the "Welcome to My Store" page with a fixed list of categories and products. 
 
-In the loosest form, the router takes the state of the URL bar, and maps it into a set of components to render to the screen. When navigating around the application, the router swaps one set of components for another.
+The Angular [router](guide/glossary#router) allows us to show different components and data to the user based on where the user is in the application. 
 
-#### Route configuration
+In the simplest form, the router takes the state of the browser's URL bar (also called navigation or location bar) and maps it to a set of components to render to the screen. When the user navigates to another part of the app (by performing application tasks or entering a new URL), the router swaps one set of components for another. 
 
-Most applications that use routing have a few common types of routes:
+In this section, you'll: 
+* Learn about common types of routes
+* Enable routing in the Store app
+* Make the product list area routable, meaning that user actions in this area will change the URL, and changes to the URL will replace the contents of this area
+* Create and configure new product details to be included in the product list area when a single product is selected
 
-* Default routes for destination pages in your application.
+*JAF: I need a word like "routable"...is that right?*
 
-```ts
-{ path: '', component: HomePageComponent }
-```
+In this section, we'll update the Store app to use routing for the product list area of the app. 
+The top bar and side navigation will remain fixed, while the product list changes. 
+The URL and product list will change together, based on the user's selections. 
 
-* Static routes for defined pages in your application
+### Types of routes
 
-```ts
-{ path: 'about', component: AboutPageComponent }
-```
+A "route" defines a mapping of a URL suffix (a path) to the parent component to display. 
 
-* Variable routes containing a path and a variable prefixed with a colon to designate substitution.
+Most applications include these common types of routes:
 
-```ts
-{ path: 'products/:productId', component: ProductDetailsComponent }
-```
+* Default routes for destination pages, such as the home page:
 
-* Catchall routes for displaying a 404 for non-existent pages.
+    ```ts
+    { path: '', component: HomePageComponent }
+    ```
 
-```ts
-{ path: '**', component: PageNotFoundComponent }
-```
+* Static routes for defined pages, such as the About page: 
+
+    ```ts
+    { path: 'about', component: AboutPageComponent }
+    ```
+
+* Variable routes, which are determined at runtime, include a variable prefixed with a colon to designate substitution. Variable routes are useful for creating URLs that correlate to data values, such as product IDs. This is the type of routing we'll use for the product list. 
+
+    ```ts
+    { path: 'products/:productId', component: ProductDetailsComponent }
+    ```
+
+* Catch-all routes for error handling, such as displaying a 404 for non-existent pages. 
+
+    ```ts
+    { path: '**', component: PageNotFoundComponent }
+    ```
 
 These routes enable you to build simple to complex URLs to navigate around your application, based on the purpose and requirements of your application.
 
-Navigation is done through the `RouterLink` directive provided by the `Router` in a template, or imperatively using the `Router` service. Navigation is always done by string, or by array of url paths, such as `['path', 'to', variable]` which results in a URL that looks like 'https://example.org/path/to/42'.
 
-#### Retrieving route information
+### Configure the app to use routing
 
-To see information provided by the router for a routed component, each routed component is provided an `ActivatedRoute` service. You inject the `ActivatedRoute` service to access its route parameters, route data, and other necessary information. 
+So far we've worked mostly within individual components and services. 
 
-```ts
-export class MyPageComponent {
-  productId: string;
+Some Angular features, however, are global to the app and available at all times. Because routing is pervasive--the user can enter a new URL or take an action that causes a change to the URL--routing must be enabled and configured at the app level. 
 
-  constructor(private route: ActivatedRoute) {}
+*JAF: Need help with this.*
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.productId = params.get('productId');
-    });
-  }
-}
-```
+To add routing to an app: 
 
-The route parameters and route data are provided as observables you subscribe to. When the parameters or data observables are updated, the observables produce a new value. The example below shows you how to subscribe to a route and get its `productId` provided through a variable route from its URL.
+1. Import and register RouterModule.
+2. Set up a RouterOutet as a placeholder to dislay routed components.
 
-Once you have setup the router, you can continue to create more components and routes in your `RouteConfig`.
 
-To learn more about the more advanced features of the router, read the [Router Guide](guide/router).
+#### 1. Open app.module.ts
 
-## Adding the router to your project
+Open the `app.module.ts` file. 
+This file contains the root module, which is loaded first by the app. 
+Functionality that applies to the entire app is defined here. 
 
-#### 1. Import RouterModule
+*JAF: Have we described this file before? I think we've only touched app.module.html, so we should introduce this file formally here.* 
 
-Import `RouterModule` from the `@angular/router` package into your app.module.ts file.
+
+#### 2. Import RouterModule
+
+Import `RouterModule` from the `@angular/router` package into the `app.module.ts` file: 
 
 <code-example header="src/app/app.module.ts (RouterModule)" path="getting-started/src/app/app.module.1.ts" region="router-module">
 </code-example>
 
+
 #### 2. Register RouterModule
 
-In the `imports` array, add the `RouterModule.forRoot([])` method with an empty array. Configured routes are stored in the array.
+In the `imports` array, add the `RouterModule.forRoot([])` method with an empty array. 
+Configured routes will be stored in the array.
+
+*JAF: Terminology. "configured routes" or "defined routes" or "route configurations"?*
 
 <code-example header="src/app/app.module.ts (imports)" path="getting-started/src/app/app.module.1.ts" region="router-module-imports">
 </code-example>
 
 Your application is configured with Angular routing, but the template needs a placeholder where it renders routed components. 
 
+*JAF: "configured with Angular routing" means the router is created and ready to listen?*
+
+
 #### 3. Add a router outlet
 
-Remove the components below the `app-side-nav` and add the `RouterOutlet` to the template. 
+Remember that we're going to use routing for the product list area of the app.
+To do that, open `app.component.html` and
+replace `app-product-list` with `routeroutlet`. 
 
 <code-example header="src/app/app.component.html (Router outlet)" path="getting-started/src/app/app.component.html" region="router-outlet">
 </code-example>
 
 The router is ready to listen for changes in the browser URL, but you need to configure it with routes to transition from one set of components to the next.
 
-## Creating a route that shows product list
+*JAF: Is this a listening action, a writing action, or both via routeroutlet?*
+
+
+### Create a route that shows product list
 
 To register a route for the product list, it must be defined in the array of routes.
 
 #### 1. Add a product list route
 
-In the app.module.ts, add an object to the array defined in `RouterModule.forRoot()` array with an empty string as the `path` and set the `ProductListComponent` as the `component`.
+In the `app.module.ts` file, add an object to the array defined in `RouterModule.forRoot()` array with an empty string as the `path` and set the `ProductListComponent` as the `component`.
 
 <code-example header="src/app/app.module.ts (Product list route)" path="getting-started/src/app/app.module.2.ts" region="product-list-route">
 </code-example>
 
 Now when you navigate to your example URL with only the `/`, the list of products is displayed.
 
-## Creating a route for product details
+*JAF: Screen shot? Or show URL?*
+
+### Create a route for product details
 
 To display more information for a particular product, you'll use a specific route for product details.
 
@@ -641,8 +692,50 @@ To display more information for a particular product, you'll use a specific rout
 
 When the user clicks on the product title, the router will navigate to the product details route, with the specific `productId`. Only placeholder text is displayed, but you'll retrieve the product details in the data section.
 
+
+
+### How routing works
+
+Navigation is done through the `RouterLink` directive provided by the `Router` in a template, or imperatively using the `Router` service. Navigation is always done by string, or by array of URL paths, such as `['path', 'to', variable]` which results in a URL that looks like 'https://example.org/path/to/42'.
+
+*JAF: I don't understand what this is trying to say.*
+
+
+#### Retrieving route information
+
+To see information provided by the router for a routed component, each routed component is provided an `ActivatedRoute` service. You inject the `ActivatedRoute` service to access its route parameters, route data, and other necessary information. 
+
+```ts
+export class MyPageComponent {
+  productId: string;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.productId = params.get('productId');
+    });
+  }
+}
+```
+*JAF: I think this is too deep without an example. Can we instead focus on the pattern of steps to take to set up routing?*
+
+The route parameters and route data are provided as observables you subscribe to. When the parameters or data observables are updated, the observables produce a new value. The example below shows you how to subscribe to a route and get its `productId` provided through a variable route from its URL.
+
+*JAF: I think this is too deep without an example. Can we instead focus on the pattern of steps to take to set up routing?*
+
+After you set up the router, you can continue to create more components and routes in your `RouteConfig`.
+
+
+<div class="alert is-helpful">
+
+To learn more about routing, see the [Router and Navigation Guide](guide/router).
+
+</div>
+
+
 ## Next steps
 
 You have the basics of the shopping cart.
 
-Now you can [wire up the data](tutorial/getting-started-data) of the application.
+Now you can [wire up the data](getting-started/getting-started-data) of the application.
