@@ -67,7 +67,7 @@
     },
     {
       "title": "Getting Started",
-      "tooltip": "Learn the basics needed to build your first Angular application",
+      "tooltip": "Learn the basics by building your first Angular application",
       "children": [
         {
           "url": "getting-started",
@@ -93,7 +93,7 @@
     },
     {
       "url": "guide/prerequisites-setup",
-      "title": "Prerequisites and Setup",
+      "title": "Prerequisites & Setup",
       "tooltip": "Install CLI, create workspace and project"
     },
     {
