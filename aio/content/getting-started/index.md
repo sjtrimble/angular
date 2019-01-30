@@ -11,13 +11,13 @@ In this tutorial, we'll introduce you to the building blocks of Angular. We'll l
 This tutorial walks you through the steps to build a simple shopping cart application. The application displays a catalog of products and their details. It also includes a shopping cart, with check out functionality. 
 
 
-*JAF: Replace with image of this tutorial's final app. Fix sizing and spacing*
-
 <figure>
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
 </figure>
 
-*JAF: Replace with image of this tutorial's final app.*
+
+*JAF: Replace with image of this tutorial's final app. MUST: Fix sizing and spacing*
+
 
 You don't need to install anything. You'll build the shopping cart using [StackBlitz](https://stackblitz.com/). StackBlitz is an online development environment with accelerators that make it easy to develop an Angular application. 
 
@@ -29,8 +29,6 @@ You don't need to install anything. You'll build the shopping cart using [StackB
 
 This tutorial is organized into four parts:
 
-*JAF: Validate times. Offer option to skip parts 2 and 3*
-
 * Part 1 - Your First App (1.5 hours): You'll create the catalog of products. You'll learn about:
 
     - Components, which are the building blocks of an Angular application
@@ -40,11 +38,10 @@ This tutorial is organized into four parts:
 
 * Part 2 - Managing Data (2 hours): You'll add the shopping cart and checkout features. You'll learn about: 
 
-    - Using data via an HTTP call (in this case to a JSON file)
-    - Building 
-    - Using data Data: Managing external data and using services to keep data in sync
+    - Retrieving data via an HTTP interface
+    - Using forms to manage user interactions with data
 
-    *JAF: Work with Brandon to improve*
+    *JAF: Improve with Brandon*
 
 * Part 3 - Architecture (1 hour): You'll learn about:
     - Scaling your app by using ngModules to control (compilation context?)
@@ -52,13 +49,15 @@ This tutorial is organized into four parts:
 
 * Part 4 - Deployment: You'll deploy your app to a live website (Firebase) or to your local environment. If you chose to deploy to a local environment, you'll learn how to use the [Angular CLI](cli) to build and deploy your app to Firebase or the hosting environment of your choice. 
 
-
-<div class="alert is-helpful">
+    <div class="alert is-helpful">
 
 The Angular CLI is a command-line interface tool for managing the Angular development cycle. You can use it to create new Angular projects, generate code, and then build, test, bundle, and deploy your apps. 
 
-</div>
+    </div>
 
+Within each section, this tutorial introduces a new concept and then provides instructions to apply that concept to our shopping cart app. 
+
+*JAF: Validate times. Future: Set things up to offer option to skip parts 2 and 3 now and come back to them later.*
 
 {@a intro-skills}
 ### Prerequisite experience
@@ -99,7 +98,7 @@ The components at each level of the tree have progressively fewer responsibiliti
 
 Imagine a typical shopping experience, such as [Google Express](https://express.google.com): 
 
-*JAF: Use the shopping cart that we'll build*
+*JAF: Use the shopping cart that we'll build. Make accessible, so remove animation. I have Google Express without animation ready if we want that.*
 
 <figure>
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
