@@ -6,7 +6,7 @@ Angular provides advanced capabilities for internationalization, mobile apps, se
 
 In this tutorial, we'll introduce you to the building blocks of Angular. We'll leverage what you already know about web development, and teach you the essentials of Angular so you can begin exploring Angular's native capabilities and its extensive [network of 3rd-party tools and libraries](https://angular.io/resources). 
 
-## Orientation
+## Introduction
 
 This tutorial walks you through the steps to build a simple shopping cart application.
 The application displays a catalog of products, and lets users select products to put in their carts. 
@@ -109,11 +109,12 @@ You can organize this application into a tree of components:
 Components are referred to by their `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. Just like HTML elements, components can be referred to or nested in another component's template. Angular provides template syntax that gives components control over the rendering of content.
 
 
-
 {@a template-syntax}
 ### Template syntax
 
-Angular extends and builds on top of HTML. There are 5 things you can do within an Angular template to start to control the rendering of your component. 
+Angular extends and builds on top of HTML. This section highlights 5 things you can do within an Angular template to affect what your user sees, based on the component's state and behavior. 
+
+Each of these descriptions includes an input box where you can experiment with different values. 
 
 #### {{ }} Interpolation
 
@@ -125,17 +126,23 @@ Interpolation lets you render the contents of a property of your component as te
 
 Following the mental model of HTML, components have state being given to them. This is accomplished by binding to the property of a component or HTML element.
 
+*JAF: Not sure I understand the lead-in. You can bind a property so that whenever the value changes in the component, that new value appears on the screen. Should we mention two-way data binding?*
+
 <aio-gs-property-binding></aio-gs-property-binding>
 
 #### ( ) Event binding
 
-You can listen of standard HTML events, or custom events that you will create later through components.
+You can listen to standard HTML events or custom events (which you create through components). 
 
 <aio-gs-event-binding></aio-gs-event-binding>
 
 #### *ngIf
 
-You can add and remove elements from the page dynamically using an `NgIf` directive. `*ngIf` is known as a structural directive because it changes which HTML or components are rendered to the user at any given moment. Any directive with an * is called a structural directive and will have similar functionality.
+You can add and remove elements from the page dynamically using an `NgIf` directive. `*ngIf` is known as a "structural directive" because it changes the structure of the HTML DOM. In other words, it changes which HTML or components are displayed (rendered) any given moment. 
+
+Any directive with an * is called a structural directive and has similar functionality.
+
+*JAF: Link to where they can learn more. Explain relationship between 'NgIf' in the API and *ngIf in the template.*
 
 <aio-gs-ng-if></aio-gs-ng-if>
 
@@ -496,7 +503,7 @@ Use methods to expose the data from the `ProductService.data` property.
 
 The `ProductService` is ready to be injected into many different areas in your application using Angular's dependency injection.
 
-## Displaying the product list using a service
+### Displaying the product list using a service
 
 The data for the products is stored in a service accessible from components and other services. The products list component displays a listing of each product available in your store with a brief description.
 
