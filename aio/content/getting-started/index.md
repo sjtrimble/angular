@@ -4,65 +4,74 @@ Angular is the modern web developer's platform.
 Angular gives you the tools and the ecosystem to build web applications that scale. 
 Angular provides advanced capabilities for internationalization, mobile apps, server-side rendering, and more, so that you can deliver more quickly, with less risk. 
 
-In this tutorial, we'll introduce you to the building blocks of Angular. We'll leverage what you already know about web development, and teach you the essentials of Angular so you can begin exploring Angular's native capabilities and its extensive [network of 3rd-party tools and libraries](https://angular.io/resources). 
+In this tutorial, we'll introduce you to the building blocks of Angular. We'll leverage what you already know about web development, and teach you the essentials of Angular so you can feel confident exploring Angular's native capabilities and its extensive [network of 3rd-party tools and libraries](https://angular.io/resources). 
 
 ## Introduction
 
-This tutorial walks you through the steps to build a simple shopping cart application.
-The application displays a catalog of products, and lets users select products to put in their carts. 
+This tutorial walks you through the steps to build a simple shopping cart application. The application displays a catalog of products and their details. It also includes a shopping cart, with check out functionality. 
+
+
+*JAF: Replace with image of this tutorial's final app. Fix sizing and spacing*
 
 <figure>
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
 </figure>
 
-*JAF: Replace with image of this tutorial's final app. Mention Google Express?*
+*JAF: Replace with image of this tutorial's final app.*
 
 You don't need to install anything. You'll build the shopping cart using [StackBlitz](https://stackblitz.com/). StackBlitz is an online development environment with accelerators that make it easy to develop an Angular application. 
+
 
 
 {@a intro-tutorial}
 ### What you'll learn
 <!-- Tutorial application -->
 
-This first part takes about an hour to complete. In that hour, you'll create the catalog part of the application. You'll learn about:
+This tutorial is organized into four parts:
 
-* Components, which are the building blocks of an Angular application
-* Angular's template syntax, which extends HTML to provide integration with data and services
-* How to use services to deliver data to components
-* How to use routing to synchronize URL changes and app changes in response to user actions 
+*JAF: Validate times. Offer option to skip parts 2 and 3*
 
-You can then choose to continue to extend the app to add the shopping cart feature. You'll learn about: 
+* Part 1 - Your First App (1.5 hours): You'll create the catalog of products. You'll learn about:
 
-* Data: Managing external data and using services to keep data in sync
-* Architecture: 
+    - Components, which are the building blocks of an Angular application
+    - Angular's template syntax, which extends HTML to provide integration with data and services
+    - How to use services to deliver data to components
+    - How to use routing to synchronize URL changes and app changes in response to user actions 
+
+* Part 2 - Managing Data (2 hours): You'll add the shopping cart and checkout features. You'll learn about: 
+
+    - Using data via an HTTP call (in this case to a JSON file)
+    - Building 
+    - Using data Data: Managing external data and using services to keep data in sync
+
+    *JAF: Work with Brandon to improve*
+
+* Part 3 - Architecture (1 hour): You'll learn about:
     - Scaling your app by using ngModules to control (compilation context?)
     - Improving performance by using lazy loading
 
-Finally, you can deploy your app to a live website or to your local environment. If you chose to deploy to a local environment, you'll learn how to use the [Angular CLI](cli).
+* Part 4 - Deployment: You'll deploy your app to a live website (Firebase) or to your local environment. If you chose to deploy to a local environment, you'll learn how to use the [Angular CLI](cli) to build and deploy your app to Firebase or the hosting environment of your choice. 
 
 
 <div class="alert is-helpful">
 
-The Angular CLI offers the same code-generation capability as the `Angular Generator` feature of StackBlitz, which you will use in this tutorial. 
+The Angular CLI is a command-line interface tool for managing the Angular development cycle. You can use it to create new Angular projects, generate code, and then build, test, bundle, and deploy your apps. 
 
 </div>
 
 
 {@a intro-skills}
-### Recommended experience
+### Prerequisite experience
 
 To get the most benefit from Angular and this tutorial, we recommend that you have experience in the following areas: 
 
 * Basic programming
 * HTML, CSS, and JavaScript or TypeScript
 
-This tutorial uses the [RxJS](https://rxjs.dev/) library. We provide sufficient instruction for you to create the app, even if you don't have prior experience with [observables](guide/observables). 
-
-*JAF: Let's talk about how to handle the RxJS/observables parts. We might want to teach them a bit, rather than expect* 
 
 <div class="alert is-helpful">
 
-If you are new to web development, you'll find there are lots of resources available to compliment the Angular docs. Mozilla's MDN docs include both [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML) and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript). [TypeScript's docs] (https://www.typescriptlang.org/docs/home.html) include a 5-minute tutorial. Various online course platforms, such as Udemy and CodeAcademy, also cover web development basics. 
+If you are new to web development, you'll find lots of resources available to compliment the Angular docs. Mozilla's MDN docs include both [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML) and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) introductions. [TypeScript's docs] (https://www.typescriptlang.org/docs/home.html) include a 5-minute tutorial. Various online course platforms, such as Udemy and CodeAcademy, also cover web development basics. 
 
 </div> 
 
@@ -74,19 +83,21 @@ If you are new to web development, you'll find there are lots of resources avail
 {@a components}
 ### Components
 
-An Angular application is composed of a tree of components. A component is the combination of three things: 
+Components are the building blocks of Angular apps. 
+A component is the combination of three things: 
 
-* An HTML template, which determines what is presented to the user
-* A class that handles data and functionality
+* An HTML template, which determines what is presented to the user 
+* A class that handles data and functionality 
 * Styles that define the look and feel 
 
-This combination provides a consistent way to combine and present HTML, CSS, and Javascript on a page. 
+This structure provides a consistent way to combine and present HTML, CSS, and Javascript on a page. 
 Angular components behave similarly to HTML elements, and they can be given state or generate events.
 
-You could create an entire application inside of a single component, but we recommend organizing an application into smaller components, each of which has fewer responsibilities. 
-Ideally, each Angular component has a specific purpose and responsibility. 
+An Angular application is composed of a tree of components, in which  
+each Angular component has a specific purpose and responsibility. 
+The components at each level of the tree have progressively fewer responsibilities. 
 
-Imagine a normal shopping experience, such as [Google Express](https://express.google.com): 
+Imagine a typical shopping experience, such as [Google Express](https://express.google.com): 
 
 *JAF: Use the shopping cart that we'll build*
 
@@ -94,11 +105,11 @@ Imagine a normal shopping experience, such as [Google Express](https://express.g
   <img src='generated/images/guide/toh/component-structure.gif' alt="Angular applications are broken down into a tree of components like on express.google.com">
 </figure>
 
-You can organize this application into a tree of components:
+We can organize this app into the following tree of components:
 
-* app-root: Root
+* app-root: Root *JAF: Introduce what the root component does, so later app-component has context*
   * app-top-bar: Top bar, with branding and site-wide controls
-  * app-side-nav: Side navigation, which includes the list of departments and other site areas 
+  * app-side-nav: Side navigation, which includes the list of product categories 
   * app-product-list: Product list 
     * app-product-carousel: Product carousel, which displays a rotating series of highlighted products
     * app-product-preview: Product preview, with basic information such as name and description
@@ -106,19 +117,23 @@ You can organize this application into a tree of components:
     * app-product-preview: Product preview
     * app-product-preview: Product preview
     
-Components are referred to by their `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. Just like HTML elements, components can be referred to or nested in another component's template. Angular provides template syntax that gives components control over the rendering of content.
+Just like HTML elements, components can be referred to or nested in another component's template. A component is referred to by its `selector`. The selector is the name you give the Angular component when it is rendered as an HTML element on the page. By convention, Angular component selectors begin with the prefix `app-`. 
 
 
 {@a template-syntax}
 ### Template syntax
 
-Angular extends and builds on top of HTML. This section highlights 5 things you can do within an Angular template to affect what your user sees, based on the component's state and behavior. 
+Angular extends and builds on top of HTML. Angular provides template syntax that gives components control over the display of content. 
 
-Each of these descriptions includes an input box where you can experiment with different values. 
+This section introduces five of the things you can do within an Angular template to affect what your user sees, based on the component's state and behavior. You'll use these throughout this tutorial. 
+
+*JAF: 5 what? syntax elements? syntax structrures?* 
+
+Experiment by putting different values in the input boxes below. 
 
 #### {{ }} Interpolation
 
-Interpolation lets you render the contents of a property of your component as text in your HTML. 
+Interpolation lets you render the contents of a property of a component as text in HTML. 
 
 <aio-gs-interpolation></aio-gs-interpolation>
 
@@ -126,7 +141,7 @@ Interpolation lets you render the contents of a property of your component as te
 
 Following the mental model of HTML, components have state being given to them. This is accomplished by binding to the property of a component or HTML element.
 
-*JAF: Not sure I understand the lead-in. You can bind a property so that whenever the value changes in the component, that new value appears on the screen. Should we mention two-way data binding?*
+*JAF: Not sure I understand this lead-in. You can bind a property so that whenever the value changes in the component, that new value appears on the screen.*
 
 <aio-gs-property-binding></aio-gs-property-binding>
 
@@ -138,25 +153,26 @@ You can listen to standard HTML events or custom events (which you create throug
 
 #### *ngIf
 
-You can add and remove elements from the page dynamically using an `NgIf` directive. `*ngIf` is known as a "structural directive" because it changes the structure of the HTML DOM. In other words, it changes which HTML or components are displayed (rendered) any given moment. 
+You can add and remove elements from the page dynamically using `*ngIf`. 
 
-Any directive with an * is called a structural directive and has similar functionality.
+`*ngIf` is a "structural directive". Structural directives change which HTML or components are displayed.  Technically, they shape or reshape the DOM's structure, typically by adding, removing, and manipulating the elements to which they are attached. 
 
-*JAF: Link to where they can learn more. Explain relationship between 'NgIf' in the API and *ngIf in the template.*
+Any directive with an * is a structural directive.
+
+*JAF: Can we just refer to this as *ngIf? Seems like that's the template syntax, and NgIf the API/implementation, which could be skipped right now.*
 
 <aio-gs-ng-if></aio-gs-ng-if>
 
 #### *ngFor
 
-*ngFor is another structural directive that lets you iterate over a list, rendering the HTML or component once for each item in the list. 
+*ngFor is another structural directive. It iterates over a list, rendering the HTML or component once for each item in the list. 
 
 <aio-gs-ng-for></aio-gs-ng-for>
 
 
 <div class="alert is-helpful">
 
-The [Angular Cheat Sheet](guide/cheatsheet) includes a summary of Angular's template syntax. 
-To learn about the full capabilities of the template syntax, see the [Template Syntax guide](guide/template-syntax).
+To learn about the full capabilities of Angular's template syntax, see the [Template Syntax guide](guide/template-syntax).
 
 </div>
 
@@ -167,15 +183,7 @@ To learn about the full capabilities of the template syntax, see the [Template S
 
 Let's get started. 
 
-As mentioned above, you'll develop this tutorial application in the StackBlitz development environment. 
-
-In this section, you'll create a new project in StackBlitz, and then scaffod out the components for your shopping cart.
-
-You'll learn: 
-
-* The parts of a component (typescript, html, and css files)
-* How to use data defined in the component
-* How to ??? 
+In this section, you'll create a new project in StackBlitz, and then scaffod out the components for your shopping cart. 
 
 
 #### 1. Create a new project
@@ -185,16 +193,19 @@ You develop apps in the context of an Angular workspace. A workspace contains th
 
 To create a new project in StackBlitz, [click here](https://stackblitz.com/fork/ng-getting-started).
 
-StackBlitz creates a new Angular project, based on a template that we created specifically for this tutorial. 
 
 <div class="alert is-helpful">
 
-StackBlitz also has a general starter project for any Angular app, which can then be exported to your local system and managed by the Angular CLI. 
+StackBlitz creates a new Angular project, based on a template that we created for this tutorial. 
+StackBlitz also has a general starter project for any Angular apps, available from the StackBlitz home page.  
 
 </div>
 
+*JAF: Should we say anything about the Angular workspace and project structure here?*
 
-#### 2. Generate the top bar component
+
+####  2. Create the top bar component
+
 
 1. Right click on the `app` folder and use the `Angular Generator` to generate a new component named `top-bar`.
 
@@ -211,10 +222,12 @@ StackBlitz also has a general starter project for any Angular app, which can the
 
 </code-tabs>
 
-Every component has distinct pieces.
+A component definition includes: 
 
- * The `Component` decorator that provides metadata about the component, including its templates, styles, and a selector.
- * An exported class that handles functionality for the component.
+ * The `Component` decorator, which provides metadata about the component, including its templates, styles, and a selector.
+ * An exported class, which handles functionality for the component.
+
+*JAF: By our terminology, a component also includes the html and css. Is there a term for the collection here, what's in the .ts file specifically?*
 
 Right now, the `TopBarComponent` doesn't do much, but you'll update it to show the name of your store.
 
@@ -255,10 +268,12 @@ The side navigation lists categories for the products in your store.
 <code-example header="src/app/side-nav/side-nav.component.css" path="getting-started/src/app/side-nav/side-nav.component.css" linenums="false">
 </code-example>
 
-<div class="alert is-helpful">
 
 The styles that are defined for a component are specific to that component. 
 They do not impact the styles of other components in the application. 
+
+
+<div class="alert is-helpful">
 
 For more information about styling components, see the [Component Styles guide](guide/component-styles).
 
@@ -271,9 +286,25 @@ For more information about styling components, see the [Component Styles guide](
 
 The `app-side-nav` component displays on the left side of the page, under the top bar.
 
+### Review
+
+In this section, you learned:
+
+* How to use the `Angular Generator` and app preview in StackBlitz 
+* The general structure of Angular workspace and project files
+* How to create all three parts of a component, following this pattern: 
+    1. Generate the skeleton component
+    2. Define the properties and functionality (in the component `.ts` file)
+    3. Define how the component will be displayed (in the component template file)
+    4. Optionally, specify component-specific styles (in the component `.css` file)
+
+
+
 ## Communcating between components
 
-Just like any element in HTML, Angular components take state, and emit events. You achieve these by creating Inputs and Outputs as properties in the component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. These decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
+Just like any element in HTML, Angular components take state (input) and emit events (output). 
+
+You define the inputs and outputs as properties in the component class. `Input` and `Output` are decorators provided by Angular that provide metadata for properties that are defined in the component class. Use these decorators with Angular's change detection system to communicate when changes occur from within a component and when the component conveys that some interesting event has happened.
 
 ### Providing state with an input
 
@@ -316,7 +347,10 @@ export class EditableNameComponent {
 
 Outputs are used to create custom events in your component. You create a new `EventEmitter` and store it as an `@Output()` property of the component. This newly created `EventEmitter` instance has a method `emit` that you call whenever your custom event has occurred, in response to some action from the template, or based on some asynchronous process.
 
-With inputs and outputs, you build elaborate tree structures of components that take in state, and give back events using property and event bindings. Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
+With inputs and outputs, you can build elaborate tree structures of components that take in state, and give back events using property and event bindings. 
+
+Read more about these bindings in the [Template Syntax Guide](guide/template-syntax).
+
 
 ### Displaying a product preview
 
@@ -324,7 +358,7 @@ The steps below show you how to use an `Input` to display details for a single p
 
 #### 1. Create a products folder
 
-Right click on the `app` folder and create a new folder named `products`. This folder will contain the relevant functionality for the `products` feature area.
+Right click on the `app` folder and create a new folder named `products`. This folder will contain the related components and functionality for the `products` feature area.
 
 #### 2. Create a product interface
 
@@ -472,6 +506,13 @@ To get the type information for an observable, import the `Observable` type. Imp
 
 <div class="alert is-helpful">
 
+Many applications need to solve the same general problems, such as presenting a unified user interface, presenting data, and allowing data entry. Such a solution can be built as Angular *libraries* and these libraries can be published and shared as *npm packages*.
+
+An Angular library is an Angular [project](guide/glossary#project) that differs from an app in that it cannot run on its own.
+A library must be imported and used in an app.
+
+Libraries extend Angular's base functionality. 
+For example, to add [reactive forms](guide/reactive-forms) to an app, add the library package using `ng add @angular/forms`, then import the `ReactiveFormsModule` from the `@angular/forms` library in your application code.
 Angular integrates with the popular open-source library [Reactive Extensions for Javascript](https://rxjs.dev)(RxJS), which uses [observables](guide/glossary#observable) to handle asynchronous behavior in your application. Learn more about observable streams in Angular's [Observables guide](guide/observables).
 
 </div>
@@ -622,7 +663,7 @@ Open the `app.module.ts` file.
 This file contains the root module, which is loaded first by the app. 
 Functionality that applies to the entire app is defined here. 
 
-*JAF: Have we described this file before? I think we've only touched app.module.html, so we should introduce this file formally here.* 
+*JAF: We've only touched app.module.html, so we should probably introduce this file formally here.* 
 
 
 #### 2. Import RouterModule
@@ -705,7 +746,7 @@ When the user clicks on the product title, the router will navigate to the produ
 
 Navigation is done through the `RouterLink` directive provided by the `Router` in a template, or imperatively using the `Router` service. Navigation is always done by string, or by array of URL paths, such as `['path', 'to', variable]` which results in a URL that looks like 'https://example.org/path/to/42'.
 
-*JAF: I don't understand what this is trying to say.*
+*JAF: Is all of this important and in context of what we need for *
 
 
 #### Retrieving route information
@@ -741,8 +782,18 @@ To learn more about routing, see the [Router and Navigation Guide](guide/router)
 </div>
 
 
-## Next steps
 
-You have the basics of the shopping cart.
 
-Now you can [wire up the data](getting-started/getting-started-data) of the application.
+## Review and next steps
+
+Congratulations! You have a running Angular app. You have the first piece of the shopping cart app, which is the product catalog. 
+
+In this part you learned:
+* How to create components, the basic building block of Angular apps
+* How to communicate between components with @Input and @Output
+* How to create and use services to deliver data
+* How to use routing to create a relationship between URLs and app states
+
+Continue to the next part to learn more about [managing data](getting-started/getting-started-data), as you build the shopping cart and checkout features of the app. 
+
+

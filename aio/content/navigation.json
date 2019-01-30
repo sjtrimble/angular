@@ -62,12 +62,12 @@
     },
     {
       "url": "guide/quickstart",
-      "title": "Welcome",
-      "tooltip": "Introduction to Angular resources"
+      "title": "Getting Started",
+      "tooltip": "A brief introduction to Angular and Angular CLI essentials."
     },
     {
-      "title": "Getting Started",
-      "tooltip": "Learn the basics by building your first Angular application",
+      "title": "Getting Started (Beta)",
+      "tooltip": "Learn the basics by building your first Angular application.",
       "children": [
         {
           "url": "getting-started",
@@ -76,12 +76,12 @@
         },
         {
           "url": "getting-started/getting-started-data",
-          "title": "Services and Data",
+          "title": "Managing Data",
           "tooltip": "Learn about fetching and managing data from remote API and from users with forms"
         },
         {
           "url": "getting-started/getting-started-architecture",
-          "title": "Scaling and Tuning",
+          "title": "Scaling & Optimization",
           "tooltip": "Scale your app with ngModules and 3rd party libraries; lazy load to improve performance"
         },
         {
@@ -92,13 +92,8 @@
       ]
     },
     {
-      "url": "guide/prerequisites-setup",
-      "title": "Prerequisites & Setup",
-      "tooltip": "Install CLI, create workspace and project"
-    },
-    {
       "title": "Tutorial: Tour of Heroes",
-      "tooltip": "Deprecated: The Tour of Heroes tutorial takes you through the steps of creating an Angular application in TypeScript.",
+      "tooltip": "The Tour of Heroes tutorial takes you through the steps of creating an Angular application in TypeScript.",
       "children": [
         {
           "url": "tutorial",
@@ -548,7 +543,7 @@
     },
 
     {
-      "title": "Configuration & Lifecycle",
+      "title": "Setup & Deployment",
       "tooltip": "Build, testing, and deployment environment, tool, and configuration information.",
       "children": [
 
