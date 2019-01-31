@@ -80,11 +80,6 @@
           "tooltip": "Learn about fetching and managing data from remote API and from users with forms"
         },
         {
-          "url": "getting-started/getting-started-architecture",
-          "title": "Scaling & Optimization",
-          "tooltip": "Scale your app with ngModules and 3rd party libraries; lazy load to improve performance"
-        },
-        {
           "url": "getting-started/getting-started-deployment",
           "title": "Deployment",
           "tooltip": "Share your application with the world by hosting it on Firebase or your own server"
