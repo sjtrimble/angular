@@ -1,3 +1,6 @@
+# UNUSED SNIPPETS 
+
+DO NOT ADD TO NAV. DELETE BEFORE RELEASE.
 
 |Symbol   |Name   |Example   |
 |---|---|---|

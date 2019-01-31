@@ -6,6 +6,8 @@ Angular provides advanced capabilities for internationalization, mobile apps, se
 
 In this tutorial, we'll introduce you to the building blocks of Angular. We'll leverage what you already know about web development, and teach you the essentials of Angular so you can feel confident exploring Angular's native capabilities and its extensive [network of 3rd-party tools and libraries](https://angular.io/resources). 
 
+
+
 ## Introduction
 
 This tutorial walks you through the steps to build a simple shopping cart application. The application displays a catalog of products and their details. It also includes a shopping cart, with check out functionality. 
