@@ -1,7 +1,6 @@
 :host {
   width: 150px;
-  float: left;
-  border: 1px solid #CDCDCD;
-  min-height: 400px;
-  margin: 8px;
+  border-right: 1px solid #E0E0E0;
+  height: 100vh;
+  padding: 0 16px;
 }
